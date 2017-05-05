@@ -1,0 +1,37 @@
+Setor,Coluna,Media,Tecnica
+Bens Industriais,media,0.416179109135,AdaBoostClassifier
+Bens Industriais,negocios,0.522271628052,AdaBoostClassifier
+Bens Industriais,quantidade_papeis,0.523831812154,GradientBoostingClassifier
+Bens Industriais,volume_financeiro,0.520165379515,RandomForestClassifier
+Construcao e Transporte,media,0.430316147484,AdaBoostClassifier
+Construcao e Transporte,negocios,0.523923629899,RandomForestClassifier
+Construcao e Transporte,quantidade_papeis,0.529875550746,AdaBoostClassifier
+Construcao e Transporte,volume_financeiro,0.525624178712,GradientBoostingClassifier
+Consumo Ciclico,media,0.471244768253,RandomForestClassifier
+Consumo Ciclico,negocios,0.520074407069,RandomForestClassifier
+Consumo Ciclico,quantidade_papeis,0.521857076422,AdaBoostClassifier
+Consumo Ciclico,volume_financeiro,0.530150364285,AdaBoostClassifier
+Consumo nao Ciclico,media,0.45969734404,AdaBoostClassifier
+Consumo nao Ciclico,negocios,0.51868437307,ExtraTreesClassifier
+Consumo nao Ciclico,quantidade_papeis,0.527331686226,GradientBoostingClassifier
+Consumo nao Ciclico,volume_financeiro,0.52547869055,GradientBoostingClassifier
+Financeiro e Outros,media,0.458413777126,GradientBoostingClassifier
+Financeiro e Outros,negocios,0.524750946019,AdaBoostClassifier
+Financeiro e Outros,quantidade_papeis,0.5249053981,GradientBoostingClassifier
+Financeiro e Outros,volume_financeiro,0.523206425207,AdaBoostClassifier
+Materiais Basicos,media,0.438547701815,GradientBoostingClassifier
+Materiais Basicos,negocios,0.526149092314,GradientBoostingClassifier
+Materiais Basicos,quantidade_papeis,0.522441096949,GradientBoostingClassifier
+Materiais Basicos,volume_financeiro,0.522054847431,AdaBoostClassifier
+Petroleo. Gas e Biocombustiveis,media,0.452408477842,GaussianNB
+Petroleo. Gas e Biocombustiveis,negocios,0.536570327553,AdaBoostClassifier
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,0.544277456647,AdaBoostClassifier
+Petroleo. Gas e Biocombustiveis,volume_financeiro,0.534258188825,GaussianNB
+Telecomunicacoes,media,0.468005312915,RandomForestClassifier
+Telecomunicacoes,negocios,0.518556137198,GradientBoostingClassifier
+Telecomunicacoes,quantidade_papeis,0.522618954606,GradientBoostingClassifier
+Telecomunicacoes,volume_financeiro,0.526212985389,GradientBoostingClassifier
+Utilidade Publica,media,0.44714064915,GradientBoostingClassifier
+Utilidade Publica,negocios,0.532071097372,AdaBoostClassifier
+Utilidade Publica,quantidade_papeis,0.527279752705,GradientBoostingClassifier
+Utilidade Publica,volume_financeiro,0.53199381762,GradientBoostingClassifier

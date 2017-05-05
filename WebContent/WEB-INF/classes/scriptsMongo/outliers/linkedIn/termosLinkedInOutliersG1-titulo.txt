@@ -1,0 +1,3251 @@
+a,b
+lucro	88
+alta	87
+por	84
+eua	78
+dólar	75
+dos	73
+brasil	71
+tem	69
+mais	68
+é	67
+que	66
+trimestre	61
+sobe	60
+inflação	56
+fecha	52
+abril	52
+milhões	51
+não	48
+sobre	47
+us$	47
+bolsas	45
+das	44
+nos	44
+queda	44
+governo	43
+março	42
+china	40
+após	40
+bc	39
+bilhões	38
+fmi	38
+dia	38
+bi	37
+argentina	36
+cai	36
+compra	36
+bovespa	35
+vendas	35
+nesta	34
+grécia	32
+baixa	31
+petrobras	30
+produção	30
+ao	30
+leilão	30
+ano	29
+sobem	29
+1º	29
+maior	28
+petróleo	28
+até	28
+cresce	28
+novo	28
+mercado	27
+semana	27
+energia	26
+deve	26
+aprova	25
+pode	25
+201100,00%	24
+mostra	24
+preço	24
+sp	24
+crescimento	23
+wall	22
+mas	21
+aumento	21
+mil	21
+tri	21
+primeiro	21
+2010	20
+crédito	20
+street	20
+ibovespa	20
+banco	19
+preços	19
+vai	19
+juros	19
+etanol	19
+commodities	19
+indústria	18
+pontos	18
+volta	18
+eleva	18
+varejo	18
+nova	18
+mi	18
+pela	17
+registra	17
+reduz	17
+ypf	17
+anuncia	17
+recua	17
+têm	16
+fica	16
+setor	16
+recorde	16
+previsão	16
+pelo	16
+venda	16
+ações	16
+país	15
+receita	15
+soja	15
+aneel	15
+presidente	15
+opera	15
+safra	15
+está	15
+vê	14
+zona	14
+dívida	14
+1o	14
+repsol	14
+12	13
+construção	13
+fgv	13
+desde	13
+nas	13
+supera	13
+janeiro	13
+crise	13
+bndes	13
+euro	13
+faz	13
+abre	13
+espanha	13
+avança	13
+se	13
+industrial	13
+superávit	13
+risco	12
+fecham	12
+acima	12
+grãos	12
+terça-feira	12
+ásia	12
+caixa	12
+américa	12
+veículos	12
+ajuda	12
+vale	12
+emprego	12
+europeias	12
+consumidor	12
+japão	12
+maio	12
+central	12
+melhor	11
+as	11
+pede	11
+empresas	11
+acordo	11
+pregão	11
+europa	11
+meses	11
+abertura	11
+marca	11
+fevereiro	11
+caem	11
+latina	11
+200,00%	10
+são	10
+os	10
+contra	10
+comércio	10
+economia	10
+anos	10
+entre	10
+será	10
+senado	10
+passa	10
+bb	10
+nota	10
+ser	10
+plano	10
+ministro	10
+menos	10
+45,00%	10
+segundo	10
+15	9
+2014	9
+bancos	9
+paraná	9
+inadimplência	9
+veja	9
+espera	9
+brasileiro	9
+fiscal	9
+serasa	9
+exterior	9
+aponta	9
+taxa	9
+agricultores	9
+sem	9
+um	9
+aumenta	9
+geração	9
+recuperação	9
+nega	9
+segunda	9
+prazo	9
+volume	9
+icms	9
+8500,00%	8
+forte	8
+junho	8
+desoneração	8
+hoje	8
+início	8
+estável	8
+milho	8
+terá	8
+decisão	8
+consumo	8
+segunda-feira	8
+negócios	8
+principais	8
+alerta	8
+hypermarcas	8
+confirma	8
+ainda	8
+10	7
+2015	7
+confiança	7
+bradesco	7
+estão	7
+mês	7
+1ª	7
+fiesp	7
+altas	7
+déficit	7
+dilma	7
+estudo	7
+troca	7
+parceria	7
+quase	7
+real	7
+afeta	7
+acelera	7
+novembro	7
+votação	7
+crescer	7
+rio	7
+seguro-desemprego	7
+partir	7
+defende	7
+estados	7
+redução	7
+gera	7
+gasolina	7
+arroz	7
+aos	7
+reajuste	7
+estuda	7
+esperado	7
+24	6
+medida	6
+folha	6
+estradas	6
+investimento	6
+cinco	6
+demanda	6
+produtores	6
+mt	6
+países	6
+cni	6
+meio	6
+avanço	6
+brasileiros	6
+já	6
+foods	6
+conta	6
+valor	6
+conselho	6
+pagar	6
+vira	6
+financeira	6
+voo	6
+apesar	6
+alemanha	6
+meta	6
+desacelera	6
+muda	6
+custos	6
+prévia	6
+corta	6
+desaceleração	6
+justiça	6
+câmara	6
+perto	6
+exportações	6
+york	6
+barreira	6
+tarifa	6
+telefonia	6
+7	5
+20	5
+2013	5
+atividade	5
+bloqueios	5
+reforma	5
+fed	5
+bolsa	5
+anp	5
+rodovias	5
+luz	5
+norte	5
+reunião	5
+saúde	5
+fundo	5
+operar	5
+positivo	5
+pagamento	5
+capitais	5
+quarta	5
+perspectiva	5
+grupo	5
+embraer	5
+mantém	5
+3º	5
+superar	5
+pessoas	5
+educação	5
+santander	5
+bilhão	5
+aposta	5
+sindicato	5
+expansão	5
+obras	5
+copom	5
+tv	5
+pedidos	5
+recuam	5
+mp	5
+café	5
+ipc-fipe	5
+rs	5
+alívio	5
+1,00%	5
+oficial	5
+reduzir	5
+clientes	5
+atacado	5
+ue	5
+encerra	5
+ipc-s	5
+igp-di	5
+uma	5
+alckmin	5
+estabilidade	5
+dinheiro	5
+leva	5
+projeção	5
+dados	5
+balanços	5
+perdas	5
+fechamento	5
+chicago	5
+metas	5
+devem	5
+goldman	5
+sachs	5
+8	4
+37	4
+155	4
+2008	4
+saída	4
+itaú	4
+mercados	4
+programa	4
+rural	4
+minha	4
+casa	4
+produtos	4
+moodys	4
+perde	4
+contas	4
+situação	4
+14,00%	4
+2º	4
+&	4
+rússia	4
+pedido	4
+divisão	4
+chegam	4
+consumidores	4
+começar	4
+líder	4
+neste	4
+gastos	4
+8,00%	4
+imóveis	4
+vez	4
+abaixo	4
+direção	4
+alimentos	4
+4º	4
+euros	4
+federal	4
+planos	4
+operadoras	4
+setembro	4
+novos	4
+serviços	4
+agência	4
+classificação	4
+regra	4
+continua	4
+aprovar	4
+dar	4
+sc	4
+greve	4
+24,00%	4
+campo	4
+nacional	4
+medidas	4
+aumentam	4
+fisco	4
+chuva	4
+fukushima	4
+pimentel	4
+amplia	4
+terremoto	4
+leia	4
+manchetes	4
+jornais	4
+-	4
+preocupa	4
+carros	4
+ficam	4
+lucra	4
+mudança	4
+câmbio	4
+cartão	4
+líbia	4
+prejuízo	4
+usiminas	4
+móvel	4
+expectativas	4
+radiação	4
+subir	4
+diário	4
+ibm	4
+assume	4
+ter	4
+barril	4
+foi	4
+ny	4
+17,00%	4
+celulares	4
+médio	4
+13,00%	4
+ipc	4
+banda	4
+larga	4
+15,00%	4
+fraco	4
+apaziguar	4
+divergências	4
+1	3
+3	3
+5	3
+1400,00%	3
+19	3
+35	3
+65	3
+13000,00%	3
+250	3
+329	3
+969	3
+2009	3
+7102	3
+pior	3
+dispara	3
+graça	3
+fitch	3
+lista	3
+combustíveis	3
+rurais	3
+notas	3
+nordeste	3
+estado	3
+avançam	3
+impulsiona	3
+papéis	3
+curso	3
+municípios	3
+podem	3
+usar	3
+alto	3
+este	3
+jbs	3
+zero	3
+instabilidade	3
+disparam	3
+demissão	3
+paulista	3
+licença	3
+termina	3
+levy	3
+ajuste	3
+força	3
+negativa	3
+otimismo	3
+gasto	3
+fará	3
+anual	3
+gm	3
+perder	3
+1175,00%	3
+atinge	3
+área	3
+avalia	3
+pena	3
+comerciais	3
+liberação	3
+apresenta	3
+diminui	3
+benefício	3
+vagas	3
+instável	3
+afirma	3
+sair	3
+2ª	3
+colheita	3
+gás	3
+30,00%	3
+ameaça	3
+deixa	3
+bloqueio	3
+começa	3
+postos	3
+acompanha	3
+lavouras	3
+bm&fbovespa	3
+cotação	3
+especialistas	3
+brasileira	3
+futuro	3
+ptax	3
+líquido	3
+resgate	3
+roupas	3
+puxada	3
+como	3
+pago	3
+cobra	3
+mudanças	3
+ronda	3
+três	3
+salário	3
+pensão	3
+contratação	3
+29,00%	3
+ipca	3
+provocam	3
+relatório	3
+momento	3
+previsões	3
+7,00%	3
+liderança	3
+riscos	3
+concessões	3
+sul	3
+73,00%	3
+longo	3
+financiar	3
+us$21	3
+econômico	3
+anfavea	3
+eike	3
+batista	3
+tributária	3
+preocupação	3
+giro	3
+ritmo	3
+cvm	3
+leilões	3
+4	2
+6	2
+16	2
+17	2
+25	2
+2900,00%	2
+3000,00%	2
+46	2
+6200,00%	2
+70	2
+99	2
+114	2
+152	2
+16000,00%	2
+254	2
+27000,00%	2
+40000,00%	2
+453	2
+750	2
+1605	2
+1618	2
+1620	2
+1623	2
+1662	2
+2003	2
+2075	2
+10420	2
+resultado	2
+rumores	2
+marcas	2
+valiosas	2
+preocupados	2
+unibanco	2
+registram	2
+mensal	2
+acaba	2
+globo	2
+suspende	2
+paulo	2
+am	2
+rebaixa	2
+seguidas	2
+ausência	2
+grega	2
+protestos	2
+cada	2
+terça	2
+investidores	2
+doméstica	2
+inscrições	2
+foram	2
+sexta	2
+arroba	2
+trimestral	2
+projeções	2
+pagará	2
+multa	2
+(mt)	2
+caminhoneiros	2
+cancela	2
+ipo	2
+autoriza	2
+vizinhos	2
+fraqueza	2
+custo	2
+semeadura	2
+méxico	2
+josé	2
+eduardo	2
+nomeado	2
+vão	2
+elétrico	2
+imobiliário	2
+história	2
+membro	2
+chegar	2
+291	2
+patamar	2
+ministros	2
+partido	2
+era	2
+nível	2
+fala	2
+revela	2
+extensão	2
+mesmo	2
+maioria	2
+cotado	2
+deverá	2
+desemprego	2
+estímulo	2
+lidera	2
+previdência	2
+levar	2
+aeroportos	2
+copa	2
+lucros	2
+gerou	2
+pmi	2
+voltam	2
+frente	2
+conquistar	2
+exportador	2
+cenário	2
+formal	2
+leite	2
+processam	2
+mcdonalds	2
+grego	2
+prolongar	2
+protesto	2
+audiência	2
+reformas	2
+gregas	2
+quadissemana	2
+minas	2
+bahia	2
+seca	2
+óleo	2
+fazenda	2
+públicas	2
+tarifária	2
+pagamentos	2
+pauta	2
+toneladas	2
+permitir	2
+importar	2
+focus-após	2
+normas	2
+segurança	2
+objetivo	2
+beneficiar	2
+aposentados	2
+base	2
+2,00%	2
+aumentar	2
+derruba	2
+corrente	2
+reserva	2
+sedia	2
+período	2
+satisfeitos	2
+cria	2
+cadastro	2
+queda;	2
+gol	2
+consórcios	2
+motos	2
+abac	2
+boi	2
+64,00%	2
+50,00%	2
+1084,00%	2
+caras	2
+edição	2
+pressões	2
+alternativa	2
+problemas	2
+pe	2
+investir	2
+externos	2
+falta	2
+epe	2
+55,00%	2
+bolso	2
+tropas	2
+rebeldes	2
+cidade	2
+sírias	2
+promete	2
+c	2
+suisse	2
+piora	2
+operadora	2
+20,00%	2
+ms	2
+ministério	2
+warren	2
+buffett	2
+câncer	2
+fiscais	2
+menores	2
+físicas	2
+2o	2
+rompe	2
+aes	2
+reino	2
+unido	2
+manter	2
+terão	2
+mantega	2
+toshiba	2
+transparência	2
+telecomunicações	2
+frágil--fmi	2
+privado	2
+revisa	2
+consultor	2
+visa	2
+prematuro	2
+pesam	2
+associação	2
+ampliar	2
+matérias-primas	2
+regime	2
+boom	2
+virar	2
+pf	2
+to	2
+tarde	2
+sucroalcooleiro	2
+inverte	2
+suco	2
+laranja	2
+analisa	2
+mpes	2
+18º	2
+humor	2
+air	2
+rebelo	2
+final	2
+humanos	2
+semestre	2
+estima	2
+consenso	2
+passada	2
+urgência	2
+atingiu	2
+motivo	2
+bom	2
+tolmasquim	2
+43,00%	2
+pacote	2
+ipea	2
+chávez	2
+sacolas	2
+alunos	2
+rali	2
+tyson	2
+mw	2
+acentua	2
+volátil	2
+caro	2
+desta	2
+the	2
+1662	2
+madeira	2
+português	2
+convoca	2
+decidir	2
+eleições	2
+bate	2
+escândalos	2
+corrupção	2
+9	1
+11	1
+13	1
+21	1
+23	1
+26	1
+27	1
+31	1
+34	1
+36	1
+40	1
+44	1
+53	1
+55	1
+60	1
+64	1
+68	1
+72	1
+73	1
+78	1
+80	1
+81	1
+83	1
+87	1
+90	1
+94	1
+100	1
+101	1
+103	1
+10500,00%	1
+118	1
+120	1
+127	1
+128	1
+137	1
+138	1
+15900,00%	1
+161	1
+167	1
+168	1
+178	1
+185	1
+19300,00%	1
+19400,00%	1
+200	1
+209	1
+222	1
+227	1
+234	1
+290	1
+293	1
+303	1
+309	1
+319	1
+335	1
+33900,00%	1
+350	1
+36700,00%	1
+430	1
+450	1
+46300,00%	1
+500	1
+524	1
+544	1
+562	1
+568	1
+582	1
+642	1
+736	1
+800	1
+812	1
+821	1
+85000,00%	1
+860	1
+937	1
+94800,00%	1
+1000	1
+1100	1
+1181	1
+1350	1
+1352	1
+1374	1
+1467	1
+1521	1
+1607	1
+1609	1
+1610	1
+1624	1
+162500,00%	1
+1661	1
+1755	1
+180500,00%	1
+1990	1
+2020	1
+2024	1
+2050	1
+2206	1
+2321	1
+2516	1
+3042	1
+3388	1
+3473	1
+4183	1
+6677	1
+747400,00%	1
+10415	1
+16059	1
+16069	1
+16086	1
+16188	1
+16197	1
+16199	1
+16207	1
+16226	1
+16242	1
+16600	1
+16615	1
+16619	1
+20242	1
+46500	1
+63357	1
+64000	1
+64003	1
+6487600,00%	1
+67192	1
+6767000,00%	1
+série	1
+histórica	1
+racionamento	1
+magnata	1
+energias	1
+limpas	1
+homem	1
+rico	1
+asiáticos	1
+desempenho	1
+misto	1
+brent	1
+condomínios	1
+armazéns	1
+novas	1
+contratações	1
+começou	1
+scpc	1
+sexta-feira	1
+hong	1
+kong	1
+protesta	1
+paralelo	1
+"	"	1
+cheia	1
+deixarão	1
+caros	1
+faea	1
+todas	1
+grau	1
+cita	1
+compromissos	1
+claros	1
+externas	1
+alemã	1
+operador	1
+prorrogadas	1
+benzoato	1
+emamectina	1
+dezembro	1
+184%,	1
+colocam	1
+lugar	1
+dentre	1
+exportadores	1
+lenovo	1
+salta	1
+31,00%	1
+standard	1
+poors	1
+seu	1
+papel	1
+saca	1
+negociada	1
+araguaia	1
+vodca	1
+"	"	1
+pagaram	1
+impostos	1
+dona	1
+friboi	1
+desperdício	1
+passageiro	1
+abertas	1
+mestrado	1
+doutorado	1
+surfam	1
+onda	1
+cor	1
+vestido;	1
+pressiona	1
+entregar	1
+comprovante	1
+rendimentos	1
+presidir	1
+mondelez	1
+debatida	1
+chefe	1
+interrogada	1
+ganha	1
+rumor	1
+33,00%	1
+vilhena	1
+ro	1
+investem	1
+precoce	1
+dutra	1
+desce	1
+décadas	1
+ivan	1
+ramalho	1
+abecip	1
+noticiário	1
+135,00%	1
+cielo	1
+concluem	1
+meios	1
+eletrônicos	1
+jantar	1
+psd	1
+apoia	1
+oposicionistas	1
+aliados	1
+	1
+ingressaram	1
+aprovam	1
+aguardando	1
+esperam	1
+ganhos	1
+trechos	1
+br-070	1
+br-163	1
+interditados	1
+petrobras;	1
+pico	1
+francês	1
+fechará	1
+operações	1
+conter	1
+pente	1
+fino	1
+programas	1
+inaugural	1
+avião	1
+militar	1
+fab	1
+gavião	1
+peixoto	1
+panasonic	1
+chega	1
+bate	1
+ribeirão	1
+preto	1
+voluntária	1
+unidade	1
+campos	1
+feriados	1
+270	1
+transporte	1
+393,00%	1
+repercussão	1
+finalizada	1
+98,00%	1
+bce;	1
+intensifica	1
+destruição	1
+mercadorias	1
+contrabandeadas	1
+allianz	1
+rentabilidade	1
+investiram	1
+atividades	1
+metais	1
+ferrosos	1
+barra	1
+quartos	1
+hotel	1
+olimpíadas	1
+abih	1
+previstas	1
+concluídas	1
+coamo	1
+distribuirá	1
+jornal	1
+wsj'	1
+transforma	1
+desenho	1
+bico	1
+gif	1
+animado	1
+black	1
+friday	1
+inserções	1
+manaus	1
+idosos	1
+encolher	1
+falências	1
+japonês	1
+máxima	1
+contrair	1
+panelaço'	1
+prédio	1
+foster	1
+menu'	1
+tentar	1
+manufaturados	1
+demitidos	1
+sábado	1
+favorável	1
+perdeu	1
+afetar	1
+cooperativa	1
+sindicatos	1
+descumprir	1
+leis	1
+trabalhistas	1
+notícias	1
+minoria	1
+radicalizada	1
+tenta	1
+trt	1
+cunha	1
+sinalização	1
+124,00%	1
+abic	1
+megamansão'	1
+01/04/15	1
+professores	1
+estaduais	1
+votam	1
+preparam	1
+gerais	1
+suíno	1
+sofre	1
+deplora	1
+nacionalizar	1
+economista	1
+ex-ogx	1
+devolver	1
+tubarão	1
+martelo	1
+paranaenses	1
+tendência	1
+vamos	1
+gastar	1
+bem	1
+bater	1
+rodovia	1
+cuiabá	1
+bloqueada	1
+extra	1
+bandeira	1
+tributo	1
+diesel	1
+diplomática	1
+indonésia	1
+avibras	1
+terminal	1
+ferroviário	1
+exportar	1
+prejuízos	1
+ícone	1
+biscoito	1
+vendido	1
+atenções	1
+teresina	1
+cobrar	1
+litro	1
+anticrise	1
+casos	1
+suicídio	1
+recurso	1
+retenção	1
+irrf	1
+beneficia	1
+agricolândia	1
+piauí	1
+revisará	1
+nucleares	1
+volumes	1
+heringer	1
+incc	1
+gvt	1
+cultivam	1
+geada	1
+uso	1
+eucatex	1
+195,00%	1
+derrubam	1
+comentam	1
+desaba	1
+12/05/11	1
+alagoas	1
+eventos	1
+agropecuários	1
+úmido	1
+meados	1
+sertão	1
+pb	1
+época	1
+pinhão	1
+244,00%	1
+firme	1
+39,00%	1
+batem	1
+inspetores	1
+consideram	1
+gordo	1
+pecuaristas	1
+surpreende	1
+pernambuco	1
+castigados	1
+puxado	1
+alimentação	1
+hortaliças	1
+joinville	1
+realiza	1
+festa	1
+pato	1
+aliviam	1
+participam	1
+expoingá	1
+4067200,00%	1
+apostam	1
+safrinha	1
+enchentes	1
+causam	1
+catende	1
+ce	1
+cpfl	1
+celesc	1
+marina	1
+pv	1
+rebate	1
+penna	1
+menção	1
+taxação	1
+empréstimos	1
+sinaliza	1
+pedágio	1
+sente	1
+limitará	1
+intervenções	1
+recebem	1
+usado	1
+cerca	1
+disputam	1
+natal	1
+gadafi	1
+kepler	1
+weber	1
+reverte	1
+brf	1
+focará	1
+lácteos	1
+manifestantes;	1
+4,00%	1
+preveem	1
+teto	1
+google	1
+citi	1
+mastercard	1
+2,00%	1
+errados	1
+atendem	1
+combustível	1
+algum	1
+indicador	1
+106%,	1
+121100/m3	1
+megainvestidor	1
+sido	1
+diagnosticado	1
+garantidor	1
+financiamentos	1
+mansão	1
+nunca	1
+vendida	1
+meryl	1
+streep	1
+interpreta	1
+julieta	1
+park	1
+déficits	1
+pessoa	1
+reversão	1
+oleoduto	1
+concluir	1
+único	1
+563,00%	1
+março--anatel	1
+42,00%	1
+atingirá	1
+2013--fmi	1
+autoridade	1
+vietnã	1
+importadores	1
+legítima	1
+progressos	1
+econômicos	1
+frágeis'	1
+tec	1
+"promissor""--fmi:1
+johnson:4
+moradias:4
+código:11
+mineração:1
+praticamente:1
+pronto:3
+lobão:5
+ante:5
+açúcar:3
+índia:4
+outubro:5
+us:1
+bancorp:1
+us$13:1
+asiáticas:5
+espanhola:3
+resposta:2
+dura:1
+nacionalização:4
+danone:1
+expropriação:6
+forma:2
+disfarçar:1
+sierra:1
+nevada:1
+recorre:1
+aérea:2
+cidades:1
+contrataram:1
+demitiram:1
+cyrela:3
+gafisa:8
+lopes:1
+vencem:1
+top:1
+desvalorização:4
+optar:1
+mrv:2
+317%:1
+novata:2
+t4f:1
+despenca:1
+917%:1
+unica:2
+negocia:3
+estocagem:2
+garantia:2
+psa:2
+fiat:2
+decidem:2
+renovar:2
+frança:4
+aliança:1
+francesa:5
+prestes:1
+sede:1
+depois:3
+oscilar:2
+leve:9
+prédios:1
+vida:3
+limite:1
+andares:1
+joint:1
+venture:1
+frigorífico:2
+quatro:2
+marcos:1
+quer:20
+mudar:2
+judicial:2
+propõe:3
+quem:2
+remessa:1
+seagate:1
+fábrica:6
+hds:1
+contará:1
+gigantes:1
+pressão:3
+quinta-feira:4
+repsol-ypf:1
+impõe:5
+importação:12
+peças:2
+responde:2
+empregos:6
+dieese:2
+segue:8
+externo:8
+eletrobras:2
+fim:8
+concessão:4
+xingó:1
+balanço:2
+civil:2
+43%:3
+03%:1
+press:22
+release:22
+from:22
+business:22
+wire:22
+::22
+forrester:1
+research:1
+inc:5
+retração:2
+surte:1
+efeito:1
+tombini:6
+fiesp::2
+2011--tombini:4
+braskem:5
+escritório:1
+cingapura:1
+polícia:2
+prende:2
+fraude:3
+inss:2
+vivo:4
+270%:1
+ibge::8
+12%:9
+69%:1
+knowles:1
+terremotos:1
+deixam:1
+mortos:2
+feridos:1
+estar:1
+florestal:10
+adiada:2
+facebook:1
+vazar:1
+usuários:1
+telefônica:4
+estrutura:1
+gestão:2
+pedro:1
+brito:1
+comandar:1
+antaq:1
+defensivo:1
+emitir:2
+notes:2
+duas:1
+tranches:1
+investirá:2
+garantir:2
+transmissão:4
+monopolista:1
+secretário:2
+nelson:2
+fujimoto:1
+hsbc:2
+preço-alvo:1
+delfim:1
+netto:1
+desculpas:1
+às:2
+empregadas:1
+domésticas:1
+investigador:1
+bernanke:2
+geithner:1
+entendiam:1
+serasa::3
+procura:1
+chance:1
+recuperarem:1
+fluxo:6
+pedágios:1
+05%:3
+marfrig:1
+emite:3
+senior:1
+mineradoras:4
+puxam:3
+impacto:4
+políticas:1
+restritivas:1
+multiplan:2
+busca:5
+projetos:5
+vulcabras:1
+demite:1
+dow:3
+jones:3
+nasdaq:3
+trabalham:2
+azul:1
+inicia:10
+próximo:2
+cana:6
+atingir:1
+t:5
+conab:7
+importados:3
+22%:1
+diretor:5
+renuncia:3
+cargo:4
+expectativa:3
+microsoft:8
+skype:10
+saiba:1
+fazer:2
+receber:4
+manchada:1
+064%,:1
+arrefecem:1
+boa:1
+distribuição:1
+impulsionar:1
+ne:1
+exportação:4
+estamos:1
+ajustando:1
+propostas:1
+maia:1
+droga:2
+raia:2
+entra:4
+santa:1
+catarina:1
+lojas:2
+represas:3
+patagônia:3
+chilena:3
+aprovada:3
+modesto:1
+influenciada:1
+acsp:3
+acsp::2
+vista:8
+102%:2
+mães:10
+expandem:2
+ultrapassar:1
+puxadas:1
+ligados:1
+despencam:2
+divulgação:1
+resultados:2
+correção::3
+cni::2
+824%:2
+mundo:7
+6%:6
+famílias:3
+superam:1
+renda:8
+53%:3
+lares:2
+prevê:13
+ebitda:2
+superior:1
+yuan:3
+prioridade:1
+diálogo:1
+eua-china:1
+libera:3
+consulta:4
+lote:2
+residual:2
+irpf:4
+valorização:7
+absoluto:1
+importações:2
+balança:5
+comercial:12
+começo:2
+critica:5
+barreiras:3
+nvidia:2
+paga:3
+icera:1
+econômica:4
+s&p:4
+rating:4
+b':2
+malha:1
+fina:1
+fazem:3
+agenda:4
+r$33:1
+mandar:1
+liberar:2
+seguem:1
+moeda:1
+minério:4
+ferro:2
+acusa:3
+correção-oferta:1
+qualicorp:2
+movimenta:4
+r$7585:2
+oferta:10
+secundária:1
+transmitida:1
+sinal:1
+internet:1
+oi:8
+trigo:4
+pão:1
+massas:1
+prorroga:3
+belo:4
+monte:4
+indefinida:1
+avisa:3
+consórcio:2
+metade:3
+contribuintes:1
+entregou:1
+declaração:4
+ir:6
+tira:2
+distribuidora:2
+amapá:1
+fonte:4
+energética:1
+governador:2
+senador:1
+es:2
+criticam
+governo:1
+fundap:1
+r$3:2
+bônus:5
+global:3
+brl:1
+yield:2
+860%:2
+próstata:1
+petroquímico:1
+dificuldades:1
+yahoo:2
+estimativas:2
+financeiros:1
+café::1
+produto:3
+certificado:1
+rainforest:1
+tam:2
+menor:11
+tráfego:1
+aéreo:1
+doméstico:1
+selam:2
+criar:1
+elo:2
+integrar:2
+caixas:4
+lançamentos:3
+afrouxar:1
+política:5
+monetária:1
+prematuro-fmi:1
+274%:1
+primeira:3
+quinzena:1
+rio+20:1
+discutirá:2
+criação:2
+app:1
+mundial:6
+embraer::2
+disputa:3
+aviões:3
+acordos:1
+atms:1
+carlyle:1
+obter:1
+us$1:1
+metaldyne--fontes:1
+bank:1
+of:2
+america:1
+coloca:2
+braço:1
+ex-banqueiro:1
+salvatore:3
+cacciola:3
+recebe:5
+indulto:2
+moçambique:1
+fértil:1
+empresários:2
+primeiro-ministro:2
+us$9:4
+ypfdiz:1
+vice-ministro:1
+657%:1
+coelba:1
+corte:3
+juro:7
+perderá:1
+lucratividade:1
+estratégia:1
+anvisa:1
+proíbe:1
+medidor:1
+gordura:1
+biomatrix:1
+cef:1
+usa:1
+videoconferência:1
+sem-teto:1
+tim:2
+número:4
+adições:2
+produz:1
+refinado:1
+ultrapassa:2
+anatel:7
+físico:1
+oscilações:2
+carnes::1
+sistema:1
+aprimora:1
+controle:3
+sanidade:1
+rebanho:2
+cae:1
+unificação:3
+frango:2
+mão-de-obra:1
+yara:1
+assina:2
+contrato:2
+consultoria:2
+positiva:3
+vários:1
+aproximam:1
+máximo:1
+sua:5
+pública:1
+reputação:1
+cassação:1
+outorga:1
+usinas:2
+bertin:2
+ajudar:1
+a-3:3
+modelo:2
+cortar:3
+extingue:2
+entregas:4
+carteira:2
+fedex:1
+companhia:1
+tatex:1
+coca-cola:4
+fortes:1
+público:3
+39%:1
+pib:8
+wsj::1
+fundos:1
+mútuos:1
+cftc:1
+excesso:2
+regulação:1
+média:4
+761%:1
+tarifas:2
+coelce:2
+casino:2
+audi:1
+ducati:1
+ucrânia:1
+cultiva:1
+83%:1
+primavera:1
+celular:3
+4g:2
+ese:1
+cosern:1
+data:2
+investimentos:6
+preserva:1
+nacional-mantega:1
+preocupado:1
+ocidental:1
+relação:2
+resto:1
+tesouro:5
+lança:4
+emissão:4
+recompra:3
+reais:4
+-761%:1
+flexível:1
+ajudaria:1
+reequilíbrio:1
+chinesa--fmi:1
+reuniões:5
+avaliar:3
+quadro:1
+passando:1
+calma:1
+apreensiva:1
+sob:2
+vigilância:1
+r$88:1
+r$6:1
+privatização:2
+tap:1
+atrai:2
+várias:1
+mundiais--presidente:1
+webjet:1
+oferece:2
+serviço:2
+cliente:1
+despacha:1
+própria:1
+bagagem:1
+discutir:2
+reversibilidade:1
+fixa:1
+bernardo:3
+estimativa:3
+há:4
+cgu:1
+concurso:2
+contratar:1
+ricos:2
+culpa:1
+suave:1
+ásia;:1
+contágio:1
+pensam:1
+euro--fmi:1
+ypf-repsol::1
+lamenta:1
+postura:1
+imprevisível':1
+agrícola:2
+poderá:8
+telecomunicação:1
+diretoria:3
+oficializada:1
+71%:1
+anac:3
+permanece:1
+(fed):1
+reestatização:1
+questão:2
+interna:3
+levemente:2
+caribe:3
+37%:4
+21%:4
+alta::1
++058%,:1
++040%:1
+superaquecimento:1
+caiu:4
+distribuidoras:2
+apresentam:1
+melhora--presidente:1
+ligeiramente:1
+crecerá:1
+anemia':1
+ocidente:1
+publica:2
+agropecuário:1
+104%,:1
+iea:1
+injeção:1
+liquidez:1
+bce:3
+planejada--bc:1
+espanhol:1
+regulamenta:1
+exigência:1
+lagarde:2
+mira:1
+recursos:3
+índice:8
+zew:2
+voltou:3
+recessão:3
+fipe:4
+petrolífera:1
+precisa:3
+externa:3
+juncker:1
+reúne:2
+projeto:5
+irrigado:1
+fulgêncio:1
+inesperada:1
+índios:1
+pataxós:1
+planejam:1
+ocupar:1
+propriedades:1
+região:2
+yields:1
+títulos:2
+saltam:1
+britânica:1
+fracasso:1
+afetaria:1
+duramente:1
+espanha--bc:1
+sinais:4
+btg:2
+pactual:1
+dá:4
+investidor:3
+quiser:1
+desistir:1
+adicionais:1
+adere:1
+plataforma:1
+física:1
+feijão:1
+cultura:1
+inverno:1
+oeste:1
+go:2
+tóquio:5
+madri:1
+automóveis:3
+índices:1
+foco:3
+defensivas:1
+rossi:1
+residencial:1
+divulga:2
+lei:1
+avançar;:1
+recuar:2
+time:1
+for:3
+fun:1
+92%:1
+turismo:1
+facilitar:1
+entrada:5
+ministra:4
+teve:2
+ataca:1
+mdic:1
+mills:1
+188%:1
+cetip:1
+alcança:4
+renner:2
+conclui:2
+camicado:2
+intempestiva:1
+alcaro:1
+uol:1
+restrição:1
+brookfield:1
+recomprar:1
+durante:1
+tietê:1
+bndespar:1
+irá:1
+adquirir:1
+debêntures:1
+conversíveis:1
+suzano:1
+petroleiros:1
+suspendem:1
+horas:2
+cemig:1
+redentor:1
+fatia:6
+light:1
+oscilação:1
+deixará:1
+agosto:1
+acentuada:1
+véspera:2
+ganho:2
+036%,:1
+organizam:1
+seminário:1
+recupera:1
+londres:3
+018%:3
+feirão:2
+amanhã:1
+autopeças:1
+lideram:2
+dólares:10
+banrisul:1
+nissan:2
+recordes:2
+trocas:1
+aumentando:1
+fmi::3
+tempo:3
+saldar:2
+definir:1
+dias:2
+basf:1
+ou:2
+elekeiroz:1
+honda:3
+demitir:2
+empregados:1
+retoma:3
+movimento:4
+012%,:2
+melhorar:1
+qualidade:1
+br:2
+toyota:4
+50%:3
+sai:4
+liderou:1
+empurram:1
+europeu:1
+baixo:3
+ceará:1
+influência:1
+indicadores:3
+mexem:1
+aeroporto:5
+rn:3
+julho:4
+informa:2
+eua::2
+adverte:2
+manipulação:3
+límite:2
+regiões:5
+reforça:2
+ideia:1
+aperto:1
+prolongado':1
+4ª:1
+líquida:1
+seguida:2
+estrangeiro:6
+10/5:1
+elevar:6
+compulsório:6
+bancário:4
+ampliado:1
+empréstimo:5
+egito:2
+amex:1
+empresa:3
+online:1
+condomínio:1
+pesquisa:5
+trabalhadores:2
+refinarias:1
+iniciam:7
+pressionada:1
+ogx:5
+descoberta:1
+água:3
+rasa:1
+bacia:2
+santos:3
+tombini::3
+combate:2
+arrefecimento:2
+reflete:1
+ação:4
+ecodiesel:2
+veto:1
+proposta:4
+incorporar:1
+vanguarda:2
+financeiro:4
+estoques:3
+crescem:5
+grande:2
+drogasil:1
+27%:2
+despesas:4
+minuta:1
+edital:4
+licitação:1
+faixa:2
+ghz:2
+incorporação:1
+137%:2
+próximos:3
+properties:1
+autorização:3
+lançar:3
+adrs:2
+produtor:2
+08%:2
+auxílio-desemprego:1
+última:2
+mercoláctea:1
+chapecó:1
+promove:1
+declinam:1
+possível:2
+bmw:1
+abrir:1
+outros:2
+emergentes:3
+reservas:1
+obrigatórias:1
+dis:7
+líquidos:5
+bm&f:6
+jornada:6
+desonerar:1
+quedas:1
+159%:1
+copel:1
+205%:1
+1otri:1
+aie:2
+provoca:2
+navegação:1
+yangtze:1
+pretas:3
+rio-paris:3
+conhecido:1
+próxima:3
+depósito:1
+050:1
+ponto:2
+bons:1
+pagadores:1
+carf:1
+manda:1
+imposto:1
+afretamentos:1
+discussão:1
+pnbl:1
+iniciadas:1
+reafirma:2
+deputados:1
+oposição:1
+acreditam:1
+adia:4
+4a-feira:2
+itaipu:2
+iochpe:1
+715%:1
+tcu:2
+auditar:1
+chesf:1
+investigar:1
+causas:1
+apagão:1
+multiplus:1
+firma:3
+icatu:1
+seguros:1
+criará:1
+negociar:1
+foxconn:2
+fase:1
+admite:2
+divergência:1
+impede:1
+aprovação:4
+fust:1
+derrube:1
+cesta:1
+compras:1
+019%:1
+mundiais:1
+corporativos:1
+terceiro:1
+seguido:1
+sinditelebrasil:1
+investe:4
+veem:2
+progresso:1
+concreto:1
+conversa:1
+meirelles::1
+equilíbrio:2
+fundamento:1
+atração:1
+elevará:2
+enquanto:4
+preciso:3
+092%:1
+cessão:2
+áreas:2
+devon:2
+bp:2
+fecomercio-sp::1
+44%:2
+aldo:1
+mendes:1
+recriar:1
+cpmf:1
+barbosa:3
+caminha:1
+fechar:1
+080%,:1
+quilômetros:1
+linhas:2
+rio-paris::1
+corpos:1
+muito:3
+degradados:1
+serão:2
+resgatados:1
+murilo:1
+portugal:6
+elogia:2
+macroprudenciais:1
+comunicação:1
+pré-crise:1
+eterni:1
+cotas:1
+leves:2
+arida:1
+esteve:1
+presente:1
+palestra:1
+lula:2
+neoenergia:2
+votorantim:1
+valendo:1
+agrishow:1
+pregão;:1
+58%:2
+minimiza:2
+parecer:1
+procuradoria:1
+cade:1
+fusão:1
+cheque:1
+especial:1
+anefac:1
+itaúsa:2
+diferença:2
+padrões:1
+contábeis:1
+rodobens:1
+salto:2
+alienação:1
+valid:1
+contrata:1
+itauvest:1
+formador:1
+anefac::1
+taxas:1
+médias:1
+futuros:4
+modestas:1
+fraca:2
+cndl::3
+chinês:2
+segurar:1
+capital:8
+esta:2
+questiona:1
+procurador:2
+caso:5
+spanair:1
+compartilhamento:1
+voos:1
+construtora:1
+even:1
+11%:4
+saldo:3
+all:3
+minguar:1
+985%:1
+dizem:4
+lojistas:2
+723%:1
+trichet:2
+strett:2
+munição:1
+críticos:1
+342%:1
+sete:2
+analisadas:1
+ibge:7
+acerta:1
+esgoto:1
+bh:1
+cereais:1
+leguminosas:1
+dois:1
+sessão:3
+união:1
+europeia:1
+sanções:1
+embargo:1
+síria:1
+rumo:3
+definido:1
+569%:1
+r$37:1
+247%:3
+084%:2
+pecuarista:1
+jacaré:1
+pantanal:2
+reflorestar:1
+influenciam:1
+melhora:8
+toledo:1
+pr:3
+mistas:2
+cautela:2
+tenda:1
+cair:7
+79%:2
+r$293:2
+zera:1
+elevação:1
+feira:2
+agronegócios:1
+paraguai:2
+colônia:1
+traz:5
+chinesa:2
+palmas:1
+agropecuária:1
+tocantins:1
+esteja:1
+buscando:1
+10/5/2011:1
+heathrow:1
+express:1
+esmt:1
+european:1
+school:1
+management:1
+and:1
+technology:1
+wilson:1
+amaral:1
+ligeira:1
+175%,:1
+extinguir:1
+sacola:1
+plástica:1
+supermercados:3
+carlos:2
+387%:1
+ans:1
+desconto:1
+participante:1
+fibria:1
+afastamento:1
+blog:1
+randon:1
+68%:1
+volkswagen:4
+participação:4
+man:3
+nove:3
+sustentada:1
+valores:1
+gt:1
+group:2
+transit:1
+bombril:3
+cosméticos:3
+ecologie:1
+coteminas:1
+frágil:2
+considera:2
+pagou:1
+sutentado:1
+pelas:1
+blue:1
+chips:1
+maiores:2
+anos--serasa:1
+classe:1
+classes:2
+d:2
+apas:3
+estoque:2
+breve:1
+mitsui:1
+100%:1
+multigrain:1
+us$274:1
+carnaval:1
+hertz:1
+u$21:1
+dollar:1
+thrifty:1
+faturamento:4
+75%:1
+24%:1
+trabalhadas:1
+52%:1
+utilização:1
+capacidade:1
+situa-se:1
+rebaixar:2
+avaliação:2
+longe:1
+máximas:1
+supermercado:1
+brasileiras:2
+gastam:1
+ganham:2
+possibilidade:2
+paquistanês:1
+rede:2
+apoio:1
+bin:1
+laden:1
+álcool:2
+anidro:1
+1239%:1
+043%,:1
+investigação:1
+agências:1
+perda:3
+70%:1
+calote:1
+lobão::3
+começará:2
+forças:1
+invadem:3
+casas:3
+prendem:1
+centenas:2
+opositores:1
+acumulado:1
+waimea:1
+mdic::1
+eólicas:1
+dominam:1
+ofertas:1
+cadastradas:1
+bb-':1
+sde:1
+abrirá:1
+cobrança:1
+indevida:1
+médico:1
+limitar:1
+bpi:2
+orçamentária:2
+apple:1
+valiosa:1
+analistas:2
+elevam:1
+selic:4
+1225%:2
+dívidas:1
+vermelho:3
+cobram:1
+037%:1
+us$20:1
+fabricante:1
+caminhões:2
+oito:1
+solo:2
+vezes:2
+normal:2
+revista:1
+semanas:1
+desfile:1
+muita:1
+gente:1
+goiabeira:1
+leste:1
+ocde:1
+fundação:1
+dom:1
+cabral:1
+ranking:2
+ft':1
+melhores:1
+escolas:2
+conagra:1
+odoms:1
+tennessee:1
+pride:1
+pretende:2
+problema:1
+inteiro:1
+189%:1
+csn:2
+soma:1
+r$450:1
+4o:2
+aquém:1
+telecom:3
+253%:1
+subsecretário:1
+tenha:1
+confirmado:1
+iof:8
+empresário:2
+estudar:1
+embaixador:2
+conquistas:1
+indexação:1
+correção:6
+tabela:6
+repasse:1
+dependerá:1
+administradora:1
+isenção:1
+baixar:1
+arrecadará:1
+tributação:4
+bebidas:3
+frias:1
+credit:1
+combaterá:1
+irregularidades:1
+outorgas:1
+rádio:1
+teme:1
+contaminação:1
+mar:2
+eleição:1
+parlamentar:1
+vantajoso:2
+só:5
+mt;:2
+177%:2
+rigor:1
+procurações:1
+legal:1
+entrega:4
+simples:3
+prorrogada:1
+termo:1
+07%:1
+inovação:1
+focus-mercado:1
+aversão:2
+dentro:2
+tomate:1
+ânimo:1
+computador:1
+premier:1
+australiana:1
+duke:1
+energy:1
+paranapanema:1
+603%:1
+triunfo:1
+debate:2
+iuan:1
+insurance:1
+classic:1
+corretora:1
+pps-pr:1
+expulsa:1
+filiados:1
+infidelidade:1
+partidária:1
+elaboração:2
+sungard:1
+higher:1
+education:1
+sugerir:1
+coletivo:1
+pac:2
+espaço:2
+térmicas:2
+diretor-geral:1
+rodoviária:1
+votante:2
+085%,:2
+fraco;:1
+teles:1
+destacam:2
+pausa:2
+positivos:1
+sprint:1
+t-mobile:1
+at&t:1
+prejudica:2
+competição:1
+alencar:2
+uti:1
+obstrução:1
+intestino:1
+modernização:1
+aciaria:2
+ohl:1
+338%:1
+morre:1
+harry:1
+coover:1
+inventor:1
+supercola:1
+012%:3
+assinatura:1
+domicílios:1
+internado:1
+eletronuclear:2
+angra:2
+compensa:1
+troco':1
+saques:1
+afif:1
+técnico:1
+secretaria:1
+agricultura:2
+viés:1
+arrecadatório:1
+credita:1
+015:1
+volvo:1
+controlar:1
+sueca:1
+estúdio:1
+pininfarina:1
+suprema:1
+examina:1
+coletiva:1
+wal-mart:1
+animadas:1
+desfiliar:1
+dem:1
+estádios:1
+‘a:1
+pleno:1
+vapor’:1
+declina:1
+york;:1
+pequeno:2
+competitividade:2
+cteep:4
+vende:1
+swaps:1
+reversos:1
+ebay:2
+concorda:1
+gsi:2
+commerce:2
+df:2
+infraero:2
+demolir:1
+congonhas:1
+tecnologia:1
+comprará:1
+planeja:1
+swap:1
+cambial:1
+reverso:1
+acessos:1
+móveis:1
+pendentes:1
+alguns:1
+modelos:1
+operários:1
+retomam:1
+usina:1
+santo:1
+antônio:1
+comitê:1
+animam:1
+modernizar:1
+mg:3
+oficializa:2
+16%:1
+oscilam:1
+baixas:1
+ficar:1
+apontam:1
+focus:3
+projeta:1
+4%:4
+044%:1
+mostram-se:1
+otimistas:1
+caindo:1
+divulgada:1
+28/3/2011:1
+sentance:1
+britânico:1
+renova:1
+4a:1
+rios:1
+temporal:1
+estragos:1
+maximiliano:1
+almeida:1
+escoamento:2
+triângulo:1
+mineiro:1
+234%:1
+portos:4
+ferrovias;:1
+acesso:1
+liberado:1
+elétrica:1
+57%:1
+paraíba:1
+economizar:1
+brincadeira':1
+mostrou:1
+extremamente:1
+cara:1
+entenda:1
+escândalo:1
+envolvendo:1
+parlamento:1
+alemão:1
+santos;:1
+ba:1
+ordenam:1
+apresentadas:1
+eurogrupo:1
+turno:1
+web:1
+distorções:1
+centrais:1
+sindicais:1
+negociam:1
+direitos:3
+mostram:1
+decisões:1
+opinião::1
+ferrugem:1
+alaranjada:1
+fungicidas:1
+primeiros:1
+reajustes:1
+ultrapassam:1
+40%:2
+aulas:1
+pesa:1
+rj:3
+contribuir:1
+32%:1
+setores:1
+deverão:1
+2015?:1
+turista:1
+caro?:1
+perguntas:1
+q-med:1
+mi/ton:1
+boi::1
+dobrar:1
+carne:1
+abcz:1
+retorno:1
+microgeração:1
+minigeração:1
+regras:3
+intel:1
+tablets:1
+relator:2
+texto:1
+smartphones:2
+usados:1
+capta:1
+iberia:1
+pilotos:1
+atua:1
+rodada:1
+favorece:2
+produtividade:2
+srb:1
+desiste:1
+faesp:1
+representará:1
+consecitrus:1
+obama:1
+penas:1
+yfp:1
+comissão:2
+cooperação:1
+suínos:1
+agravamento:1
+impasse:2
+gás--fonte:1
+conversará:1
+kirchner:2
+tapar:2
+essencial:1
+declarações:1
+entregues:1
+atingida:1
+pedirá:3
+adota:1
+jeito:1
+criativo:1
+estimular:2
+facilita:1
+registrar:1
+6º:1
+alíquota:1
+única:1
+vazamento:3
+frade:1
+monetário:1
+especialista:1
+loja:1
+departamento:1
+macy’s:1
+agronegócio::1
+157%:1
+análise:1
+049%:1
+enfrenta:2
+""calma:1
+apreensiva"	1
+tj-rj	1
+concede	1
+iniciativa	1
+privada	1
+frequência	1
+4g	1
+governos	1
+protestam	1
+unificado	1
+marco	1
+demorar	1
+resolução	1
+decisiva	1
+informações	1
+evo	1
+mãe	1
+bolívia	1
+desconfiam	1
+nokia	1
+votos	1
+guerra	1
+htc	1
+caírem	1
+substituir	1
+vice-presidente	1
+trabalhador	1
+cima	1
+crescerá	1
+captação	1
+direto	1
+indica	1
+dúvidas	1
+alimentícia	1
+aposentadoria	1
+sem-terra	1
+desenvolvimento	1
+agrário	1
+venezuela	1
+retaliação	1
+descontos	1
+pressionam	1
+marcado	1
+argentinos	1
+dificultada	1
+carro	1
+argentino	1
+barrado	1
+fronteira	1
+adefa	1
+propõem	1
+instalar	1
+dispositivo	1
+mancha	1
+frequências	1
+vaccarezza	1
+votar	1
+essenciais	1
+criador	1
+estourar	1
+65,00%	1
+lentamente	1
+werlang	1
+sustenta	1
+mpf	1
+ibama	1
+libere	1
+análise-expectativa	1
+e&p	1
+018%,	1
+alteração	1
+centro-sul	1
+destina	1
+646,00%	1
+petroleiras	1
+querem	1
+isenções	1
+41,00%	1
+abipecs	1
+acompanhará	1
+temer	1
+missão	1
+detém	1
+gerador	1
+63,00%	1
+acredita	1
+nafta	1
+seguirá	1
+elevado	1
+caterpillar	1
+saem	1
+greve;	1
+montadora	1
+fotofinder	1
+campanha	1
+economias	1
+americana	1
+piso	1
+salarial	1
+encontra	1
+hidrocarbonetos	1
+paulistas	1
+sebrae	1
+ministerial	1
+reestruturar	1
+intenso	1
+aproximar-se	1
+23,00%	1
+entraves	1
+tepco	1
+detecta	1
+reator	1
+pesar	1
+espalhar	1
+examinar	1
+caixas-pretas	1
+france	1
+selfridges	1
+24mas	1
+enviou	1
+carga--barbosa	1
+diretores	1
+visitam	1
+debatem	1
+encontro	1
+terceira	1
+impulsionada	1
+2011/2012	1
+resta	1
+consegue	1
+retomar	1
+fórmula	1
+folha--barbosa	1
+câmbio-dólar	1
+poder	1
+sobrem	1
+realização	1
+esforço'	1
+agravar'	1
+negociações	1
+salariais	1
+alíquotas	1
+thinklogical	1
+13,00%	1
+368,00%	1
+foca	1
+expandir	1
+anunciar	1
+nome	1
+atual	1
+anterior	1
+fras-le	1
+levaram	1
+	1
+europeus	1
+aprovarão	1
+páscoa	1
+puxa	1
+margens	1
+disseminada	1
+eólica	1
+círculo	1
+virtuoso	1
+iberdrola	1
+parte	1
+previ	1
+apertar'	1
+cndl	1
+precedente	1
+madoff	1
+985%,	1
+para	1
+aguarda	1
+internacional	1
+acomoda	1
+finlândia	1
+internautas	1
+escolarizados	1
+on-line	1
+parada	1
+5a-feira	1
+056%,	1
+95,00%	1
+adquire	1
+us$	1
+subiram	1
+junto	1
+pfizer	1
+corinthia	1
+hotels	1
+printronix	1
+lease	1
+corporation	1
+viagem	1
+lesão	1
+joelho	1
+moderam	1
+tom	1
+marcopolo	1
+97,00%	1
+isuppli	1
+substituição	1
+obrigatória	1
+plantio	1
+poupar	1
+64,00%	1
+alimentam	1
+conhecimento	1
+bird	1
+pouco	1
+forteboi	1
+mato	1
+grosso	1
+vestuário	1
+máquinas	1
+transformação	1
+77,00%	1
+renovável	1
+continuarão	1
+lucrativos	1
+instrução	1
+agentes	1
+autônomos	1
+deixar	1
+continuam	1
+volks	1
+prefere	1
+cresça	1
+organicamente	1
+subir;	1
+preocupar	1
+terminam	1
+concorrência	1
+predatória	1
+corretoras	1
+inscritos	1
+britânicos	1
+indenizar	1
+milhares	1
+enganados	1
+perfil	1
+vem	1
+025%;	1
+correios	1
+divulgam	1
+locais	1
+provas	1
+longos	1
+imóvel	1
+custa	1
+milhões;	1
+fotos	1
+3,00%	1
+bomba	1
+importou	1
+litros	1
+social	1
+linkedin	1
+avaliada	1
+gores	1
+llc	1
+vazia	1
+volatilidade	1
+alterra	1
+holdings	1
+limited	1
+uxc	1
+105,00%	1
+pequenos	1
+seguram	1
+clientela	1
+entrevista-brasil	1
+previsto	1
+incentivo	1
+discutido	1
+acelerar	1
+256,00%	1
+ensaia	1
+incertezas	1
+globais	1
+summit-pib	1
+colômbia	1
+5,00%	1
+frete	1
+buscar	1
+técnicos	1
+dnpm	1
+rebatem	1
+críticas	1
+summit-maior	1
+carnes	1
+trunfo	1
+testa	1
+summit-oposição	1
+venezuelana	1
+revisão	1
+hidrelétricas	1
+baratear	1
+diante	1
+atuações	1
+contrabalançam	1
+bebida	1
+reavaliação	1
+telesp	1
+sofrem	1
+referência	1
+cerveja	1
+refrigerantes	1
+silver	1
+institute	1
+recuperar	1
+bovino	1
+renúncia	1
+prever	1
+compromisso	1
+recuar;	1
+violência	1
+repassadas	1
+ceder	1
+ruralistas	1
+quintiles	1
+ppp	1
+estender	1
+metrô	1
+excedente	1
+médios	1
+2014--epe	1
+icc	1
+intensa	1
+prius	1
+boletim	1
+afetam	1
+comporta	1
+207	1
+prepara	1
+irlanda	1
+31,00%	1
+fôlego	1
+usada	1
+mst	1
+vive	1
+acampados	1
+iniciar	1
+w	1
+l	1
+gore	1
+associates	1
+chuvoso	1
+boas	1
+encontradas	1
+concursos	1
+provimento	1
+cargos	1
+destaques	1
+automobilísticos	1
+infraestrutura	1
+tinto	1
+minoritária	1
+riversdale	1
+cartões	1
+orienta	1
+globalcollect	1
+vítimas	1
+vilãs?	1
+recentes	1
+levantam	1
+piratas	1
+fecomércio	1
+caroço	1
+algodão	1
+milionária	1
+propaganda	1
+desembolsos	1
+estáveis	1
+investigados	1
+margem	1
+aportes	1
+coutinho	1
+socorro	1
+cobre	1
+extras	1
+obtém	1
+habeas	1
+corpus	1
+processo	1
+erro	1
+klm	1
+honrar	1
+passagens	1
+emitidas	1
+contrariando	1
+indicado	1
+aporte	1
+equipe	1
+buscará	1

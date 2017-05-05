@@ -1,0 +1,37 @@
+Setor,Coluna,Media,Tecnica
+Bens Industriais,media,0.33316168898,Random
+Bens Industriais,negocios,0.33121898699,Random
+Bens Industriais,quantidade_papeis,0.33922385544,Random
+Bens Industriais,volume_financeiro,0.33398090066,Random
+Construcao e Transporte,media,0.33903061224,Random
+Construcao e Transporte,negocios,0.33515769944,Random
+Construcao e Transporte,quantidade_papeis,0.33573747681,Random
+Construcao e Transporte,volume_financeiro,0.32553339518,Random
+Consumo Ciclico,media,0.33534089852,Random
+Consumo Ciclico,negocios,0.33355036741,Random
+Consumo Ciclico,quantidade_papeis,0.3362477909,Random
+Consumo Ciclico,volume_financeiro,0.33138777788,Random
+Consumo nao Ciclico,media,0.33880756046,Random
+Consumo nao Ciclico,negocios,0.33299360697,Random
+Consumo nao Ciclico,quantidade_papeis,0.32838413787,Random
+Consumo nao Ciclico,volume_financeiro,0.33114055406,Random
+Financeiro e Outros,media,0.33727988879,Random
+Financeiro e Outros,negocios,0.33229842447,Random
+Financeiro e Outros,quantidade_papeis,0.33531047266,Random
+Financeiro e Outros,volume_financeiro,0.33104726599,Random
+Materiais Basicos,media,0.34061833689,Random
+Materiais Basicos,negocios,0.32504403449,Random
+Materiais Basicos,quantidade_papeis,0.33255307314,Random
+Materiais Basicos,volume_financeiro,0.33141744693,Random
+Petroleo. Gas e Biocombustiveis,media,0.33698668147,Random
+Petroleo. Gas e Biocombustiveis,negocios,0.32831576027,Random
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,0.33300961894,Random
+Petroleo. Gas e Biocombustiveis,volume_financeiro,0.34091749908,Random
+Telecomunicacoes,media,0.32960618847,Random
+Telecomunicacoes,negocios,0.33293483357,Random
+Telecomunicacoes,quantidade_papeis,0.32941865917,Random
+Telecomunicacoes,volume_financeiro,0.32737927801,Random
+Utilidade Publica,media,0.33627805602,Random
+Utilidade Publica,negocios,0.32911333704,Random
+Utilidade Publica,quantidade_papeis,0.32456872565,Random
+Utilidade Publica,volume_financeiro,0.33627805602,Random

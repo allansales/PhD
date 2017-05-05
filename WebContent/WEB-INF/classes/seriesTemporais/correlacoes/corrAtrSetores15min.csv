@@ -1,0 +1,1117 @@
+Setor,Tecnico,Fundamentalista,tau,p-valor
+Bens Industriais,media,qt,-0.738155928286,0.0
+Bens Industriais,media,mQtCom,-0.512483908437,0.0
+Bens Industriais,media,meQtCom,-0.467387509213,0.0
+Bens Industriais,media,dpQtCom,-0.771182079745,0.0
+Bens Industriais,media,vQtCom,-0.771182079032,0.0
+Bens Industriais,media,sQtCom,-0.512467464037,0.0
+Bens Industriais,media,mQtTw,-0.616565103739,0.0
+Bens Industriais,media,meQtTw,-0.441149344316,0.0
+Bens Industriais,media,dpQtTw,-0.863442571184,0.0
+Bens Industriais,media,vQtTw,-0.863443336253,0.0
+Bens Industriais,media,sQtTw,-0.615718472715,0.0
+Bens Industriais,media,mQtFb,-0.567728521517,0.0
+Bens Industriais,media,meQtFb,-0.428185484452,0.0
+Bens Industriais,media,dpQtFb,-0.839364138665,0.0
+Bens Industriais,media,vQtFb,-0.839364468559,0.0
+Bens Industriais,media,sQtFb,-0.567903738002,0.0
+Bens Industriais,media,mQtLk,-0.521366382344,0.0
+Bens Industriais,media,meQtLk,-0.458929979425,0.0
+Bens Industriais,media,dpQtLk,-0.796894691662,0.0
+Bens Industriais,media,vQtLk,-0.796894673699,0.0
+Bens Industriais,media,sQtLk,-0.521116542756,0.0
+Bens Industriais,media,mQtGp,-0.463980813511,0.0
+Bens Industriais,media,meQtGp,-0.465114060925,0.0
+Bens Industriais,media,dpQtGp,-0.735952959779,0.0
+Bens Industriais,media,vQtGp,-0.735952961513,0.0
+Bens Industriais,media,sQtGp,-0.463979997523,0.0
+Bens Industriais,media,mPol,-0.786591053324,0.0
+Bens Industriais,media,mePol,-0.704658186813,0.0
+Bens Industriais,media,dpPol,-0.887758482735,0.0
+Bens Industriais,media,vPol,-0.887750826373,0.0
+Bens Industriais,media,sPol,-0.754473608449,0.0
+Bens Industriais,negocios,qt,-0.640023801108,0.0
+Bens Industriais,negocios,mQtCom,-0.29440820953,0.0
+Bens Industriais,negocios,meQtCom,-0.258817080436,0.0
+Bens Industriais,negocios,dpQtCom,-0.853892654268,0.0
+Bens Industriais,negocios,vQtCom,-0.853892645178,0.0
+Bens Industriais,negocios,sQtCom,-0.294403525351,0.0
+Bens Industriais,negocios,mQtTw,-0.387983501257,0.0
+Bens Industriais,negocios,meQtTw,-0.264249320879,0.0
+Bens Industriais,negocios,dpQtTw,-0.907572747491,0.0
+Bens Industriais,negocios,vQtTw,-0.907572665855,0.0
+Bens Industriais,negocios,sQtTw,-0.387340366933,0.0
+Bens Industriais,negocios,mQtFb,-0.358989499876,0.0
+Bens Industriais,negocios,meQtFb,-0.255352942736,0.0
+Bens Industriais,negocios,dpQtFb,-0.898000039929,0.0
+Bens Industriais,negocios,vQtFb,-0.897999976552,0.0
+Bens Industriais,negocios,sQtFb,-0.35835226814,0.0
+Bens Industriais,negocios,mQtLk,-0.300068817672,0.0
+Bens Industriais,negocios,meQtLk,-0.254727017654,0.0
+Bens Industriais,negocios,dpQtLk,-0.86499399115,0.0
+Bens Industriais,negocios,vQtLk,-0.864993965693,0.0
+Bens Industriais,negocios,sQtLk,-0.299742544798,0.0
+Bens Industriais,negocios,mQtGp,-0.259016829932,0.0
+Bens Industriais,negocios,meQtGp,-0.258724349042,0.0
+Bens Industriais,negocios,dpQtGp,-0.838215341142,0.0
+Bens Industriais,negocios,vQtGp,-0.838215347409,0.0
+Bens Industriais,negocios,sQtGp,-0.259016551904,0.0
+Bens Industriais,negocios,mPol,-0.679082963596,0.0
+Bens Industriais,negocios,mePol,-0.547505070457,0.0
+Bens Industriais,negocios,dpPol,-0.935402484409,0.0
+Bens Industriais,negocios,vPol,-0.935253083854,0.0
+Bens Industriais,negocios,sPol,-0.653141314718,0.0
+Bens Industriais,quantidade_papeis,qt,-0.710751507407,0.0
+Bens Industriais,quantidade_papeis,mQtCom,-0.254039566775,0.0
+Bens Industriais,quantidade_papeis,meQtCom,-0.194138565628,0.0
+Bens Industriais,quantidade_papeis,dpQtCom,-0.754241095363,0.0
+Bens Industriais,quantidade_papeis,vQtCom,-0.754241091867,0.0
+Bens Industriais,quantidade_papeis,sQtCom,-0.254063141131,0.0
+Bens Industriais,quantidade_papeis,mQtTw,-0.420044312654,0.0
+Bens Industriais,quantidade_papeis,meQtTw,-0.236598023797,0.0
+Bens Industriais,quantidade_papeis,dpQtTw,-0.824159185698,0.0
+Bens Industriais,quantidade_papeis,vQtTw,-0.824161788679,0.0
+Bens Industriais,quantidade_papeis,sQtTw,-0.420744472638,0.0
+Bens Industriais,quantidade_papeis,mQtFb,-0.386615468033,0.0
+Bens Industriais,quantidade_papeis,meQtFb,-0.22037249828,0.0
+Bens Industriais,quantidade_papeis,dpQtFb,-0.811880330807,0.0
+Bens Industriais,quantidade_papeis,vQtFb,-0.81188032116,0.0
+Bens Industriais,quantidade_papeis,sQtFb,-0.387254133348,0.0
+Bens Industriais,quantidade_papeis,mQtLk,-0.270131407858,0.0
+Bens Industriais,quantidade_papeis,meQtLk,-0.193512359197,0.0
+Bens Industriais,quantidade_papeis,dpQtLk,-0.764996754586,0.0
+Bens Industriais,quantidade_papeis,vQtLk,-0.764996745647,0.0
+Bens Industriais,quantidade_papeis,sQtLk,-0.270106368532,0.0
+Bens Industriais,quantidade_papeis,mQtGp,-0.195535528895,0.0
+Bens Industriais,quantidade_papeis,meQtGp,-0.190768304179,0.0
+Bens Industriais,quantidade_papeis,dpQtGp,-0.735104902078,0.0
+Bens Industriais,quantidade_papeis,vQtGp,-0.735104902509,0.0
+Bens Industriais,quantidade_papeis,sQtGp,-0.195524021378,0.0
+Bens Industriais,quantidade_papeis,mPol,-0.793218999438,0.0
+Bens Industriais,quantidade_papeis,mePol,-0.76804838371,0.0
+Bens Industriais,quantidade_papeis,dpPol,-0.899261999435,0.0
+Bens Industriais,quantidade_papeis,vPol,-0.899264092967,0.0
+Bens Industriais,quantidade_papeis,sPol,-0.771695020467,0.0
+Bens Industriais,volume_financeiro,qt,-0.701583205708,0.0
+Bens Industriais,volume_financeiro,mQtCom,-0.570004617519,0.0
+Bens Industriais,volume_financeiro,meQtCom,-0.520295585409,0.0
+Bens Industriais,volume_financeiro,dpQtCom,-0.903694528622,0.0
+Bens Industriais,volume_financeiro,vQtCom,-0.903694527063,0.0
+Bens Industriais,volume_financeiro,sQtCom,-0.569719491832,0.0
+Bens Industriais,volume_financeiro,mQtTw,-0.650202894869,0.0
+Bens Industriais,volume_financeiro,meQtTw,-0.555080059228,0.0
+Bens Industriais,volume_financeiro,dpQtTw,-0.942455510466,0.0
+Bens Industriais,volume_financeiro,vQtTw,-0.942455542409,0.0
+Bens Industriais,volume_financeiro,sQtTw,-0.64458968832,0.0
+Bens Industriais,volume_financeiro,mQtFb,-0.643215819426,0.0
+Bens Industriais,volume_financeiro,meQtFb,-0.54516490682,0.0
+Bens Industriais,volume_financeiro,dpQtFb,-0.936912187379,0.0
+Bens Industriais,volume_financeiro,vQtFb,-0.936928738535,0.0
+Bens Industriais,volume_financeiro,sQtFb,-0.637753769708,0.0
+Bens Industriais,volume_financeiro,mQtLk,-0.576457166697,0.0
+Bens Industriais,volume_financeiro,meQtLk,-0.518795437254,0.0
+Bens Industriais,volume_financeiro,dpQtLk,-0.911292266811,0.0
+Bens Industriais,volume_financeiro,vQtLk,-0.911292534583,0.0
+Bens Industriais,volume_financeiro,sQtLk,-0.576139063264,0.0
+Bens Industriais,volume_financeiro,mQtGp,-0.518848778179,0.0
+Bens Industriais,volume_financeiro,meQtGp,-0.511299900332,0.0
+Bens Industriais,volume_financeiro,dpQtGp,-0.881826219224,0.0
+Bens Industriais,volume_financeiro,vQtGp,-0.881826217435,0.0
+Bens Industriais,volume_financeiro,sQtGp,-0.518815176604,0.0
+Bens Industriais,volume_financeiro,mPol,-0.790663202562,0.0
+Bens Industriais,volume_financeiro,mePol,-0.622571660376,0.0
+Bens Industriais,volume_financeiro,dpPol,-0.947534614714,0.0
+Bens Industriais,volume_financeiro,vPol,-0.947218394711,0.0
+Bens Industriais,volume_financeiro,sPol,-0.719058020783,0.0
+Construcao e Transporte,media,qt,-0.789743111497,0.0
+Construcao e Transporte,media,mQtCom,-0.485661340726,0.0
+Construcao e Transporte,media,meQtCom,-0.422315205012,0.0
+Construcao e Transporte,media,dpQtCom,-0.611196928378,0.0
+Construcao e Transporte,media,vQtCom,-0.611196916601,0.0
+Construcao e Transporte,media,sQtCom,-0.485661581515,0.0
+Construcao e Transporte,media,mQtTw,-0.763764785757,0.0
+Construcao e Transporte,media,meQtTw,-0.590364149821,0.0
+Construcao e Transporte,media,dpQtTw,-0.825519674547,0.0
+Construcao e Transporte,media,vQtTw,-0.825519571422,0.0
+Construcao e Transporte,media,sQtTw,-0.763781418245,0.0
+Construcao e Transporte,media,mQtFb,-0.754385303076,0.0
+Construcao e Transporte,media,meQtFb,-0.571597815425,0.0
+Construcao e Transporte,media,dpQtFb,-0.81813710191,0.0
+Construcao e Transporte,media,vQtFb,-0.818151782856,0.0
+Construcao e Transporte,media,sQtFb,-0.754027572985,0.0
+Construcao e Transporte,media,mQtLk,-0.570231824357,0.0
+Construcao e Transporte,media,meQtLk,-0.443969460345,0.0
+Construcao e Transporte,media,dpQtLk,-0.670817588981,0.0
+Construcao e Transporte,media,vQtLk,-0.670817585932,0.0
+Construcao e Transporte,media,sQtLk,-0.570003294244,0.0
+Construcao e Transporte,media,mQtGp,-0.426467256207,0.0
+Construcao e Transporte,media,meQtGp,-0.417476270044,0.0
+Construcao e Transporte,media,dpQtGp,-0.564950098585,0.0
+Construcao e Transporte,media,vQtGp,-0.564950101159,0.0
+Construcao e Transporte,media,sQtGp,-0.426468946317,0.0
+Construcao e Transporte,media,mPol,-0.853083863516,0.0
+Construcao e Transporte,media,mePol,-0.823439180332,0.0
+Construcao e Transporte,media,dpPol,-0.837152587014,0.0
+Construcao e Transporte,media,vPol,-0.837167515159,0.0
+Construcao e Transporte,media,sPol,-0.862202056801,0.0
+Construcao e Transporte,negocios,qt,-0.78085159594,0.0
+Construcao e Transporte,negocios,mQtCom,-0.546150670029,0.0
+Construcao e Transporte,negocios,meQtCom,-0.512343919463,0.0
+Construcao e Transporte,negocios,dpQtCom,-0.793457897118,0.0
+Construcao e Transporte,negocios,vQtCom,-0.793457894775,0.0
+Construcao e Transporte,negocios,sQtCom,-0.546113279144,0.0
+Construcao e Transporte,negocios,mQtTw,-0.636715447592,0.0
+Construcao e Transporte,negocios,meQtTw,-0.539910822363,0.0
+Construcao e Transporte,negocios,dpQtTw,-0.862440815865,0.0
+Construcao e Transporte,negocios,vQtTw,-0.86244079134,0.0
+Construcao e Transporte,negocios,sQtTw,-0.635715887678,0.0
+Construcao e Transporte,negocios,mQtFb,-0.614155030432,0.0
+Construcao e Transporte,negocios,meQtFb,-0.528835077461,0.0
+Construcao e Transporte,negocios,dpQtFb,-0.848656876511,0.0
+Construcao e Transporte,negocios,vQtFb,-0.84865757403,0.0
+Construcao e Transporte,negocios,sQtFb,-0.612969722335,0.0
+Construcao e Transporte,negocios,mQtLk,-0.5494522172,0.0
+Construcao e Transporte,negocios,meQtLk,-0.510515228009,0.0
+Construcao e Transporte,negocios,dpQtLk,-0.802230219066,0.0
+Construcao e Transporte,negocios,vQtLk,-0.802230124391,0.0
+Construcao e Transporte,negocios,sQtLk,-0.549117029713,0.0
+Construcao e Transporte,negocios,mQtGp,-0.511050575701,0.0
+Construcao e Transporte,negocios,meQtGp,-0.508576632227,0.0
+Construcao e Transporte,negocios,dpQtGp,-0.771099716055,0.0
+Construcao e Transporte,negocios,vQtGp,-0.771099717051,0.0
+Construcao e Transporte,negocios,sQtGp,-0.511051066744,0.0
+Construcao e Transporte,negocios,mPol,-0.837528771126,0.0
+Construcao e Transporte,negocios,mePol,-0.794901444284,0.0
+Construcao e Transporte,negocios,dpPol,-0.902090728489,0.0
+Construcao e Transporte,negocios,vPol,-0.902098708225,0.0
+Construcao e Transporte,negocios,sPol,-0.826364660394,0.0
+Construcao e Transporte,quantidade_papeis,qt,-0.690674812217,0.0
+Construcao e Transporte,quantidade_papeis,mQtCom,-0.509582349614,0.0
+Construcao e Transporte,quantidade_papeis,meQtCom,-0.497124473549,0.0
+Construcao e Transporte,quantidade_papeis,dpQtCom,-0.863186893174,0.0
+Construcao e Transporte,quantidade_papeis,vQtCom,-0.863186650405,0.0
+Construcao e Transporte,quantidade_papeis,sQtCom,-0.509506901185,0.0
+Construcao e Transporte,quantidade_papeis,mQtTw,-0.570390830585,0.0
+Construcao e Transporte,quantidade_papeis,meQtTw,-0.522912782658,0.0
+Construcao e Transporte,quantidade_papeis,dpQtTw,-0.905715248661,0.0
+Construcao e Transporte,quantidade_papeis,vQtTw,-0.905715283985,0.0
+Construcao e Transporte,quantidade_papeis,sQtTw,-0.56718634535,0.0
+Construcao e Transporte,quantidade_papeis,mQtFb,-0.553412569309,0.0
+Construcao e Transporte,quantidade_papeis,meQtFb,-0.516091400462,0.0
+Construcao e Transporte,quantidade_papeis,dpQtFb,-0.894192258678,0.0
+Construcao e Transporte,quantidade_papeis,vQtFb,-0.894192211873,0.0
+Construcao e Transporte,quantidade_papeis,sQtFb,-0.550420422376,0.0
+Construcao e Transporte,quantidade_papeis,mQtLk,-0.504727622406,0.0
+Construcao e Transporte,quantidade_papeis,meQtLk,-0.493801544864,0.0
+Construcao e Transporte,quantidade_papeis,dpQtLk,-0.869064413276,0.0
+Construcao e Transporte,quantidade_papeis,vQtLk,-0.869071133478,0.0
+Construcao e Transporte,quantidade_papeis,sQtLk,-0.503706952639,0.0
+Construcao e Transporte,quantidade_papeis,mQtGp,-0.493372722611,0.0
+Construcao e Transporte,quantidade_papeis,meQtGp,-0.492254982567,0.0
+Construcao e Transporte,quantidade_papeis,dpQtGp,-0.848598794675,0.0
+Construcao e Transporte,quantidade_papeis,vQtGp,-0.848598795473,0.0
+Construcao e Transporte,quantidade_papeis,sQtGp,-0.493372394458,0.0
+Construcao e Transporte,quantidade_papeis,mPol,-0.751533673943,0.0
+Construcao e Transporte,quantidade_papeis,mePol,-0.715866061529,0.0
+Construcao e Transporte,quantidade_papeis,dpPol,-0.940846650421,0.0
+Construcao e Transporte,quantidade_papeis,vPol,-0.940842911864,0.0
+Construcao e Transporte,quantidade_papeis,sPol,-0.742805214861,0.0
+Construcao e Transporte,volume_financeiro,qt,-0.656091853691,0.0
+Construcao e Transporte,volume_financeiro,mQtCom,-0.562936945521,0.0
+Construcao e Transporte,volume_financeiro,meQtCom,-0.534828269646,0.0
+Construcao e Transporte,volume_financeiro,dpQtCom,-0.89010218854,0.0
+Construcao e Transporte,volume_financeiro,vQtCom,-0.890102102281,0.0
+Construcao e Transporte,volume_financeiro,sQtCom,-0.562847257122,0.0
+Construcao e Transporte,volume_financeiro,mQtTw,-0.619303167428,0.0
+Construcao e Transporte,volume_financeiro,meQtTw,-0.590191496718,0.0
+Construcao e Transporte,volume_financeiro,dpQtTw,-0.950156360979,0.0
+Construcao e Transporte,volume_financeiro,vQtTw,-0.950156432261,0.0
+Construcao e Transporte,volume_financeiro,sQtTw,-0.619412032738,0.0
+Construcao e Transporte,volume_financeiro,mQtFb,-0.639011717403,0.0
+Construcao e Transporte,volume_financeiro,meQtFb,-0.583975011214,0.0
+Construcao e Transporte,volume_financeiro,dpQtFb,-0.941941781971,0.0
+Construcao e Transporte,volume_financeiro,vQtFb,-0.941941763624,0.0
+Construcao e Transporte,volume_financeiro,sQtFb,-0.636546435296,0.0
+Construcao e Transporte,volume_financeiro,mQtLk,-0.572245800461,0.0
+Construcao e Transporte,volume_financeiro,meQtLk,-0.537401903724,0.0
+Construcao e Transporte,volume_financeiro,dpQtLk,-0.910280053239,0.0
+Construcao e Transporte,volume_financeiro,vQtLk,-0.910280094991,0.0
+Construcao e Transporte,volume_financeiro,sQtLk,-0.571138298808,0.0
+Construcao e Transporte,volume_financeiro,mQtGp,-0.533766491004,0.0
+Construcao e Transporte,volume_financeiro,meQtGp,-0.528161491397,0.0
+Construcao e Transporte,volume_financeiro,dpQtGp,-0.865267730841,0.0
+Construcao e Transporte,volume_financeiro,vQtGp,-0.865267730215,0.0
+Construcao e Transporte,volume_financeiro,sQtGp,-0.533764599039,0.0
+Construcao e Transporte,volume_financeiro,mPol,-0.769509237936,0.0
+Construcao e Transporte,volume_financeiro,mePol,-0.68115402424,0.0
+Construcao e Transporte,volume_financeiro,dpPol,-0.951012039807,0.0
+Construcao e Transporte,volume_financeiro,vPol,-0.951001251845,0.0
+Construcao e Transporte,volume_financeiro,sPol,-0.708301486063,0.0
+Consumo Ciclico,media,qt,-0.588830149936,0.0
+Consumo Ciclico,media,mQtCom,-0.283851931796,0.0
+Consumo Ciclico,media,meQtCom,-0.237550080106,0.0
+Consumo Ciclico,media,dpQtCom,-0.78911181553,0.0
+Consumo Ciclico,media,vQtCom,-0.78911181485,0.0
+Consumo Ciclico,media,sQtCom,-0.283685783275,0.0
+Consumo Ciclico,media,mQtTw,-0.370417356306,0.0
+Consumo Ciclico,media,meQtTw,-0.272322620846,0.0
+Consumo Ciclico,media,dpQtTw,-0.901036848957,0.0
+Consumo Ciclico,media,vQtTw,-0.901036787472,0.0
+Consumo Ciclico,media,sQtTw,-0.367198106542,0.0
+Consumo Ciclico,media,mQtFb,-0.342424961005,0.0
+Consumo Ciclico,media,meQtFb,-0.250003246384,0.0
+Consumo Ciclico,media,dpQtFb,-0.866047555224,0.0
+Consumo Ciclico,media,vQtFb,-0.866047612354,0.0
+Consumo Ciclico,media,sQtFb,-0.341944454613,0.0
+Consumo Ciclico,media,mQtLk,-0.299363442812,0.0
+Consumo Ciclico,media,meQtLk,-0.235726908437,0.0
+Consumo Ciclico,media,dpQtLk,-0.817961371798,0.0
+Consumo Ciclico,media,vQtLk,-0.817959984353,0.0
+Consumo Ciclico,media,sQtLk,-0.298998313777,0.0
+Consumo Ciclico,media,mQtGp,-0.228792973948,0.0
+Consumo Ciclico,media,meQtGp,-0.226369197294,0.0
+Consumo Ciclico,media,dpQtGp,-0.753420547125,0.0
+Consumo Ciclico,media,vQtGp,-0.753420548362,0.0
+Consumo Ciclico,media,sQtGp,-0.228793133168,0.0
+Consumo Ciclico,media,mPol,-0.648180707165,0.0
+Consumo Ciclico,media,mePol,-0.583337623999,0.0
+Consumo Ciclico,media,dpPol,-0.900512820954,0.0
+Consumo Ciclico,media,vPol,-0.900757262441,0.0
+Consumo Ciclico,media,sPol,-0.632377174777,0.0
+Consumo Ciclico,negocios,qt,-0.588802195426,0.0
+Consumo Ciclico,negocios,mQtCom,-0.233161942139,0.0
+Consumo Ciclico,negocios,meQtCom,-0.181783282202,0.0
+Consumo Ciclico,negocios,dpQtCom,-0.77344433905,0.0
+Consumo Ciclico,negocios,vQtCom,-0.773444337729,0.0
+Consumo Ciclico,negocios,sQtCom,-0.233235952504,0.0
+Consumo Ciclico,negocios,mQtTw,-0.346342743225,0.0
+Consumo Ciclico,negocios,meQtTw,-0.20089713964,0.0
+Consumo Ciclico,negocios,dpQtTw,-0.859887912403,0.0
+Consumo Ciclico,negocios,vQtTw,-0.85989561605,0.0
+Consumo Ciclico,negocios,sQtTw,-0.34533310525,0.0
+Consumo Ciclico,negocios,mQtFb,-0.311368235778,0.0
+Consumo Ciclico,negocios,meQtFb,-0.190556727246,0.0
+Consumo Ciclico,negocios,dpQtFb,-0.838233643976,0.0
+Consumo Ciclico,negocios,vQtFb,-0.83823394844,0.0
+Consumo Ciclico,negocios,sQtFb,-0.309732432613,0.0
+Consumo Ciclico,negocios,mQtLk,-0.236934458991,0.0
+Consumo Ciclico,negocios,meQtLk,-0.177259447285,0.0
+Consumo Ciclico,negocios,dpQtLk,-0.788269761948,0.0
+Consumo Ciclico,negocios,vQtLk,-0.788269744658,0.0
+Consumo Ciclico,negocios,sQtLk,-0.236747183734,0.0
+Consumo Ciclico,negocios,mQtGp,-0.180341802233,0.0
+Consumo Ciclico,negocios,meQtGp,-0.177106138591,0.0
+Consumo Ciclico,negocios,dpQtGp,-0.74685582455,0.0
+Consumo Ciclico,negocios,vQtGp,-0.746855826871,0.0
+Consumo Ciclico,negocios,sQtGp,-0.180348685004,0.0
+Consumo Ciclico,negocios,mPol,-0.661796377278,0.0
+Consumo Ciclico,negocios,mePol,-0.612534685923,0.0
+Consumo Ciclico,negocios,dpPol,-0.89558194869,0.0
+Consumo Ciclico,negocios,vPol,-0.895619994144,0.0
+Consumo Ciclico,negocios,sPol,-0.636284593727,0.0
+Consumo Ciclico,quantidade_papeis,qt,-0.789881069103,0.0
+Consumo Ciclico,quantidade_papeis,mQtCom,-0.479116424603,0.0
+Consumo Ciclico,quantidade_papeis,meQtCom,-0.428984027397,0.0
+Consumo Ciclico,quantidade_papeis,dpQtCom,-0.780986774091,0.0
+Consumo Ciclico,quantidade_papeis,vQtCom,-0.780986773641,0.0
+Consumo Ciclico,quantidade_papeis,sQtCom,-0.479126176658,0.0
+Consumo Ciclico,quantidade_papeis,mQtTw,-0.599640531043,0.0
+Consumo Ciclico,quantidade_papeis,meQtTw,-0.47258901414,0.0
+Consumo Ciclico,quantidade_papeis,dpQtTw,-0.849588453901,0.0
+Consumo Ciclico,quantidade_papeis,vQtTw,-0.849588474758,0.0
+Consumo Ciclico,quantidade_papeis,sQtTw,-0.59929293569,0.0
+Consumo Ciclico,quantidade_papeis,mQtFb,-0.577508871906,0.0
+Consumo Ciclico,quantidade_papeis,meQtFb,-0.45984329681,0.0
+Consumo Ciclico,quantidade_papeis,dpQtFb,-0.839700576619,0.0
+Consumo Ciclico,quantidade_papeis,vQtFb,-0.839700562046,0.0
+Consumo Ciclico,quantidade_papeis,sQtFb,-0.576978606139,0.0
+Consumo Ciclico,quantidade_papeis,mQtLk,-0.500609969176,0.0
+Consumo Ciclico,quantidade_papeis,meQtLk,-0.437281786028,0.0
+Consumo Ciclico,quantidade_papeis,dpQtLk,-0.79460791732,0.0
+Consumo Ciclico,quantidade_papeis,vQtLk,-0.794608442939,0.0
+Consumo Ciclico,quantidade_papeis,sQtLk,-0.500493915015,0.0
+Consumo Ciclico,quantidade_papeis,mQtGp,-0.438095035176,0.0
+Consumo Ciclico,quantidade_papeis,meQtGp,-0.433343132324,0.0
+Consumo Ciclico,quantidade_papeis,dpQtGp,-0.757299135925,0.0
+Consumo Ciclico,quantidade_papeis,vQtGp,-0.757299135925,0.0
+Consumo Ciclico,quantidade_papeis,sQtGp,-0.438096864142,0.0
+Consumo Ciclico,quantidade_papeis,mPol,-0.833453734087,0.0
+Consumo Ciclico,quantidade_papeis,mePol,-0.799532247933,0.0
+Consumo Ciclico,quantidade_papeis,dpPol,-0.89693378515,0.0
+Consumo Ciclico,quantidade_papeis,vPol,-0.896961841376,0.0
+Consumo Ciclico,quantidade_papeis,sPol,-0.824897643416,0.0
+Consumo Ciclico,volume_financeiro,qt,-0.627805571218,0.0
+Consumo Ciclico,volume_financeiro,mQtCom,-0.476035577971,0.0
+Consumo Ciclico,volume_financeiro,meQtCom,-0.443635043974,0.0
+Consumo Ciclico,volume_financeiro,dpQtCom,-0.8504076765,0.0
+Consumo Ciclico,volume_financeiro,vQtCom,-0.850407671468,0.0
+Consumo Ciclico,volume_financeiro,sQtCom,-0.477095642985,0.0
+Consumo Ciclico,volume_financeiro,mQtTw,-0.552581514079,0.0
+Consumo Ciclico,volume_financeiro,meQtTw,-0.432634053165,0.0
+Consumo Ciclico,volume_financeiro,dpQtTw,-0.893403804615,0.0
+Consumo Ciclico,volume_financeiro,vQtTw,-0.893420538791,0.0
+Consumo Ciclico,volume_financeiro,sQtTw,-0.553660304207,0.0
+Consumo Ciclico,volume_financeiro,mQtFb,-0.484940629278,0.0
+Consumo Ciclico,volume_financeiro,meQtFb,-0.425355588252,0.0
+Consumo Ciclico,volume_financeiro,dpQtFb,-0.861899723317,0.0
+Consumo Ciclico,volume_financeiro,vQtFb,-0.861918454943,0.0
+Consumo Ciclico,volume_financeiro,sQtFb,-0.484685570712,0.0
+Consumo Ciclico,volume_financeiro,mQtLk,-0.479503923955,0.0
+Consumo Ciclico,volume_financeiro,meQtLk,-0.434895443679,0.0
+Consumo Ciclico,volume_financeiro,dpQtLk,-0.841728288528,0.0
+Consumo Ciclico,volume_financeiro,vQtLk,-0.841728458692,0.0
+Consumo Ciclico,volume_financeiro,sQtLk,-0.477747121232,0.0
+Consumo Ciclico,volume_financeiro,mQtGp,-0.445796288376,0.0
+Consumo Ciclico,volume_financeiro,meQtGp,-0.440381429394,0.0
+Consumo Ciclico,volume_financeiro,dpQtGp,-0.769533919873,0.0
+Consumo Ciclico,volume_financeiro,vQtGp,-0.769533919973,0.0
+Consumo Ciclico,volume_financeiro,sQtGp,-0.445818895409,0.0
+Consumo Ciclico,volume_financeiro,mPol,-0.655377920746,0.0
+Consumo Ciclico,volume_financeiro,mePol,-0.528493850445,0.0
+Consumo Ciclico,volume_financeiro,dpPol,-0.894385972671,0.0
+Consumo Ciclico,volume_financeiro,vPol,-0.894632478609,0.0
+Consumo Ciclico,volume_financeiro,sPol,-0.619772502095,0.0
+Consumo nao Ciclico,media,qt,-0.660006927798,0.0
+Consumo nao Ciclico,media,mQtCom,-0.416104350282,0.0
+Consumo nao Ciclico,media,meQtCom,-0.402925731417,0.0
+Consumo nao Ciclico,media,dpQtCom,-0.776319383527,0.0
+Consumo nao Ciclico,media,vQtCom,-0.776319375974,0.0
+Consumo nao Ciclico,media,sQtCom,-0.415492964393,0.0
+Consumo nao Ciclico,media,mQtTw,-0.404975870029,0.0
+Consumo nao Ciclico,media,meQtTw,-0.357429423025,0.0
+Consumo nao Ciclico,media,dpQtTw,-0.827289707507,0.0
+Consumo nao Ciclico,media,vQtTw,-0.827289995309,0.0
+Consumo nao Ciclico,media,sQtTw,-0.407604047712,0.0
+Consumo nao Ciclico,media,mQtFb,-0.377521316064,0.0
+Consumo nao Ciclico,media,meQtFb,-0.352350439834,0.0
+Consumo nao Ciclico,media,dpQtFb,-0.806051312393,0.0
+Consumo nao Ciclico,media,vQtFb,-0.806051142221,0.0
+Consumo nao Ciclico,media,sQtFb,-0.376962177649,0.0
+Consumo nao Ciclico,media,mQtLk,-0.406157883013,0.0
+Consumo nao Ciclico,media,meQtLk,-0.395566134579,0.0
+Consumo nao Ciclico,media,dpQtLk,-0.790144877494,0.0
+Consumo nao Ciclico,media,vQtLk,-0.790143714637,0.0
+Consumo nao Ciclico,media,sQtLk,-0.40587683217,0.0
+Consumo nao Ciclico,media,mQtGp,-0.398724124361,0.0
+Consumo nao Ciclico,media,meQtGp,-0.40284139985,0.0
+Consumo nao Ciclico,media,dpQtGp,-0.749050622931,0.0
+Consumo nao Ciclico,media,vQtGp,-0.749050626687,0.0
+Consumo nao Ciclico,media,sQtGp,-0.398716579506,0.0
+Consumo nao Ciclico,media,mPol,-0.70024038848,0.0
+Consumo nao Ciclico,media,mePol,-0.641598275803,0.0
+Consumo nao Ciclico,media,dpPol,-0.901547727994,0.0
+Consumo nao Ciclico,media,vPol,-0.901596850328,0.0
+Consumo nao Ciclico,media,sPol,-0.666749249384,0.0
+Consumo nao Ciclico,negocios,qt,-0.683580530872,0.0
+Consumo nao Ciclico,negocios,mQtCom,-0.361870021696,0.0
+Consumo nao Ciclico,negocios,meQtCom,-0.324461359797,0.0
+Consumo nao Ciclico,negocios,dpQtCom,-0.726634658195,0.0
+Consumo nao Ciclico,negocios,vQtCom,-0.726634656519,0.0
+Consumo nao Ciclico,negocios,sQtCom,-0.36181931643,0.0
+Consumo nao Ciclico,negocios,mQtTw,-0.421467088051,0.0
+Consumo nao Ciclico,negocios,meQtTw,-0.324799051887,0.0
+Consumo nao Ciclico,negocios,dpQtTw,-0.793718106368,0.0
+Consumo nao Ciclico,negocios,vQtTw,-0.793718088054,0.0
+Consumo nao Ciclico,negocios,sQtTw,-0.422850282901,0.0
+Consumo nao Ciclico,negocios,mQtFb,-0.395330237799,0.0
+Consumo nao Ciclico,negocios,meQtFb,-0.315179163578,0.0
+Consumo nao Ciclico,negocios,dpQtFb,-0.77635027072,0.0
+Consumo nao Ciclico,negocios,vQtFb,-0.77635073117,0.0
+Consumo nao Ciclico,negocios,sQtFb,-0.395294152353,0.0
+Consumo nao Ciclico,negocios,mQtLk,-0.355010766076,0.0
+Consumo nao Ciclico,negocios,meQtLk,-0.316422501948,0.0
+Consumo nao Ciclico,negocios,dpQtLk,-0.734826649874,0.0
+Consumo nao Ciclico,negocios,vQtLk,-0.734827116878,0.0
+Consumo nao Ciclico,negocios,sQtLk,-0.35462509877,0.0
+Consumo nao Ciclico,negocios,mQtGp,-0.322957957498,0.0
+Consumo nao Ciclico,negocios,meQtGp,-0.320608692839,0.0
+Consumo nao Ciclico,negocios,dpQtGp,-0.70008375791,0.0
+Consumo nao Ciclico,negocios,vQtGp,-0.700083758113,0.0
+Consumo nao Ciclico,negocios,sQtGp,-0.32295511422,0.0
+Consumo nao Ciclico,negocios,mPol,-0.726969603113,0.0
+Consumo nao Ciclico,negocios,mePol,-0.691062548583,0.0
+Consumo nao Ciclico,negocios,dpPol,-0.854432081849,0.0
+Consumo nao Ciclico,negocios,vPol,-0.854492961087,0.0
+Consumo nao Ciclico,negocios,sPol,-0.716407550618,0.0
+Consumo nao Ciclico,quantidade_papeis,qt,-0.709298795598,0.0
+Consumo nao Ciclico,quantidade_papeis,mQtCom,-0.600185337179,0.0
+Consumo nao Ciclico,quantidade_papeis,meQtCom,-0.576451639383,0.0
+Consumo nao Ciclico,quantidade_papeis,dpQtCom,-0.844811505989,0.0
+Consumo nao Ciclico,quantidade_papeis,vQtCom,-0.844811510455,0.0
+Consumo nao Ciclico,quantidade_papeis,sQtCom,-0.599994008535,0.0
+Consumo nao Ciclico,quantidade_papeis,mQtTw,-0.647107931667,0.0
+Consumo nao Ciclico,quantidade_papeis,meQtTw,-0.583472777771,0.0
+Consumo nao Ciclico,quantidade_papeis,dpQtTw,-0.892070610897,0.0
+Consumo nao Ciclico,quantidade_papeis,vQtTw,-0.892070999209,0.0
+Consumo nao Ciclico,quantidade_papeis,sQtTw,-0.647254550654,0.0
+Consumo nao Ciclico,quantidade_papeis,mQtFb,-0.633105296517,0.0
+Consumo nao Ciclico,quantidade_papeis,meQtFb,-0.576922306064,0.0
+Consumo nao Ciclico,quantidade_papeis,dpQtFb,-0.885370082679,0.0
+Consumo nao Ciclico,quantidade_papeis,vQtFb,-0.885374019765,0.0
+Consumo nao Ciclico,quantidade_papeis,sQtFb,-0.632459006848,0.0
+Consumo nao Ciclico,quantidade_papeis,mQtLk,-0.601580024106,0.0
+Consumo nao Ciclico,quantidade_papeis,meQtLk,-0.571363724427,0.0
+Consumo nao Ciclico,quantidade_papeis,dpQtLk,-0.855952713863,0.0
+Consumo nao Ciclico,quantidade_papeis,vQtLk,-0.855952709243,0.0
+Consumo nao Ciclico,quantidade_papeis,sQtLk,-0.597979826672,0.0
+Consumo nao Ciclico,quantidade_papeis,mQtGp,-0.574812240879,0.0
+Consumo nao Ciclico,quantidade_papeis,meQtGp,-0.572887093809,0.0
+Consumo nao Ciclico,quantidade_papeis,dpQtGp,-0.822256159338,0.0
+Consumo nao Ciclico,quantidade_papeis,vQtGp,-0.822256160616,0.0
+Consumo nao Ciclico,quantidade_papeis,sQtGp,-0.574802659363,0.0
+Consumo nao Ciclico,quantidade_papeis,mPol,-0.750120794508,0.0
+Consumo nao Ciclico,quantidade_papeis,mePol,-0.712622636765,0.0
+Consumo nao Ciclico,quantidade_papeis,dpPol,-0.928573685229,0.0
+Consumo nao Ciclico,quantidade_papeis,vPol,-0.928591693899,0.0
+Consumo nao Ciclico,quantidade_papeis,sPol,-0.720349800503,0.0
+Consumo nao Ciclico,volume_financeiro,qt,-0.815615196869,0.0
+Consumo nao Ciclico,volume_financeiro,mQtCom,-0.756714426161,0.0
+Consumo nao Ciclico,volume_financeiro,meQtCom,-0.731197658537,0.0
+Consumo nao Ciclico,volume_financeiro,dpQtCom,-0.924208551079,0.0
+Consumo nao Ciclico,volume_financeiro,vQtCom,-0.924208547048,0.0
+Consumo nao Ciclico,volume_financeiro,sQtCom,-0.755387801366,0.0
+Consumo nao Ciclico,volume_financeiro,mQtTw,-0.805337818208,0.0
+Consumo nao Ciclico,volume_financeiro,meQtTw,-0.754833584173,0.0
+Consumo nao Ciclico,volume_financeiro,dpQtTw,-0.961107136697,0.0
+Consumo nao Ciclico,volume_financeiro,vQtTw,-0.961117106104,0.0
+Consumo nao Ciclico,volume_financeiro,sQtTw,-0.806701248591,0.0
+Consumo nao Ciclico,volume_financeiro,mQtFb,-0.787942484746,0.0
+Consumo nao Ciclico,volume_financeiro,meQtFb,-0.74921477,0.0
+Consumo nao Ciclico,volume_financeiro,dpQtFb,-0.954211401005,0.0
+Consumo nao Ciclico,volume_financeiro,vQtFb,-0.954214409615,0.0
+Consumo nao Ciclico,volume_financeiro,sQtFb,-0.793008576558,0.0
+Consumo nao Ciclico,volume_financeiro,mQtLk,-0.765336254047,0.0
+Consumo nao Ciclico,volume_financeiro,meQtLk,-0.733040855836,0.0
+Consumo nao Ciclico,volume_financeiro,dpQtLk,-0.931696994152,0.0
+Consumo nao Ciclico,volume_financeiro,vQtLk,-0.93169726406,0.0
+Consumo nao Ciclico,volume_financeiro,sQtLk,-0.765714508378,0.0
+Consumo nao Ciclico,volume_financeiro,mQtGp,-0.730607737714,0.0
+Consumo nao Ciclico,volume_financeiro,meQtGp,-0.72505908757,0.0
+Consumo nao Ciclico,volume_financeiro,dpQtGp,-0.904151267937,0.0
+Consumo nao Ciclico,volume_financeiro,vQtGp,-0.904151270392,0.0
+Consumo nao Ciclico,volume_financeiro,sQtGp,-0.730588872712,0.0
+Consumo nao Ciclico,volume_financeiro,mPol,-0.839173308215,0.0
+Consumo nao Ciclico,volume_financeiro,mePol,-0.814778370584,0.0
+Consumo nao Ciclico,volume_financeiro,dpPol,-0.964959698254,0.0
+Consumo nao Ciclico,volume_financeiro,vPol,-0.965016557605,0.0
+Consumo nao Ciclico,volume_financeiro,sPol,-0.842067482705,0.0
+Financeiro e Outros,media,qt,-0.569240333778,0.0
+Financeiro e Outros,media,mQtCom,-0.21392809935,0.0
+Financeiro e Outros,media,meQtCom,-0.165817180966,0.0
+Financeiro e Outros,media,dpQtCom,-0.730004946531,0.0
+Financeiro e Outros,media,vQtCom,-0.730004942108,0.0
+Financeiro e Outros,media,sQtCom,-0.213939774616,0.0
+Financeiro e Outros,media,mQtTw,-0.256294828101,0.0
+Financeiro e Outros,media,meQtTw,-0.1477832058,0.0
+Financeiro e Outros,media,dpQtTw,-0.819848564968,0.0
+Financeiro e Outros,media,vQtTw,-0.819849533814,0.0
+Financeiro e Outros,media,sQtTw,-0.257345697117,0.0
+Financeiro e Outros,media,mQtFb,-0.213236286445,0.0
+Financeiro e Outros,media,meQtFb,-0.136070677108,0.0
+Financeiro e Outros,media,dpQtFb,-0.785619674403,0.0
+Financeiro e Outros,media,vQtFb,-0.785619557476,0.0
+Financeiro e Outros,media,sQtFb,-0.213969927695,0.0
+Financeiro e Outros,media,mQtLk,-0.210154059325,0.0
+Financeiro e Outros,media,meQtLk,-0.157903159413,0.0
+Financeiro e Outros,media,dpQtLk,-0.753709624037,0.0
+Financeiro e Outros,media,vQtLk,-0.753716859858,0.0
+Financeiro e Outros,media,sQtLk,-0.209838910279,0.0
+Financeiro e Outros,media,mQtGp,-0.159330955389,0.0
+Financeiro e Outros,media,meQtGp,-0.15924646959,0.0
+Financeiro e Outros,media,dpQtGp,-0.690189644239,0.0
+Financeiro e Outros,media,vQtGp,-0.690189638154,0.0
+Financeiro e Outros,media,sQtGp,-0.159330530894,0.0
+Financeiro e Outros,media,mPol,-0.670453229753,0.0
+Financeiro e Outros,media,mePol,-0.600947549951,0.0
+Financeiro e Outros,media,dpPol,-0.869708420838,0.0
+Financeiro e Outros,media,vPol,-0.869242245181,0.0
+Financeiro e Outros,media,sPol,-0.642626358101,0.0
+Financeiro e Outros,negocios,qt,-0.6598736583,0.0
+Financeiro e Outros,negocios,mQtCom,-0.274000644752,0.0
+Financeiro e Outros,negocios,meQtCom,-0.218553998308,0.0
+Financeiro e Outros,negocios,dpQtCom,-0.776746675407,0.0
+Financeiro e Outros,negocios,vQtCom,-0.776748084124,0.0
+Financeiro e Outros,negocios,sQtCom,-0.274332691663,0.0
+Financeiro e Outros,negocios,mQtTw,-0.354846870039,0.0
+Financeiro e Outros,negocios,meQtTw,-0.240307654052,0.0
+Financeiro e Outros,negocios,dpQtTw,-0.870835896382,0.0
+Financeiro e Outros,negocios,vQtTw,-0.87083587862,0.0
+Financeiro e Outros,negocios,sQtTw,-0.356037607295,0.0
+Financeiro e Outros,negocios,mQtFb,-0.328106630945,0.0
+Financeiro e Outros,negocios,meQtFb,-0.226591143198,0.0
+Financeiro e Outros,negocios,dpQtFb,-0.812671568831,0.0
+Financeiro e Outros,negocios,vQtFb,-0.812674383414,0.0
+Financeiro e Outros,negocios,sQtFb,-0.325187392321,0.0
+Financeiro e Outros,negocios,mQtLk,-0.280733548476,0.0
+Financeiro e Outros,negocios,meQtLk,-0.211491248622,0.0
+Financeiro e Outros,negocios,dpQtLk,-0.787403542283,0.0
+Financeiro e Outros,negocios,vQtLk,-0.787403517009,0.0
+Financeiro e Outros,negocios,sQtLk,-0.280109483005,0.0
+Financeiro e Outros,negocios,mQtGp,-0.216582342532,0.0
+Financeiro e Outros,negocios,meQtGp,-0.211255468457,0.0
+Financeiro e Outros,negocios,dpQtGp,-0.747259959705,0.0
+Financeiro e Outros,negocios,vQtGp,-0.747259906607,0.0
+Financeiro e Outros,negocios,sQtGp,-0.216580538026,0.0
+Financeiro e Outros,negocios,mPol,-0.640872080225,0.0
+Financeiro e Outros,negocios,mePol,-0.547526142784,0.0
+Financeiro e Outros,negocios,dpPol,-0.890895097487,0.0
+Financeiro e Outros,negocios,vPol,-0.890911861955,0.0
+Financeiro e Outros,negocios,sPol,-0.601459412684,0.0
+Financeiro e Outros,quantidade_papeis,qt,-0.610369792335,0.0
+Financeiro e Outros,quantidade_papeis,mQtCom,-0.373613004871,0.0
+Financeiro e Outros,quantidade_papeis,meQtCom,-0.322025420104,0.0
+Financeiro e Outros,quantidade_papeis,dpQtCom,-0.834273248231,0.0
+Financeiro e Outros,quantidade_papeis,vQtCom,-0.834273247756,0.0
+Financeiro e Outros,quantidade_papeis,sQtCom,-0.373190072201,0.0
+Financeiro e Outros,quantidade_papeis,mQtTw,-0.456190614191,0.0
+Financeiro e Outros,quantidade_papeis,meQtTw,-0.349993176613,0.0
+Financeiro e Outros,quantidade_papeis,dpQtTw,-0.895597172249,0.0
+Financeiro e Outros,quantidade_papeis,vQtTw,-0.895598375155,0.0
+Financeiro e Outros,quantidade_papeis,sQtTw,-0.456770192457,0.0
+Financeiro e Outros,quantidade_papeis,mQtFb,-0.443934297677,0.0
+Financeiro e Outros,quantidade_papeis,meQtFb,-0.339089199688,0.0
+Financeiro e Outros,quantidade_papeis,dpQtFb,-0.889117162175,0.0
+Financeiro e Outros,quantidade_papeis,vQtFb,-0.889117152874,0.0
+Financeiro e Outros,quantidade_papeis,sQtFb,-0.443667373123,0.0
+Financeiro e Outros,quantidade_papeis,mQtLk,-0.517464947504,0.0
+Financeiro e Outros,quantidade_papeis,meQtLk,-0.314416659332,0.0
+Financeiro e Outros,quantidade_papeis,dpQtLk,-0.848005466537,0.0
+Financeiro e Outros,quantidade_papeis,vQtLk,-0.848005466887,0.0
+Financeiro e Outros,quantidade_papeis,sQtLk,-0.51750965471,0.0
+Financeiro e Outros,quantidade_papeis,mQtGp,-0.319260259059,0.0
+Financeiro e Outros,quantidade_papeis,meQtGp,-0.309700172224,0.0
+Financeiro e Outros,quantidade_papeis,dpQtGp,-0.804601727426,0.0
+Financeiro e Outros,quantidade_papeis,vQtGp,-0.804601741726,0.0
+Financeiro e Outros,quantidade_papeis,sQtGp,-0.319164459873,0.0
+Financeiro e Outros,quantidade_papeis,mPol,-0.549464353323,0.0
+Financeiro e Outros,quantidade_papeis,mePol,-0.477886822495,0.0
+Financeiro e Outros,quantidade_papeis,dpPol,-0.936340234885,0.0
+Financeiro e Outros,quantidade_papeis,vPol,-0.936358918937,0.0
+Financeiro e Outros,quantidade_papeis,sPol,-0.535696283854,0.0
+Financeiro e Outros,volume_financeiro,qt,-0.828118127748,0.0
+Financeiro e Outros,volume_financeiro,mQtCom,-0.771499676037,0.0
+Financeiro e Outros,volume_financeiro,meQtCom,-0.760328881606,0.0
+Financeiro e Outros,volume_financeiro,dpQtCom,-0.918421540307,0.0
+Financeiro e Outros,volume_financeiro,vQtCom,-0.918421539144,0.0
+Financeiro e Outros,volume_financeiro,sQtCom,-0.771340925658,0.0
+Financeiro e Outros,volume_financeiro,mQtTw,-0.791801727049,0.0
+Financeiro e Outros,volume_financeiro,meQtTw,-0.769594131615,0.0
+Financeiro e Outros,volume_financeiro,dpQtTw,-0.944990995968,0.0
+Financeiro e Outros,volume_financeiro,vQtTw,-0.944999157154,0.0
+Financeiro e Outros,volume_financeiro,sQtTw,-0.797616616104,0.0
+Financeiro e Outros,volume_financeiro,mQtFb,-0.788354411524,0.0
+Financeiro e Outros,volume_financeiro,meQtFb,-0.770412209635,0.0
+Financeiro e Outros,volume_financeiro,dpQtFb,-0.9447787113,0.0
+Financeiro e Outros,volume_financeiro,vQtFb,-0.944778680352,0.0
+Financeiro e Outros,volume_financeiro,sQtFb,-0.792368964444,0.0
+Financeiro e Outros,volume_financeiro,mQtLk,-0.787585460721,0.0
+Financeiro e Outros,volume_financeiro,meQtLk,-0.760642149298,0.0
+Financeiro e Outros,volume_financeiro,dpQtLk,-0.926305255623,0.0
+Financeiro e Outros,volume_financeiro,vQtLk,-0.926305257915,0.0
+Financeiro e Outros,volume_financeiro,sQtLk,-0.786793054262,0.0
+Financeiro e Outros,volume_financeiro,mQtGp,-0.761785167226,0.0
+Financeiro e Outros,volume_financeiro,meQtGp,-0.759305620144,0.0
+Financeiro e Outros,volume_financeiro,dpQtGp,-0.905354696178,0.0
+Financeiro e Outros,volume_financeiro,vQtGp,-0.905354697818,0.0
+Financeiro e Outros,volume_financeiro,sQtGp,-0.761796523282,0.0
+Financeiro e Outros,volume_financeiro,mPol,-0.838234826652,0.0
+Financeiro e Outros,volume_financeiro,mePol,-0.794231901453,0.0
+Financeiro e Outros,volume_financeiro,dpPol,-0.967403926422,0.0
+Financeiro e Outros,volume_financeiro,vPol,-0.96747277619,0.0
+Financeiro e Outros,volume_financeiro,sPol,-0.819533691883,0.0
+Materiais Basicos,media,qt,-0.715536941281,0.0
+Materiais Basicos,media,mQtCom,-0.497431925084,0.0
+Materiais Basicos,media,meQtCom,-0.439001777609,0.0
+Materiais Basicos,media,dpQtCom,-0.749273932811,0.0
+Materiais Basicos,media,vQtCom,-0.749273933792,0.0
+Materiais Basicos,media,sQtCom,-0.497468026997,0.0
+Materiais Basicos,media,mQtTw,-0.694814671566,0.0
+Materiais Basicos,media,meQtTw,-0.536040729805,0.0
+Materiais Basicos,media,dpQtTw,-0.845706566066,0.0
+Materiais Basicos,media,vQtTw,-0.845706484896,0.0
+Materiais Basicos,media,sQtTw,-0.692052299636,0.0
+Materiais Basicos,media,mQtFb,-0.694884504879,0.0
+Materiais Basicos,media,meQtFb,-0.524497228868,0.0
+Materiais Basicos,media,dpQtFb,-0.842670150929,0.0
+Materiais Basicos,media,vQtFb,-0.842673503915,0.0
+Materiais Basicos,media,sQtFb,-0.69550420965,0.0
+Materiais Basicos,media,mQtLk,-0.562226946035,0.0
+Materiais Basicos,media,meQtLk,-0.454070516627,0.0
+Materiais Basicos,media,dpQtLk,-0.778230020209,0.0
+Materiais Basicos,media,vQtLk,-0.778230003375,0.0
+Materiais Basicos,media,sQtLk,-0.561760065611,0.0
+Materiais Basicos,media,mQtGp,-0.447992842416,0.0
+Materiais Basicos,media,meQtGp,-0.438415210163,0.0
+Materiais Basicos,media,dpQtGp,-0.719112621534,0.0
+Materiais Basicos,media,vQtGp,-0.719112621227,0.0
+Materiais Basicos,media,sQtGp,-0.447992906928,0.0
+Materiais Basicos,media,mPol,-0.729209095789,0.0
+Materiais Basicos,media,mePol,-0.637763128254,0.0
+Materiais Basicos,media,dpPol,-0.86252955127,0.0
+Materiais Basicos,media,vPol,-0.861983965755,0.0
+Materiais Basicos,media,sPol,-0.710238774297,0.0
+Materiais Basicos,negocios,qt,-0.685339036741,0.0
+Materiais Basicos,negocios,mQtCom,-0.379285269145,0.0
+Materiais Basicos,negocios,meQtCom,-0.332750525046,0.0
+Materiais Basicos,negocios,dpQtCom,-0.853793051961,0.0
+Materiais Basicos,negocios,vQtCom,-0.853793052204,0.0
+Materiais Basicos,negocios,sQtCom,-0.379243116301,0.0
+Materiais Basicos,negocios,mQtTw,-0.494335313691,0.0
+Materiais Basicos,negocios,meQtTw,-0.363597722131,0.0
+Materiais Basicos,negocios,dpQtTw,-0.900258174624,0.0
+Materiais Basicos,negocios,vQtTw,-0.900258284392,0.0
+Materiais Basicos,negocios,sQtTw,-0.490279979462,0.0
+Materiais Basicos,negocios,mQtFb,-0.462772173814,0.0
+Materiais Basicos,negocios,meQtFb,-0.352428117503,0.0
+Materiais Basicos,negocios,dpQtFb,-0.889085609701,0.0
+Materiais Basicos,negocios,vQtFb,-0.889085571228,0.0
+Materiais Basicos,negocios,sQtFb,-0.458935714964,0.0
+Materiais Basicos,negocios,mQtLk,-0.389348133424,0.0
+Materiais Basicos,negocios,meQtLk,-0.329544366449,0.0
+Materiais Basicos,negocios,dpQtLk,-0.862831213915,0.0
+Materiais Basicos,negocios,vQtLk,-0.862831224319,0.0
+Materiais Basicos,negocios,sQtLk,-0.388190116791,0.0
+Materiais Basicos,negocios,mQtGp,-0.330564561825,0.0
+Materiais Basicos,negocios,meQtGp,-0.326732157717,0.0
+Materiais Basicos,negocios,dpQtGp,-0.836324369318,0.0
+Materiais Basicos,negocios,vQtGp,-0.83632437028,0.0
+Materiais Basicos,negocios,sQtGp,-0.330563435907,0.0
+Materiais Basicos,negocios,mPol,-0.719614234909,0.0
+Materiais Basicos,negocios,mePol,-0.655999495125,0.0
+Materiais Basicos,negocios,dpPol,-0.929622684921,0.0
+Materiais Basicos,negocios,vPol,-0.929801535963,0.0
+Materiais Basicos,negocios,sPol,-0.688263922147,0.0
+Materiais Basicos,quantidade_papeis,qt,-0.497581622431,0.0
+Materiais Basicos,quantidade_papeis,mQtCom,-0.322394997539,0.0
+Materiais Basicos,quantidade_papeis,meQtCom,-0.267434569874,0.0
+Materiais Basicos,quantidade_papeis,dpQtCom,-0.793192670349,0.0
+Materiais Basicos,quantidade_papeis,vQtCom,-0.793192682446,0.0
+Materiais Basicos,quantidade_papeis,sQtCom,-0.322532985354,0.0
+Materiais Basicos,quantidade_papeis,mQtTw,-0.420921031067,0.0
+Materiais Basicos,quantidade_papeis,meQtTw,-0.317190862936,0.0
+Materiais Basicos,quantidade_papeis,dpQtTw,-0.871663385792,0.0
+Materiais Basicos,quantidade_papeis,vQtTw,-0.871663372568,0.0
+Materiais Basicos,quantidade_papeis,sQtTw,-0.418950472459,0.0
+Materiais Basicos,quantidade_papeis,mQtFb,-0.396366553544,0.0
+Materiais Basicos,quantidade_papeis,meQtFb,-0.303448219292,0.0
+Materiais Basicos,quantidade_papeis,dpQtFb,-0.861785390557,0.0
+Materiais Basicos,quantidade_papeis,vQtFb,-0.861785540027,0.0
+Materiais Basicos,quantidade_papeis,sQtFb,-0.391504705764,0.0
+Materiais Basicos,quantidade_papeis,mQtLk,-0.32823185031,0.0
+Materiais Basicos,quantidade_papeis,meQtLk,-0.268934896394,0.0
+Materiais Basicos,quantidade_papeis,dpQtLk,-0.812017101128,0.0
+Materiais Basicos,quantidade_papeis,vQtLk,-0.812017131069,0.0
+Materiais Basicos,quantidade_papeis,sQtLk,-0.3265871514,0.0
+Materiais Basicos,quantidade_papeis,mQtGp,-0.261481632291,0.0
+Materiais Basicos,quantidade_papeis,meQtGp,-0.256476134337,0.0
+Materiais Basicos,quantidade_papeis,dpQtGp,-0.755076391446,0.0
+Materiais Basicos,quantidade_papeis,vQtGp,-0.755076391745,0.0
+Materiais Basicos,quantidade_papeis,sQtGp,-0.261479943715,0.0
+Materiais Basicos,quantidade_papeis,mPol,-0.581821796427,0.0
+Materiais Basicos,quantidade_papeis,mePol,-0.466064438526,0.0
+Materiais Basicos,quantidade_papeis,dpPol,-0.946684196776,0.0
+Materiais Basicos,quantidade_papeis,vPol,-0.946693200731,0.0
+Materiais Basicos,quantidade_papeis,sPol,-0.680855610424,0.0
+Materiais Basicos,volume_financeiro,qt,-0.568658455554,0.0
+Materiais Basicos,volume_financeiro,mQtCom,-0.432086982279,0.0
+Materiais Basicos,volume_financeiro,meQtCom,-0.367304026273,0.0
+Materiais Basicos,volume_financeiro,dpQtCom,-0.793838693933,0.0
+Materiais Basicos,volume_financeiro,vQtCom,-0.7938386919,0.0
+Materiais Basicos,volume_financeiro,sQtCom,-0.432085633838,0.0
+Materiais Basicos,volume_financeiro,mQtTw,-0.552778704377,0.0
+Materiais Basicos,volume_financeiro,meQtTw,-0.467036394049,0.0
+Materiais Basicos,volume_financeiro,dpQtTw,-0.889866581557,0.0
+Materiais Basicos,volume_financeiro,vQtTw,-0.889866574353,0.0
+Materiais Basicos,volume_financeiro,sQtTw,-0.552070622789,0.0
+Materiais Basicos,volume_financeiro,mQtFb,-0.580368064185,0.0
+Materiais Basicos,volume_financeiro,meQtFb,-0.478823418129,0.0
+Materiais Basicos,volume_financeiro,dpQtFb,-0.938396228832,0.0
+Materiais Basicos,volume_financeiro,vQtFb,-0.938396211708,0.0
+Materiais Basicos,volume_financeiro,sQtFb,-0.574167336062,0.0
+Materiais Basicos,volume_financeiro,mQtLk,-0.451691267384,0.0
+Materiais Basicos,volume_financeiro,meQtLk,-0.361402925934,0.0
+Materiais Basicos,volume_financeiro,dpQtLk,-0.82398537754,0.0
+Materiais Basicos,volume_financeiro,vQtLk,-0.823987919385,0.0
+Materiais Basicos,volume_financeiro,sQtLk,-0.433692172016,0.0
+Materiais Basicos,volume_financeiro,mQtGp,-0.335628864661,0.0
+Materiais Basicos,volume_financeiro,meQtGp,-0.321121258791,0.0
+Materiais Basicos,volume_financeiro,dpQtGp,-0.738547909781,0.0
+Materiais Basicos,volume_financeiro,vQtGp,-0.73854791212,0.0
+Materiais Basicos,volume_financeiro,sQtGp,-0.335522175486,0.0
+Materiais Basicos,volume_financeiro,mPol,-0.614697341707,0.0
+Materiais Basicos,volume_financeiro,mePol,-0.542007902238,0.0
+Materiais Basicos,volume_financeiro,dpPol,-0.934772914997,0.0
+Materiais Basicos,volume_financeiro,vPol,-0.934784215461,0.0
+Materiais Basicos,volume_financeiro,sPol,-0.57399276524,0.0
+Petroleo. Gas e Biocombustiveis,media,qt,-0.513844384952,0.0
+Petroleo. Gas e Biocombustiveis,media,mQtCom,-0.171171881699,0.0
+Petroleo. Gas e Biocombustiveis,media,meQtCom,-0.0337085633593,1.11525099421e-34
+Petroleo. Gas e Biocombustiveis,media,dpQtCom,-0.582553716981,0.0
+Petroleo. Gas e Biocombustiveis,media,vQtCom,-0.582553758137,0.0
+Petroleo. Gas e Biocombustiveis,media,sQtCom,-0.171132927847,0.0
+Petroleo. Gas e Biocombustiveis,media,mQtTw,-0.579326039797,0.0
+Petroleo. Gas e Biocombustiveis,media,meQtTw,-0.344952488655,0.0
+Petroleo. Gas e Biocombustiveis,media,dpQtTw,-0.780270766491,0.0
+Petroleo. Gas e Biocombustiveis,media,vQtTw,-0.780269008882,0.0
+Petroleo. Gas e Biocombustiveis,media,sQtTw,-0.564615407758,0.0
+Petroleo. Gas e Biocombustiveis,media,mQtFb,-0.529923439684,0.0
+Petroleo. Gas e Biocombustiveis,media,meQtFb,-0.307647362138,0.0
+Petroleo. Gas e Biocombustiveis,media,dpQtFb,-0.7780540214,0.0
+Petroleo. Gas e Biocombustiveis,media,vQtFb,-0.778061342496,0.0
+Petroleo. Gas e Biocombustiveis,media,sQtFb,-0.513575840864,0.0
+Petroleo. Gas e Biocombustiveis,media,mQtLk,-0.305723238207,0.0
+Petroleo. Gas e Biocombustiveis,media,meQtLk,-0.0821306235262,8.54222420555e-197
+Petroleo. Gas e Biocombustiveis,media,dpQtLk,-0.63917693561,0.0
+Petroleo. Gas e Biocombustiveis,media,vQtLk,-0.639177307261,0.0
+Petroleo. Gas e Biocombustiveis,media,sQtLk,-0.304981345335,0.0
+Petroleo. Gas e Biocombustiveis,media,mQtGp,-0.0448103136155,6.17993919656e-60
+Petroleo. Gas e Biocombustiveis,media,meQtGp,-0.012123086108,9.98150400689e-06
+Petroleo. Gas e Biocombustiveis,media,dpQtGp,-0.520985149843,0.0
+Petroleo. Gas e Biocombustiveis,media,vQtGp,-0.52098515016,0.0
+Petroleo. Gas e Biocombustiveis,media,sQtGp,-0.044807055475,6.30136288259e-60
+Petroleo. Gas e Biocombustiveis,media,mPol,-0.575658975259,0.0
+Petroleo. Gas e Biocombustiveis,media,mePol,-0.439627401651,0.0
+Petroleo. Gas e Biocombustiveis,media,dpPol,-0.774214120071,0.0
+Petroleo. Gas e Biocombustiveis,media,vPol,-0.774465904206,0.0
+Petroleo. Gas e Biocombustiveis,media,sPol,-0.535157808069,0.0
+Petroleo. Gas e Biocombustiveis,negocios,qt,-0.689751626042,0.0
+Petroleo. Gas e Biocombustiveis,negocios,mQtCom,-0.362986597276,0.0
+Petroleo. Gas e Biocombustiveis,negocios,meQtCom,-0.330960654345,0.0
+Petroleo. Gas e Biocombustiveis,negocios,dpQtCom,-0.732267178655,0.0
+Petroleo. Gas e Biocombustiveis,negocios,vQtCom,-0.732267198181,0.0
+Petroleo. Gas e Biocombustiveis,negocios,sQtCom,-0.36292461783,0.0
+Petroleo. Gas e Biocombustiveis,negocios,mQtTw,-0.446302021595,0.0
+Petroleo. Gas e Biocombustiveis,negocios,meQtTw,-0.339413300126,0.0
+Petroleo. Gas e Biocombustiveis,negocios,dpQtTw,-0.799484187904,0.0
+Petroleo. Gas e Biocombustiveis,negocios,vQtTw,-0.799484180809,0.0
+Petroleo. Gas e Biocombustiveis,negocios,sQtTw,-0.446438632772,0.0
+Petroleo. Gas e Biocombustiveis,negocios,mQtFb,-0.421415232972,0.0
+Petroleo. Gas e Biocombustiveis,negocios,meQtFb,-0.328700451282,0.0
+Petroleo. Gas e Biocombustiveis,negocios,dpQtFb,-0.786430606101,0.0
+Petroleo. Gas e Biocombustiveis,negocios,vQtFb,-0.786430582706,0.0
+Petroleo. Gas e Biocombustiveis,negocios,sQtFb,-0.420949689721,0.0
+Petroleo. Gas e Biocombustiveis,negocios,mQtLk,-0.362436729237,0.0
+Petroleo. Gas e Biocombustiveis,negocios,meQtLk,-0.325747935178,0.0
+Petroleo. Gas e Biocombustiveis,negocios,dpQtLk,-0.740948023535,0.0
+Petroleo. Gas e Biocombustiveis,negocios,vQtLk,-0.740948050786,0.0
+Petroleo. Gas e Biocombustiveis,negocios,sQtLk,-0.362588093283,0.0
+Petroleo. Gas e Biocombustiveis,negocios,mQtGp,-0.32888226394,0.0
+Petroleo. Gas e Biocombustiveis,negocios,meQtGp,-0.327772722313,0.0
+Petroleo. Gas e Biocombustiveis,negocios,dpQtGp,-0.711832457865,0.0
+Petroleo. Gas e Biocombustiveis,negocios,vQtGp,-0.711832458077,0.0
+Petroleo. Gas e Biocombustiveis,negocios,sQtGp,-0.328892385382,0.0
+Petroleo. Gas e Biocombustiveis,negocios,mPol,-0.736558540405,0.0
+Petroleo. Gas e Biocombustiveis,negocios,mePol,-0.703291271923,0.0
+Petroleo. Gas e Biocombustiveis,negocios,dpPol,-0.859877756938,0.0
+Petroleo. Gas e Biocombustiveis,negocios,vPol,-0.859944299285,0.0
+Petroleo. Gas e Biocombustiveis,negocios,sPol,-0.724297623611,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,qt,-0.598566036683,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,mQtCom,-0.436500175991,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,meQtCom,-0.386740505386,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,dpQtCom,-0.814336832732,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,vQtCom,-0.814336832732,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,sQtCom,-0.435825253895,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,mQtTw,-0.535956632722,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,meQtTw,-0.421291249091,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,dpQtTw,-0.881673448813,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,vQtTw,-0.881674591814,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,sQtTw,-0.54321953272,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,mQtFb,-0.526327553248,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,meQtFb,-0.409190889427,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,dpQtFb,-0.872959277632,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,vQtFb,-0.872960690886,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,sQtFb,-0.526432489004,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,mQtLk,-0.446340924678,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,meQtLk,-0.383008169043,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,dpQtLk,-0.822019860299,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,vQtLk,-0.822020056195,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,sQtLk,-0.445528176544,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,mQtGp,-0.38321291133,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,meQtGp,-0.378250359322,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,dpQtGp,-0.78022620643,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,vQtGp,-0.780226206884,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,sQtGp,-0.383253907718,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,mPol,-0.637629720519,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,mePol,-0.586508270533,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,dpPol,-0.928991829,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,vPol,-0.928997290456,0.0
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,sPol,-0.625690531677,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,qt,-0.557938835605,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,mQtCom,-0.239512786123,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,meQtCom,-0.143583493542,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,dpQtCom,-0.862851693916,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,vQtCom,-0.86285168682,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,sQtCom,-0.238759638208,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,mQtTw,-0.422608841738,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,meQtTw,-0.251485717608,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,dpQtTw,-0.91302899197,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,vQtTw,-0.913029051324,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,sQtTw,-0.434018430444,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,mQtFb,-0.405700250391,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,meQtFb,-0.223466735268,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,dpQtFb,-0.911238040581,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,vQtFb,-0.91123802618,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,sQtFb,-0.39350651552,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,mQtLk,-0.274314424892,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,meQtLk,-0.142745975766,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,dpQtLk,-0.884965176577,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,vQtLk,-0.884965229928,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,sQtLk,-0.270750846284,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,mQtGp,-0.126103489853,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,meQtGp,-0.105734839749,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,dpQtGp,-0.828081269564,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,vQtGp,-0.828081270381,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,sQtGp,-0.126056279648,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,mPol,-0.406084713316,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,mePol,-0.313646292496,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,dpPol,-0.937378342005,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,vPol,-0.937508041254,0.0
+Petroleo. Gas e Biocombustiveis,volume_financeiro,sPol,-0.446688139791,0.0
+Telecomunicacoes,media,qt,-0.648653981232,0.0
+Telecomunicacoes,media,mQtCom,-0.455291872946,0.0
+Telecomunicacoes,media,meQtCom,-0.421579280607,0.0
+Telecomunicacoes,media,dpQtCom,-0.705767795548,0.0
+Telecomunicacoes,media,vQtCom,-0.705767793455,0.0
+Telecomunicacoes,media,sQtCom,-0.455300698233,0.0
+Telecomunicacoes,media,mQtTw,-0.609736848607,0.0
+Telecomunicacoes,media,meQtTw,-0.545708207154,0.0
+Telecomunicacoes,media,dpQtTw,-0.808815524492,0.0
+Telecomunicacoes,media,vQtTw,-0.808815510468,0.0
+Telecomunicacoes,media,sQtTw,-0.608661045134,0.0
+Telecomunicacoes,media,mQtFb,-0.58047774938,0.0
+Telecomunicacoes,media,meQtFb,-0.522334292634,0.0
+Telecomunicacoes,media,dpQtFb,-0.793761180927,0.0
+Telecomunicacoes,media,vQtFb,-0.793777460965,0.0
+Telecomunicacoes,media,sQtFb,-0.578148951306,0.0
+Telecomunicacoes,media,mQtLk,-0.477140458207,0.0
+Telecomunicacoes,media,meQtLk,-0.432094021144,0.0
+Telecomunicacoes,media,dpQtLk,-0.724202084392,0.0
+Telecomunicacoes,media,vQtLk,-0.724202082016,0.0
+Telecomunicacoes,media,sQtLk,-0.476878017969,0.0
+Telecomunicacoes,media,mQtGp,-0.416213221514,0.0
+Telecomunicacoes,media,meQtGp,-0.407677159601,0.0
+Telecomunicacoes,media,dpQtGp,-0.67731280036,0.0
+Telecomunicacoes,media,vQtGp,-0.677312800182,0.0
+Telecomunicacoes,media,sQtGp,-0.416211618614,0.0
+Telecomunicacoes,media,mPol,-0.713064288238,0.0
+Telecomunicacoes,media,mePol,-0.64187010313,0.0
+Telecomunicacoes,media,dpPol,-0.851689641256,0.0
+Telecomunicacoes,media,vPol,-0.851780722934,0.0
+Telecomunicacoes,media,sPol,-0.67177143267,0.0
+Telecomunicacoes,negocios,qt,-0.597779017856,0.0
+Telecomunicacoes,negocios,mQtCom,-0.244530955723,0.0
+Telecomunicacoes,negocios,meQtCom,-0.223171041686,0.0
+Telecomunicacoes,negocios,dpQtCom,-0.619057211911,0.0
+Telecomunicacoes,negocios,vQtCom,-0.619057209046,0.0
+Telecomunicacoes,negocios,sQtCom,-0.244541012099,0.0
+Telecomunicacoes,negocios,mQtTw,-0.3045529193,0.0
+Telecomunicacoes,negocios,meQtTw,-0.192746160858,0.0
+Telecomunicacoes,negocios,dpQtTw,-0.693539143014,0.0
+Telecomunicacoes,negocios,vQtTw,-0.693539579079,0.0
+Telecomunicacoes,negocios,sQtTw,-0.304806801718,0.0
+Telecomunicacoes,negocios,mQtFb,-0.264241662872,0.0
+Telecomunicacoes,negocios,meQtFb,-0.187657758633,0.0
+Telecomunicacoes,negocios,dpQtFb,-0.671719933792,0.0
+Telecomunicacoes,negocios,vQtFb,-0.671719867632,0.0
+Telecomunicacoes,negocios,sQtFb,-0.264554367407,0.0
+Telecomunicacoes,negocios,mQtLk,-0.228728341704,0.0
+Telecomunicacoes,negocios,meQtLk,-0.213795448902,0.0
+Telecomunicacoes,negocios,dpQtLk,-0.628103219281,0.0
+Telecomunicacoes,negocios,vQtLk,-0.628103311905,0.0
+Telecomunicacoes,negocios,sQtLk,-0.228799236227,0.0
+Telecomunicacoes,negocios,mQtGp,-0.222347268324,0.0
+Telecomunicacoes,negocios,meQtGp,-0.225235316836,0.0
+Telecomunicacoes,negocios,dpQtGp,-0.591884531741,0.0
+Telecomunicacoes,negocios,vQtGp,-0.591884533196,0.0
+Telecomunicacoes,negocios,sQtGp,-0.222339502964,0.0
+Telecomunicacoes,negocios,mPol,-0.659310037958,0.0
+Telecomunicacoes,negocios,mePol,-0.630060666751,0.0
+Telecomunicacoes,negocios,dpPol,-0.791524884722,0.0
+Telecomunicacoes,negocios,vPol,-0.79161043174,0.0
+Telecomunicacoes,negocios,sPol,-0.625707905372,0.0
+Telecomunicacoes,quantidade_papeis,qt,-0.618473891496,0.0
+Telecomunicacoes,quantidade_papeis,mQtCom,-0.267040528897,0.0
+Telecomunicacoes,quantidade_papeis,meQtCom,-0.232959411016,0.0
+Telecomunicacoes,quantidade_papeis,dpQtCom,-0.775505785264,0.0
+Telecomunicacoes,quantidade_papeis,vQtCom,-0.775505785289,0.0
+Telecomunicacoes,quantidade_papeis,sQtCom,-0.26688110812,0.0
+Telecomunicacoes,quantidade_papeis,mQtTw,-0.305182036146,0.0
+Telecomunicacoes,quantidade_papeis,meQtTw,-0.199468640172,0.0
+Telecomunicacoes,quantidade_papeis,dpQtTw,-0.81321712823,0.0
+Telecomunicacoes,quantidade_papeis,vQtTw,-0.813217061352,0.0
+Telecomunicacoes,quantidade_papeis,sQtTw,-0.306405000786,0.0
+Telecomunicacoes,quantidade_papeis,mQtFb,-0.263691742337,0.0
+Telecomunicacoes,quantidade_papeis,meQtFb,-0.190860782224,0.0
+Telecomunicacoes,quantidade_papeis,dpQtFb,-0.801037422298,0.0
+Telecomunicacoes,quantidade_papeis,vQtFb,-0.801037333719,0.0
+Telecomunicacoes,quantidade_papeis,sQtFb,-0.264360531305,0.0
+Telecomunicacoes,quantidade_papeis,mQtLk,-0.243274914586,0.0
+Telecomunicacoes,quantidade_papeis,meQtLk,-0.2192157978,0.0
+Telecomunicacoes,quantidade_papeis,dpQtLk,-0.78110931483,0.0
+Telecomunicacoes,quantidade_papeis,vQtLk,-0.781109441289,0.0
+Telecomunicacoes,quantidade_papeis,sQtLk,-0.241984722287,0.0
+Telecomunicacoes,quantidade_papeis,mQtGp,-0.226487725107,0.0
+Telecomunicacoes,quantidade_papeis,meQtGp,-0.230612744218,0.0
+Telecomunicacoes,quantidade_papeis,dpQtGp,-0.758566548842,0.0
+Telecomunicacoes,quantidade_papeis,vQtGp,-0.758566549067,0.0
+Telecomunicacoes,quantidade_papeis,sQtGp,-0.226485245223,0.0
+Telecomunicacoes,quantidade_papeis,mPol,-0.680823818707,0.0
+Telecomunicacoes,quantidade_papeis,mePol,-0.630278771666,0.0
+Telecomunicacoes,quantidade_papeis,dpPol,-0.880895558085,0.0
+Telecomunicacoes,quantidade_papeis,vPol,-0.880761487028,0.0
+Telecomunicacoes,quantidade_papeis,sPol,-0.668065266799,0.0
+Telecomunicacoes,volume_financeiro,qt,-0.634131500145,0.0
+Telecomunicacoes,volume_financeiro,mQtCom,-0.568915167042,0.0
+Telecomunicacoes,volume_financeiro,meQtCom,-0.532762954401,0.0
+Telecomunicacoes,volume_financeiro,dpQtCom,-0.845843005283,0.0
+Telecomunicacoes,volume_financeiro,vQtCom,-0.845843001487,0.0
+Telecomunicacoes,volume_financeiro,sQtCom,-0.568574126542,0.0
+Telecomunicacoes,volume_financeiro,mQtTw,-0.795455003804,0.0
+Telecomunicacoes,volume_financeiro,meQtTw,-0.539670590211,0.0
+Telecomunicacoes,volume_financeiro,dpQtTw,-0.89314402353,0.0
+Telecomunicacoes,volume_financeiro,vQtTw,-0.893165476069,0.0
+Telecomunicacoes,volume_financeiro,sQtTw,-0.791575421716,0.0
+Telecomunicacoes,volume_financeiro,mQtFb,-0.772796876929,0.0
+Telecomunicacoes,volume_financeiro,meQtFb,-0.535154407003,0.0
+Telecomunicacoes,volume_financeiro,dpQtFb,-0.877437015264,0.0
+Telecomunicacoes,volume_financeiro,vQtFb,-0.877436938525,0.0
+Telecomunicacoes,volume_financeiro,sQtFb,-0.777075092796,0.0
+Telecomunicacoes,volume_financeiro,mQtLk,-0.553363132724,0.0
+Telecomunicacoes,volume_financeiro,meQtLk,-0.521185872542,0.0
+Telecomunicacoes,volume_financeiro,dpQtLk,-0.852500354156,0.0
+Telecomunicacoes,volume_financeiro,vQtLk,-0.852500360779,0.0
+Telecomunicacoes,volume_financeiro,sQtLk,-0.552817616057,0.0
+Telecomunicacoes,volume_financeiro,mQtGp,-0.524474035537,0.0
+Telecomunicacoes,volume_financeiro,meQtGp,-0.522671441145,0.0
+Telecomunicacoes,volume_financeiro,dpQtGp,-0.813341240556,0.0
+Telecomunicacoes,volume_financeiro,vQtGp,-0.813341241034,0.0
+Telecomunicacoes,volume_financeiro,sQtGp,-0.524473702763,0.0
+Telecomunicacoes,volume_financeiro,mPol,-0.828050725445,0.0
+Telecomunicacoes,volume_financeiro,mePol,-0.778281690326,0.0
+Telecomunicacoes,volume_financeiro,dpPol,-0.925823744823,0.0
+Telecomunicacoes,volume_financeiro,vPol,-0.925970943181,0.0
+Telecomunicacoes,volume_financeiro,sPol,-0.822172307221,0.0
+Utilidade Publica,media,qt,-0.78164760936,0.0
+Utilidade Publica,media,mQtCom,-0.613046000443,0.0
+Utilidade Publica,media,meQtCom,-0.598784009869,0.0
+Utilidade Publica,media,dpQtCom,-0.782264059724,0.0
+Utilidade Publica,media,vQtCom,-0.782264048655,0.0
+Utilidade Publica,media,sQtCom,-0.613025919238,0.0
+Utilidade Publica,media,mQtTw,-0.686098312133,0.0
+Utilidade Publica,media,meQtTw,-0.626063041225,0.0
+Utilidade Publica,media,dpQtTw,-0.850945885041,0.0
+Utilidade Publica,media,vQtTw,-0.850945665807,0.0
+Utilidade Publica,media,sQtTw,-0.685714370596,0.0
+Utilidade Publica,media,mQtFb,-0.67302080037,0.0
+Utilidade Publica,media,meQtFb,-0.612588403667,0.0
+Utilidade Publica,media,dpQtFb,-0.84159611153,0.0
+Utilidade Publica,media,vQtFb,-0.841596085119,0.0
+Utilidade Publica,media,sQtFb,-0.674785593663,0.0
+Utilidade Publica,media,mQtLk,-0.617646428377,0.0
+Utilidade Publica,media,meQtLk,-0.596791095417,0.0
+Utilidade Publica,media,dpQtLk,-0.795014144283,0.0
+Utilidade Publica,media,vQtLk,-0.795014120001,0.0
+Utilidade Publica,media,sQtLk,-0.617082094977,0.0
+Utilidade Publica,media,mQtGp,-0.595737995495,0.0
+Utilidade Publica,media,meQtGp,-0.596564422623,0.0
+Utilidade Publica,media,dpQtGp,-0.763090732751,0.0
+Utilidade Publica,media,vQtGp,-0.763090735353,0.0
+Utilidade Publica,media,sQtGp,-0.595738400259,0.0
+Utilidade Publica,media,mPol,-0.859109817836,0.0
+Utilidade Publica,media,mePol,-0.80668564483,0.0
+Utilidade Publica,media,dpPol,-0.87816074784,0.0
+Utilidade Publica,media,vPol,-0.878207391559,0.0
+Utilidade Publica,media,sPol,-0.83189031074,0.0
+Utilidade Publica,negocios,qt,-0.612114375454,0.0
+Utilidade Publica,negocios,mQtCom,-0.170284872459,0.0
+Utilidade Publica,negocios,meQtCom,-0.110647377773,0.0
+Utilidade Publica,negocios,dpQtCom,-0.561464183011,0.0
+Utilidade Publica,negocios,vQtCom,-0.561464182258,0.0
+Utilidade Publica,negocios,sQtCom,-0.170257110897,0.0
+Utilidade Publica,negocios,mQtTw,-0.306444957681,0.0
+Utilidade Publica,negocios,meQtTw,-0.128807532606,0.0
+Utilidade Publica,negocios,dpQtTw,-0.670945138592,0.0
+Utilidade Publica,negocios,vQtTw,-0.670945129901,0.0
+Utilidade Publica,negocios,sQtTw,-0.307049597524,0.0
+Utilidade Publica,negocios,mQtFb,-0.263287633921,0.0
+Utilidade Publica,negocios,meQtFb,-0.114024124411,0.0
+Utilidade Publica,negocios,dpQtFb,-0.64496465833,0.0
+Utilidade Publica,negocios,vQtFb,-0.644969925327,0.0
+Utilidade Publica,negocios,sQtFb,-0.264404191322,0.0
+Utilidade Publica,negocios,mQtLk,-0.174922838768,0.0
+Utilidade Publica,negocios,meQtLk,-0.104279371027,0.0
+Utilidade Publica,negocios,dpQtLk,-0.573181836814,0.0
+Utilidade Publica,negocios,vQtLk,-0.57318183376,0.0
+Utilidade Publica,negocios,sQtLk,-0.174861789363,0.0
+Utilidade Publica,negocios,mQtGp,-0.108436090064,0.0
+Utilidade Publica,negocios,meQtGp,-0.106067136623,0.0
+Utilidade Publica,negocios,dpQtGp,-0.526475448946,0.0
+Utilidade Publica,negocios,vQtGp,-0.526475448997,0.0
+Utilidade Publica,negocios,sQtGp,-0.108435595663,0.0
+Utilidade Publica,negocios,mPol,-0.714807432828,0.0
+Utilidade Publica,negocios,mePol,-0.670878030613,0.0
+Utilidade Publica,negocios,dpPol,-0.818746312544,0.0
+Utilidade Publica,negocios,vPol,-0.818783296613,0.0
+Utilidade Publica,negocios,sPol,-0.679723024303,0.0
+Utilidade Publica,quantidade_papeis,qt,-0.806452992931,0.0
+Utilidade Publica,quantidade_papeis,mQtCom,-0.661155994664,0.0
+Utilidade Publica,quantidade_papeis,meQtCom,-0.634724275891,0.0
+Utilidade Publica,quantidade_papeis,dpQtCom,-0.87988856415,0.0
+Utilidade Publica,quantidade_papeis,vQtCom,-0.87988856353,0.0
+Utilidade Publica,quantidade_papeis,sQtCom,-0.66113908554,0.0
+Utilidade Publica,quantidade_papeis,mQtTw,-0.741254409731,0.0
+Utilidade Publica,quantidade_papeis,meQtTw,-0.667857938234,0.0
+Utilidade Publica,quantidade_papeis,dpQtTw,-0.91543242915,0.0
+Utilidade Publica,quantidade_papeis,vQtTw,-0.915432431705,0.0
+Utilidade Publica,quantidade_papeis,sQtTw,-0.74197518301,0.0
+Utilidade Publica,quantidade_papeis,mQtFb,-0.728751283914,0.0
+Utilidade Publica,quantidade_papeis,meQtFb,-0.660744274444,0.0
+Utilidade Publica,quantidade_papeis,dpQtFb,-0.907630344607,0.0
+Utilidade Publica,quantidade_papeis,vQtFb,-0.907630336343,0.0
+Utilidade Publica,quantidade_papeis,sQtFb,-0.727612365635,0.0
+Utilidade Publica,quantidade_papeis,mQtLk,-0.674038703175,0.0
+Utilidade Publica,quantidade_papeis,meQtLk,-0.636500319677,0.0
+Utilidade Publica,quantidade_papeis,dpQtLk,-0.88903217293,0.0
+Utilidade Publica,quantidade_papeis,vQtLk,-0.889032170396,0.0
+Utilidade Publica,quantidade_papeis,sQtLk,-0.67388799524,0.0
+Utilidade Publica,quantidade_papeis,mQtGp,-0.633604036404,0.0
+Utilidade Publica,quantidade_papeis,meQtGp,-0.630180847621,0.0
+Utilidade Publica,quantidade_papeis,dpQtGp,-0.86607228148,0.0
+Utilidade Publica,quantidade_papeis,vQtGp,-0.866072282788,0.0
+Utilidade Publica,quantidade_papeis,sQtGp,-0.633598832208,0.0
+Utilidade Publica,quantidade_papeis,mPol,-0.816868985995,0.0
+Utilidade Publica,quantidade_papeis,mePol,-0.756442215794,0.0
+Utilidade Publica,quantidade_papeis,dpPol,-0.943633023067,0.0
+Utilidade Publica,quantidade_papeis,vPol,-0.943642162067,0.0
+Utilidade Publica,quantidade_papeis,sPol,-0.802146017928,0.0
+Utilidade Publica,volume_financeiro,qt,-0.826013993776,0.0
+Utilidade Publica,volume_financeiro,mQtCom,-0.450862957646,0.0
+Utilidade Publica,volume_financeiro,meQtCom,-0.376896674319,0.0
+Utilidade Publica,volume_financeiro,dpQtCom,-0.835135908882,0.0
+Utilidade Publica,volume_financeiro,vQtCom,-0.835135906953,0.0
+Utilidade Publica,volume_financeiro,sQtCom,-0.452706807573,0.0
+Utilidade Publica,volume_financeiro,mQtTw,-0.636837257352,0.0
+Utilidade Publica,volume_financeiro,meQtTw,-0.479992825666,0.0
+Utilidade Publica,volume_financeiro,dpQtTw,-0.913261294792,0.0
+Utilidade Publica,volume_financeiro,vQtTw,-0.91326131345,0.0
+Utilidade Publica,volume_financeiro,sQtTw,-0.635768338425,0.0
+Utilidade Publica,volume_financeiro,mQtFb,-0.605162506511,0.0
+Utilidade Publica,volume_financeiro,meQtFb,-0.459788974522,0.0
+Utilidade Publica,volume_financeiro,dpQtFb,-0.897993863914,0.0
+Utilidade Publica,volume_financeiro,vQtFb,-0.89799394949,0.0
+Utilidade Publica,volume_financeiro,sQtFb,-0.602768330055,0.0
+Utilidade Publica,volume_financeiro,mQtLk,-0.485327507097,0.0
+Utilidade Publica,volume_financeiro,meQtLk,-0.378557423884,0.0
+Utilidade Publica,volume_financeiro,dpQtLk,-0.849919621,0.0
+Utilidade Publica,volume_financeiro,vQtLk,-0.849919623766,0.0
+Utilidade Publica,volume_financeiro,sQtLk,-0.484635769233,0.0
+Utilidade Publica,volume_financeiro,mQtGp,-0.369551354749,0.0
+Utilidade Publica,volume_financeiro,meQtGp,-0.353917879152,0.0
+Utilidade Publica,volume_financeiro,dpQtGp,-0.793521328962,0.0
+Utilidade Publica,volume_financeiro,vQtGp,-0.793521330544,0.0
+Utilidade Publica,volume_financeiro,sQtGp,-0.369553056991,0.0
+Utilidade Publica,volume_financeiro,mPol,-0.522983967854,0.0
+Utilidade Publica,volume_financeiro,mePol,-0.505476391779,0.0
+Utilidade Publica,volume_financeiro,dpPol,-0.940004261977,0.0
+Utilidade Publica,volume_financeiro,vPol,-0.940010469059,0.0
+Utilidade Publica,volume_financeiro,sPol,-0.562971378997,0.0

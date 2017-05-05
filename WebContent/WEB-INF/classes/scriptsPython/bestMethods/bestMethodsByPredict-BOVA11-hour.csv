@@ -1,0 +1,5 @@
+Coluna,Media,Tecnica
+media,0.421876013987,RandomForestClassifier
+negocios,0.518394977342,RandomForestClassifier
+quantidade_papeis,0.485825124013,GradientBoostingClassifier
+volume_financeiro,0.488040996585,GradientBoostingClassifier

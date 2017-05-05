@@ -1,0 +1,1 @@
+﻿select * from cotacoes where cod_negociacao = 'GGBR3' and data_pregao between '2012-01-01' and '2013-12-31'

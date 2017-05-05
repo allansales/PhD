@@ -1,0 +1,37 @@
+Setor,Coluna,Media,Tecnica
+Bens Industriais,media,0.345660518678,RandomWalk
+Bens Industriais,negocios,0.442608370003,RandomWalk
+Bens Industriais,quantidade_papeis,0.401577567643,RandomWalk
+Bens Industriais,volume_financeiro,0.404175638985,RandomWalk
+Construcao e Transporte,media,0.373005565863,RandomWalk
+Construcao e Transporte,negocios,0.473098330241,RandomWalk
+Construcao e Transporte,quantidade_papeis,0.414424860853,RandomWalk
+Construcao e Transporte,volume_financeiro,0.417115027829,RandomWalk
+Consumo Ciclico,media,0.39803274114,RandomWalk
+Consumo Ciclico,negocios,0.466863547577,RandomWalk
+Consumo Ciclico,quantidade_papeis,0.410473444331,RandomWalk
+Consumo Ciclico,volume_financeiro,0.410845502744,RandomWalk
+Consumo nao Ciclico,media,0.392777726304,RandomWalk
+Consumo nao Ciclico,negocios,0.472760122301,RandomWalk
+Consumo nao Ciclico,quantidade_papeis,0.410960807931,RandomWalk
+Consumo nao Ciclico,volume_financeiro,0.420388214584,RandomWalk
+Financeiro e Outros,media,0.383943466172,RandomWalk
+Financeiro e Outros,negocios,0.481232622799,RandomWalk
+Financeiro e Outros,quantidade_papeis,0.419717330862,RandomWalk
+Financeiro e Outros,volume_financeiro,0.422126969416,RandomWalk
+Materiais Basicos,media,0.402058032817,RandomWalk
+Materiais Basicos,negocios,0.47965143228,RandomWalk
+Materiais Basicos,quantidade_papeis,0.423217762121,RandomWalk
+Materiais Basicos,volume_financeiro,0.422823769352,RandomWalk
+Petroleo. Gas e Biocombustiveis,media,0.41097854236,RandomWalk
+Petroleo. Gas e Biocombustiveis,negocios,0.465524417314,RandomWalk
+Petroleo. Gas e Biocombustiveis,quantidade_papeis,0.41944136145,RandomWalk
+Petroleo. Gas e Biocombustiveis,volume_financeiro,0.420158157603,RandomWalk
+Telecomunicacoes,media,0.420581340835,RandomWalk
+Telecomunicacoes,negocios,0.444327238631,RandomWalk
+Telecomunicacoes,quantidade_papeis,0.403211439287,RandomWalk
+Telecomunicacoes,volume_financeiro,0.407102672293,RandomWalk
+Utilidade Publica,media,0.377365052866,RandomWalk
+Utilidade Publica,negocios,0.465938601373,RandomWalk
+Utilidade Publica,quantidade_papeis,0.412748098683,RandomWalk
+Utilidade Publica,volume_financeiro,0.416736227045,RandomWalk

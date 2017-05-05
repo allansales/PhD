@@ -1,0 +1,45 @@
+Bens Industriais
+	media 0.410552343821 RandomForestClassifier
+	negocios 0.554600534865 ExtraTreesClassifier
+	quantidade_papeis 0.525565230141 AdaBoostClassifier
+	volume_financeiro 0.523244583032 AdaBoostClassifier
+Construcao e Transporte
+	media 0.425254502684 ExtraTreesClassifier
+	negocios 0.573135879254 GradientBoostingClassifier
+	quantidade_papeis 0.517003182819 GradientBoostingClassifier
+	volume_financeiro 0.533635288381 AdaBoostClassifier
+Consumo Ciclico
+	media 0.472810702527 RandomForestClassifier
+	negocios 0.563198788256 AdaBoostClassifier
+	quantidade_papeis 0.533516961165 AdaBoostClassifier
+	volume_financeiro 0.517698502693 GradientBoostingClassifier
+Consumo nao Ciclico
+	media 0.463599104375 GradientBoostingClassifier
+	negocios 0.578284851373 GradientBoostingClassifier
+	quantidade_papeis 0.539019096098 GradientBoostingClassifier
+	volume_financeiro 0.540557996689 AdaBoostClassifier
+Financeiro e Outros
+	media 0.453916407954 RandomForestClassifier
+	negocios 0.600228593928 AdaBoostClassifier
+	quantidade_papeis 0.540612916274 GradientBoostingClassifier
+	volume_financeiro 0.535499566761 GradientBoostingClassifier
+Materiais Basicos
+	media 0.444851785055 AdaBoostClassifier
+	negocios 0.574894648318 GradientBoostingClassifier
+	quantidade_papeis 0.527507075341 AdaBoostClassifier
+	volume_financeiro 0.528027380752 AdaBoostClassifier
+Petroleo. Gas e Biocombustiveis
+	media 0.44551212837 RandomForestClassifier
+	negocios 0.558342883025 GradientBoostingClassifier
+	quantidade_papeis 0.533481201083 AdaBoostClassifier
+	volume_financeiro 0.536142438338 GradientBoostingClassifier
+Telecomunicacoes
+	media 0.465495726005 ExtraTreesClassifier
+	negocios 0.55231636812 GradientBoostingClassifier
+	quantidade_papeis 0.514590237805 GradientBoostingClassifier
+	volume_financeiro 0.515074913214 GradientBoostingClassifier
+Utilidade Publica
+	media 0.439249495353 AdaBoostClassifier
+	negocios 0.56761338235 GradientBoostingClassifier
+	quantidade_papeis 0.525123782826 RandomForestClassifier
+	volume_financeiro 0.528958879962 AdaBoostClassifier
