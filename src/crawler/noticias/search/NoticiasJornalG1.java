@@ -110,8 +110,7 @@ public class NoticiasJornalG1 extends Noticia {
 		
 		while(!limiteAlcancado){
 			NUM_PAGINA++;
-			System.out.println(NUM_PAGINA);
-			System.out.println("PAGINA: "+NUM_PAGINA);
+			System.out.println("PAGINA "+NUM_PAGINA);
 			pagina = obtemPagina(URL_G1+NUM_PAGINA+".json");
 			while(pagina == null){
 				pagina = obtemPagina(URL_G1+NUM_PAGINA+".json");
@@ -183,9 +182,7 @@ public class NoticiasJornalG1 extends Noticia {
 						continue;
 					}
 					Noticia noticia = (Noticia) objetos.get(0);
-					//System.out.println("noticia: "+noticia);
 					List<Comentario> comentarios = (List<Comentario>) objetos.get(1);
-					//System.out.println("comentarios.size: "+comentarios.size());
 					
 					if(noticia != null){
 						if((noticia.getTimestamp() <= unixTimesTampDataFinal) && 
@@ -221,7 +218,6 @@ public class NoticiasJornalG1 extends Noticia {
 			comentario_dbo.put("n_respostas", comentario.getQuantidade_respostas());
 			comentarios_dbo.add(comentario_dbo);
 		}
-		//System.out.println("tamanho comentarios_dbo: "+comentarios_dbo.size());
 		return comentarios_dbo;    	
 	}
 	
@@ -265,16 +261,6 @@ public class NoticiasJornalG1 extends Noticia {
 		
 		String url = data.get("permalink").toString();
 		String titulo = data.get("titulo").toString();
-
-//		if("Quadro do pintor espanhol Miró é vendido por US$ 23,5 milhões".equals(titulo)){
-//			System.out.println("cheguei");
-//		}
-
-		String editoria = data.get("editoria_principal").toString();
-		if(!("politica".equals(editoria))){
-			editoria = editoria.toLowerCase();
-			editoria = editoria.replace(" ", "-");
-		}
 		
 		String subTitulo = "";
 
@@ -285,78 +271,87 @@ public class NoticiasJornalG1 extends Noticia {
 		System.out.println("\t -"+titulo);
 		
 		Document doc = obtemPagina(url);
-		
-		String jquery = doc.getElementsByAttributeValue("type", "text/javascript").get(POSICAO_BOXCOMENTARIOS).toString();
-		if(!jquery.contains("#boxComentarios")){
-			return null;
-		}
-		jquery = jquery.replace("\n", " ").replace("\r", "");
-		
-		List<String> elementos_1 = getElementByRegex("\\'(.*?)\\'", jquery); //Utiliza o que estiver entre aspas simples
-		List<String> elementos_2 = getElementByRegex("\"([^\"]*)\"", jquery); //Utiliza o que estiver entre aspas duplas
-		List<String> elementos = new ArrayList<String>();
-		elementos.addAll(elementos_1);
-		elementos.addAll(elementos_2);
-		
-		//writeFile(doc, titulo);
-		
-		int tentativas = 0;
-		while((doc == null) && (tentativas <= 5)){
-			doc = obtemPagina(url);
-			tentativas++;	
-		}
-
-		if(doc == null){
-			return null;
-		}
-
-		String momento = doc.select(".materia-cabecalho .published").text();
-		if(momento.isEmpty()){
-			momento = doc.select(".data-criacao").text();
-			if(momento.isEmpty()){
+		try{
+			String jquery = doc.getElementsByAttributeValue("type", "text/javascript").get(POSICAO_BOXCOMENTARIOS).toString();
+			if(!jquery.contains("#boxComentarios")){
 				return null;
 			}
-		}
-		
-		String dataHora[] = momento.split(" ");
-		long timestamp = Utiles.dataToTimestamp(dataHora[0], dataHora[1].replace("h", ""));	
-
-		String emissor = doc.select(".fn").text() +" "+doc.select(".locality").text();
-
-		String conteudo = doc.select(".entry-content p").text();
-
-		conteudo = conteudo.replace("|", "");
-		conteudo = conteudo.replace("\"", "");
-		conteudo = conteudo.replace("\'", "");
-
-		int repercussao = calculaRepercussao(titulo, editoria, elementos);
-		System.out.println("repercussao: "+repercussao);
-		String idNoticia = "G1-"+elementos.get(4);
-		
-		List<Comentario> comentarios = new ArrayList<Comentario>();
-		int n_json = 0;
-		while(repercussao > comentarios.size()){
-			n_json++;
+			jquery = jquery.replace("\n", " ").replace("\r", "");
 			
-			JSONArray item = getItens(titulo, editoria, n_json, elementos);
-			if(item.size()==0){
-				break;
+			List<String> elementos_1 = getElementByRegex("\\'(.*?)\\'", jquery); //Utiliza o que estiver entre aspas simples
+			List<String> elementos_2 = getElementByRegex("\"([^\"]*)\"", jquery); //Utiliza o que estiver entre aspas duplas
+			
+			List<String> elementos = new ArrayList<String>();
+			elementos.addAll(elementos_1);
+			elementos.addAll(elementos_2);
+			
+			if(!elementos.get(1).contains("/jornalismo/g1/politica")){ //Busca o uri e verifica se pertence ao caderno de politica
+				return null;
 			}
-			comentarios.addAll(getComentarios(item, idNoticia));
-				
-		}
-		 
-		Noticia noticia = new NoticiasJornalG1(timestamp, "G1", titulo, subTitulo, conteudo, emissor, url, String.valueOf(repercussao), idNoticia);
-		
-		List<Object> retorno = new ArrayList<Object>();
-		retorno.add(noticia);
-		retorno.add(comentarios);
-		
-		return retorno; 
+			
+			//writeFile(doc, titulo);
+			
+			int tentativas = 0;
+			while((doc == null) && (tentativas <= 5)){
+				doc = obtemPagina(url);
+				tentativas++;	
+			}
 
+			if(doc == null){
+				return null;
+			}
+
+			String momento = doc.select(".materia-cabecalho .published").text();
+			if(momento.isEmpty()){
+				momento = doc.select(".data-criacao").text();
+				if(momento.isEmpty()){
+					return null;
+				}
+			}
+			
+			String dataHora[] = momento.split(" ");
+			long timestamp = Utiles.dataToTimestamp(dataHora[0], dataHora[1].replace("h", ""));	
+
+			String emissor = doc.select(".fn").text() +" "+doc.select(".locality").text();
+
+			String conteudo = doc.select(".entry-content p").text();
+
+			conteudo = conteudo.replace("|", "");
+			conteudo = conteudo.replace("\"", "");
+			conteudo = conteudo.replace("\'", "");
+
+			int repercussao = calculaRepercussao(titulo, elementos);
+			System.out.println("repercussao: "+repercussao);
+			String idNoticia = "G1-"+elementos.get(4);
+			
+			List<Comentario> comentarios = new ArrayList<Comentario>();
+			int n_json = 0;
+			while(repercussao > comentarios.size()){
+				n_json++;
+				
+				JSONArray item = getItens(titulo, n_json, elementos);
+				if(item.size()==0){
+					break;
+				}
+				comentarios.addAll(getComentarios(item, idNoticia));
+					
+			}
+			 
+			Noticia noticia = new NoticiasJornalG1(timestamp, "G1", titulo, subTitulo, conteudo, emissor, url, String.valueOf(repercussao), idNoticia);
+			
+			List<Object> retorno = new ArrayList<Object>();
+			retorno.add(noticia);
+			retorno.add(comentarios);
+			
+			return retorno; 
+
+		} catch (Exception e){
+			return null;
+		}
+		
 	}
 
-	public int calculaRepercussao(String titulo, String editoria, List<String> elementos){		
+	public int calculaRepercussao(String titulo, List<String> elementos){		
 		
 		String uri_jq = elementos.get(1);
 		String url_jq = elementos.get(2);
@@ -364,15 +359,14 @@ public class NoticiasJornalG1 extends Noticia {
 		String idExterno_jq = elementos.get(4);
 		String shortUrl_jq = elementos.get(7);
 		
-//		final String n_comentariosPage = "http://comentarios.globo.com/comentarios/%40%40jornalismo%40%40g1%40%40" +editoria+"/"+ idExterno_jq + "/" + url_jq.replace("/", "%40%40") + "/" + shortUrl_jq.replace("/","%40%40") + "/"+ URLEncoder.encode(titulo.trim()) + "/numero";		
-		final String n_comentariosPage2 = "http://comentarios.globo.com/comentarios/" + uri_jq.replace("/","%40%40") + "/" + idExterno_jq + "/" + url_jq.replace(":","%3A").replace("/","%40%40") + "/" + shortUrl_jq.replace(":","%3A").replace("/","%40%40") + "/" + URLEncoder.encode(titulo_jq.trim()) +"/numero";
+		final String n_comentariosPage = "http://comentarios.globo.com/comentarios/" + uri_jq.replace("/","%40%40") + "/" + idExterno_jq + "/" + url_jq.replace(":","%3A").replace("/","%40%40") + "/" + shortUrl_jq.replace(":","%3A").replace("/","%40%40") + "/" + URLEncoder.encode(titulo_jq.trim()) +"/numero";
 		
-		int n_comentarios = getCount(n_comentariosPage2, "numeroDeComentarios");			
+		int n_comentarios = getCount(n_comentariosPage, "numeroDeComentarios");			
 		
 		return n_comentarios;
 	}
 	
-	public JSONArray getItens(String titulo, String editoria, int n_json, List<String> elementos) throws ParseException {		
+	public JSONArray getItens(String titulo, int n_json, List<String> elementos) throws ParseException {		
 		
 		String uri_jq = elementos.get(1);
 		String url_jq = elementos.get(2);
@@ -380,19 +374,17 @@ public class NoticiasJornalG1 extends Noticia {
 		String idExterno_jq = elementos.get(4);
 		String shortUrl_jq = elementos.get(7);
 		
-		//String comentariosPage = "http://comentarios.globo.com/comentarios/%40%40jornalismo%40%40g1%40%40" +editoria+"/"+ idExterno_jq + "/" + url_jq.replace("/", "%40%40") + "/" + shortUrl_jq.replace("/","%40%40") + "/"+ URLEncoder.encode(titulo.trim()) + "/" + n_json + ".json";
-		String comentariosPage2 = "http://comentarios.globo.com/comentarios/" + uri_jq.replace("/","%40%40") + "/" + idExterno_jq + "/" + url_jq.replace(":","%3A").replace("/","%40%40") + "/" + shortUrl_jq.replace(":","%3A").replace("/","%40%40") + "/" + URLEncoder.encode(titulo_jq.trim()) + "/" + n_json + ".json";
+		String comentariosPage = "http://comentarios.globo.com/comentarios/" + uri_jq.replace("/","%40%40") + "/" + idExterno_jq + "/" + url_jq.replace(":","%3A").replace("/","%40%40") + "/" + shortUrl_jq.replace(":","%3A").replace("/","%40%40") + "/" + URLEncoder.encode(titulo_jq.trim()) + "/" + n_json + ".json";
 
-		Document pagina = obtemPaginaIgnoringType(comentariosPage2);
+		Document pagina = obtemPaginaIgnoringType(comentariosPage);
 		while(pagina == null){
-			pagina = obtemPaginaIgnoringType(comentariosPage2);
+			pagina = obtemPaginaIgnoringType(comentariosPage);
 		}
 				
 		String json = pagina.select("body").text();
 		json = json.substring(28, json.length()-1);
 				
 		JSONParser parser = new JSONParser();
-		//TODO corrigir erro da noticia que esta na pasta aqui
 		JSONObject json_comentarios = (JSONObject) parser.parse(json);
 		JSONArray itens = (JSONArray) json_comentarios.get("itens");
 		
@@ -482,20 +474,10 @@ public class NoticiasJornalG1 extends Noticia {
 	
 	public static void main(String args[]) throws IOException, ParseException{
 
-		String searchDateStart= "01/01/2000";
-		String searchDateFinish="28/04/2017";
+		String searchDateStart= "01/07/2010";
+		String searchDateFinish="08/05/2017";
 		NoticiasJornalG1 n = new NoticiasJornalG1();
 		n.insereInformacao(searchDateStart, searchDateFinish);
-
-//		String str = "<script type=\"text/javascript\">\n $(function(){\n $('#boxComentarios').comentarios({\nuri: '/jornalismo/g1/pr/parana',\nurl: 'http://g1.globo.com/pr/parana/noticia/2017/03/marcelo-odebrecht-confirma-caixa-dois-para-chapa-dilma-temer-em-2014.html',\ntitulo: 'Marcelo Odebrecht diz que doou\nR$ 150 milhões à campanha de Dilma',\nidExterno : '2981823',\nexibeTeaserComentarios : true,\nshortUrl : \"http://glo.bo/2mwGWxh\",\nqtdComentariosNoTeaser: 3,\nbotaoComentario: {topo: '.botao-listar-comentarios'}\n});\n});\n</script>";
-//		str = str.replace("\n", " ").replace("\r", "");
-//		List<String> elementos_1 = n.getElementByRegex("\\'(.*?)\\'", str); //Utiliza o que estiver entre aspas simples
-//		List<String> elementos_2 = n.getElementByRegex("\"([^\"]*)\"", str); //Utiliza o que estiver entre aspas duplas
-//		List<String> elementos = new ArrayList<String>();
-//		elementos.addAll(elementos_1);
-//		elementos.addAll(elementos_2);
-//		System.out.println(elementos.toString());
-//		System.out.println(elementos.size());
 		
 	}
 
