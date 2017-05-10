@@ -1,5 +1,8 @@
 package crawler;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.Date;
@@ -7,6 +10,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
+
+import org.jsoup.nodes.Document;
 
 public class Utiles {
 
@@ -64,6 +69,15 @@ public class Utiles {
 		java.sql.Timestamp stamp = new java.sql.Timestamp((long)unixTimestamp*1000); 
 		Date date = new Date(stamp.getTime()); 
 		return date.toGMTString();
+	}
+	
+	public static void writeFile(Document doc, String titulo){
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(titulo))) {
+			String content = doc.toString();
+			bw.write(content);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void main(String args[]){

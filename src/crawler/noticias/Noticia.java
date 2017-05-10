@@ -26,6 +26,22 @@ public abstract class Noticia implements Crawlable{
 
 	public Noticia(long timestamp, String subFonte,
 			String titulo, String subTitulo, String conteudo, 
+			String emissor, String url, String repercussao){
+
+		setTimestamp(timestamp);
+		setFonte("JORNAL");
+		setSubFonte(subFonte);
+		setTitulo(titulo);
+		setSubTitulo(subTitulo);
+		setConteudo(conteudo);
+		setEmissor(emissor);
+		setUrl(url);
+		setRepercussao(repercussao);
+		
+	}
+	
+	public Noticia(long timestamp, String subFonte,
+			String titulo, String subTitulo, String conteudo, 
 			String emissor, String url, String repercussao, String id){
 
 		setTimestamp(timestamp);

@@ -237,15 +237,6 @@ public class NoticiasJornalG1 extends Noticia {
 		return news;    
 	}
 	
-	public void writeFile(Document doc, String titulo){
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(titulo))) {
-			String content = doc.toString();
-			bw.write(content);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public List<String> getElementByRegex(String regex, String jquery){
 		List<String> padroes = new ArrayList<String>();
 		Pattern p = Pattern.compile(regex);
@@ -289,7 +280,7 @@ public class NoticiasJornalG1 extends Noticia {
 				return null;
 			}
 			
-			//writeFile(doc, titulo);
+			//Utiles.writeFile(doc, titulo);
 			
 			int tentativas = 0;
 			while((doc == null) && (tentativas <= 5)){

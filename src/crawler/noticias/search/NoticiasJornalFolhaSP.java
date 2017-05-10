@@ -1,7 +1,12 @@
 package crawler.noticias.search;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.jsoup.Connection;
@@ -13,18 +18,25 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 
 import crawler.Utiles;
 import crawler.db.MongoDB;
+import crawler.noticias.Comentario;
 import crawler.noticias.Noticia;
 
 public class NoticiasJornalFolhaSP extends Noticia {
 
 	private static final String URL_FOLHASP = "http://search.folha.com.br/search?";
+	private static final String comentariosPage_1 = "http://comentarios1.folha.com.br/comentarios.jsonp?callback=get_comments&service_name=Folha+Online&category_name=Poder&external_id=";
+	private static final String comentariosPage_2 = "&type=news&show_replies=false&show_with_alternate=false&link_format=html&order_by=plugin&callback=get_comments";
+	
 	private static int NUM_PAGINA = 1;
-	private DBCollection mongoCollection = null;
+	
+	private DB stocks = null;
+	private DBCollection mongoCollectionNoticias = null;
 
 	public NoticiasJornalFolhaSP(){}
 
@@ -73,11 +85,11 @@ public class NoticiasJornalFolhaSP extends Noticia {
 	}
 
 	public void insereInformacao(String dataInicial, String dataFinal,
-			String consulta) throws IOException {
+			String consulta) throws IOException, ParseException {
 
-		mongoCollection = MongoDB.getInstance();
-		//gravarArq = new BufferedWriter(new FileWriter("FOLHADESAOPAULO.txt"));
-
+		stocks = MongoDB.getInstance();
+		mongoCollectionNoticias = stocks.getCollection("folhaNoticias");
+		
 		long unixTimesTampDataInicial = 0; 
 		long unixTimesTampDataFinal = 0;
 
@@ -92,7 +104,7 @@ public class NoticiasJornalFolhaSP extends Noticia {
 
 		String url = URL_FOLHASP+consulta+complemento+dataInicial+dataFinal+paginaInicial;
 		Document pagina = obtemPagina(url);
-
+		
 		while(pagina == null){
 			pagina = obtemPagina(url);
 		}
@@ -100,10 +112,10 @@ public class NoticiasJornalFolhaSP extends Noticia {
 		Elements noticiasFolhaSPPagina = pagina.select(".search-results-list li");
 		System.out.println("Noticias de 1 - "+noticiasFolhaSPPagina.size());
 		NUM_PAGINA += noticiasFolhaSPPagina.size();
-
+		
 		boolean limiteAlcancado =  verificaLimiteInformacao(noticiasFolhaSPPagina, 
 				unixTimesTampDataInicial, unixTimesTampDataFinal, consulta);
-
+		
 		while(!limiteAlcancado){
 			paginaInicial = "&sr="+NUM_PAGINA;
 
@@ -123,12 +135,11 @@ public class NoticiasJornalFolhaSP extends Noticia {
 
 
 		}
-		//gravarArq.close();
 
 	}
 
 	public boolean verificaLimiteInformacao(Elements noticias, long unixTimesTampDataInicial,
-			long unixTimesTampDataFinal, String consulta) throws IOException {
+			long unixTimesTampDataFinal, String consulta) throws IOException, ParseException {
 
 		if(!noticias.isEmpty()){
 
@@ -140,7 +151,7 @@ public class NoticiasJornalFolhaSP extends Noticia {
 					if(noticiaAtual != null){
 						long timesTampDia = noticiaAtual.getTimestamp();
 						if(timesTampDia >= unixTimesTampDataInicial){
-							mongoCollection.insert(converterToMap(noticiaAtual));
+							mongoCollectionNoticias.insert(converterToMap(noticiaAtual));
 						}else{
 							return true;
 						}
@@ -149,7 +160,6 @@ public class NoticiasJornalFolhaSP extends Noticia {
 				}
 
 			}else{
-
 				for (Element noticia : noticias) {
 
 					Noticia noticiaAtual = criaInformacao(noticia);
@@ -159,7 +169,7 @@ public class NoticiasJornalFolhaSP extends Noticia {
 
 						if((timesTampDia <= unixTimesTampDataFinal) && 
 								(timesTampDia >= unixTimesTampDataInicial)){
-							mongoCollection.insert(converterToMap(noticiaAtual));
+							mongoCollectionNoticias.insert(converterToMap(noticiaAtual));
 
 						}else if(timesTampDia < unixTimesTampDataInicial){
 							return true;
@@ -185,12 +195,13 @@ public class NoticiasJornalFolhaSP extends Noticia {
 		news.put("conteudo", noticia.getConteudo());  
 		news.put("emissor", noticia.getEmissor());  
 		news.put("url", noticia.getUrl());  
-		news.put("repercussao", noticia.getRepercussao());  
+		news.put("repercussao", noticia.getRepercussao()); 
+		//news.put("idNoticia", noticia.getIdNoticia());
 
 		return news;    
 	}
 
-	public Noticia criaInformacao(Element el){
+	public Noticia criaInformacao(Element el) throws ParseException{
 
 		String url = el.select("a").attr("href");
 		if (url == null || url.length() == 0){
@@ -216,9 +227,9 @@ public class NoticiasJornalFolhaSP extends Noticia {
 			int tentativas = 0;
 			
 			while((doc == null) && (tentativas <= 10)){
-				
+
 				doc = obtemPagina(url);
-				
+
 				if(doc != null){
 					String corpo = doc.select("body").text();
 					if(corpo.isEmpty()){
@@ -271,7 +282,7 @@ public class NoticiasJornalFolhaSP extends Noticia {
 				titulo = doc.select("#articleNew h1").text();
 			}
 			
-			//System.out.println("\t -"+titulo);
+			System.out.println("\t -"+titulo);
 
 			if(titulo.contains("\"")){
 				return null;
@@ -285,22 +296,17 @@ public class NoticiasJornalFolhaSP extends Noticia {
 
 			String id = doc.select(".shortcut").attr("data-shortcut");
 			id = id.substring(id.lastIndexOf("o")+1,id.length());
- 
-			System.out.println(doc);
-			System.out.println("\t -"+titulo);
 			
-			Elements comments = doc.select("#article-comments");
-			//System.out.println("comments");
-			//System.out.println(comments);
-			
-			//String repercussao = calculaRepercussao(url,id);
-			String repercussao = "0";
+			String repercussao = calculaRepercussao(id);
 			String conteudo = doc.select("article .content p").text();
-			
+			System.out.println("repercussao: "+repercussao);
+			List<Comentario> comentarios = getComentarios(id);
 			
 			if(conteudo.isEmpty()){
 				conteudo = doc.select("#articleNew p").text();
 			}
+
+			//Utiles.writeFile(doc, titulo);
 
 			return new NoticiasJornalFolhaSP(timestamp, "FOLHASP",
 					titulo, "", conteudo, 
@@ -310,63 +316,85 @@ public class NoticiasJornalFolhaSP extends Noticia {
 		return null;
 
 	}
-
-	public String calculaRepercussao(String url, String id){
-
-
-		final String comentariosPage = "http://comentarios1.folha.com.br/comentarios.jsonp?callback=get_comments&service_name=Folha+Online&category_name=Mercado&external_id="+id+"&type=news&show_replies=false&show_with_alternate=false&link_format=html&order_by=plugin&callback=get_comments";
+	
+	public String calculaRepercussao(String id){
+		String comentariosPage = comentariosPage_1+id+comentariosPage_2;
 		int comentarios = getCount(comentariosPage, "total_comments");
-
-		final String tweeterPage = "https://cdn.api.twitter.com/1/urls/count.json?url="+url+"&callback=jQuery11100053468162895262794_1425342668803&_=1425342668804";
-		int tweeter = getCount(tweeterPage, "count");
-		
-		final String tweeterPage_2 = "http://urls.api.twitter.com/1/urls/count.json?callback=jQuery183004098643323709983_1426095974484&url="+url+"&_=1426095975713";
-		int tweeter_2 = getCount(tweeterPage_2, "count");
-	    
-		try {
-	    	
-			new Thread().sleep(1000);
-			
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			System.exit(0);
-			e.printStackTrace();
-		}
-	    
-		final String facebookPage = "https://graph.facebook.com/fql?q=SELECT%20total_count%20FROM%20link_stat%20WHERE%20url=%27"+url+"%27&callback=jQuery183079688022619946_1426192200188&_=1426192201535";
-		int facebook = getCount(facebookPage, "total_count");
-
-		final String facebookPage_2 = "http://graph.facebook.com/?callback=jQuery183004098643323709983_1426095974483&id="+url+"&_=1426095975709";
-		int facebook_2 = getCount(facebookPage_2, "count");
-		
-		final String linkedInPage = "https://www.linkedin.com/countserv/count/share?format=jsonp&url="+url+"&callback=jQuery1110030292543070338573_1425849946154&_=1425849946155";
-		int linkedIn = getCount(linkedInPage, "count");
-
-		//final String googleplusPage = "http://economia.estadao.com.br/estadao/sharrre.php?url="+url+"&type=googlePlus";		
-		//int googlePlus = getCount(googleplusPage, "count");
-
-		int total = comentarios+tweeter+tweeter_2+facebook+facebook_2+linkedIn;
-		System.out.println("c:"+comentarios+",t:"+(tweeter+tweeter_2)+",f:"+(facebook+facebook_2)+",l:"+linkedIn+",total:"+total);
-		return "c:"+comentarios+",t:"+(tweeter+tweeter_2)+",f:"+(facebook+facebook_2)+",l:"+linkedIn+",total:"+total;
+		return Integer.toString(comentarios);
 	}
 
-	public int getCount(String url, String atributo){
+	public List<Comentario> getComentarios(String id) throws ParseException{
+		String comentariosInfo = comentariosPage_1+id+comentariosPage_2;
+		
+		String json = getJson(comentariosInfo);
+		JSONParser parser = new JSONParser();
+		JSONObject json_comentarios = (JSONObject) parser.parse(json);
 
+		JSONObject subjects = (JSONObject) json_comentarios.get("subject");
+		String comentariosPage = subjects.get("subject_comments_url").toString();
+		//System.out.println(comentariosPage);
+		List<Comentario> comentarios = extraiComentariosDoHTML(comentariosPage);
+		
+		return comentarios;
+	}
+	
+	
+	private List<Comentario> extraiComentariosDoHTML(String comentariosPage) {
+		Document pagina = obtemPaginaIgnoringType(comentariosPage);
+		while(pagina == null){
+			pagina = obtemPaginaIgnoringType(comentariosPage);
+		}
+		
+		Elements bloco_users_comentarios_html = pagina.select(".comment.comment_li");
+		for (int i = 0; i < bloco_users_comentarios_html.size(); i++) {
+			Element bloco_users_comentarios = bloco_users_comentarios_html.get(i);
+			
+			Elements usuarios = bloco_users_comentarios.getElementsByClass("comment-meta");
+			Elements comentarios = bloco_users_comentarios.getElementsByClass("comment-body");
+			
+			for (int j = 0; j < usuarios.size(); j++) { //usuarios e comentarios tem sempre o mesmo tamanho
+				
+				Element usuario = usuarios.get(j);
+				
+				String idUsuario = usuario.getElementsByTag("span").get(0).text();
+				String votosThumbsUp = usuario.getElementsByClass("good").text();
+				String votosThumbsDown = usuario.getElementsByClass("bad").text();
+				
+				String quantidade_respostas = "isReply"; 
+				if(j==0){ //se eh o primeiro usuario 
+					quantidade_respostas = Integer.toString(bloco_users_comentarios.getElementsByClass("comment_li").size()-1); //desconsidera o proprio comentario
+				}
+
+				String comentario = comentarios.get(j).getElementsByTag("p").get(0).text();
+			}
+		}
+
+		return null;
+	}
+
+	private String getJson(String url){
 		Document pagina = obtemPaginaIgnoringType(url);
 		while(pagina == null){
 			pagina = obtemPaginaIgnoringType(url);
 		}
-
+		
 		String json = pagina.select("body").text();
 		if(json.contains("\"error\"")){
 			System.out.println("json:"+json);
 			System.out.println("url:"+url);
 			System.exit(0); 
 		}
-
+		
 		if(json.contains("(")){
 			json = json.substring(json.indexOf("(")+1, json.lastIndexOf(")"));
 		}
+		
+		return json;
+	}
+	
+	public int getCount(String url, String atributo){
+
+		String json = getJson(url);
 
 		int count  = 0;
 		JSONParser parser = new JSONParser();
@@ -395,16 +423,16 @@ public class NoticiasJornalFolhaSP extends Noticia {
 		return count;
 	}
 
-	public static void main(String args[]) throws IOException{
+	public static void main(String args[]) throws IOException, ParseException{
 
-		String searchDateStart= "01/01/2001";
-		String searchDateFinish="25/04/2017";
+		String searchDateStart= "01/07/2010";
+		String searchDateFinish="08/05/2017";
 		NoticiasJornalFolhaSP n = new NoticiasJornalFolhaSP();
 		/*
-		 * Na Folha de São Paulo o nome do cardeno é PODER ao invés de POLITICA
+		 * Na Folha de São Paulo o nome do cardeno é MERCADO ao invés de ECONOMIA
 		 * como é normalmente conhecido. 
 		 */
-		n.insereInformacao(searchDateStart, searchDateFinish, "politica");
+		n.insereInformacao(searchDateStart, searchDateFinish, "poder");
 
 	}
 
