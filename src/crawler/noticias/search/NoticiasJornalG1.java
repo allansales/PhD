@@ -1,8 +1,5 @@
 package crawler.noticias.search;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -20,9 +17,6 @@ import org.jsoup.Connection.Method;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import scala.Array;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;

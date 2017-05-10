@@ -297,33 +297,33 @@ public class NoticiasJornalFolhaSP extends Noticia {
 			String id = doc.select(".shortcut").attr("data-shortcut");
 			id = id.substring(id.lastIndexOf("o")+1,id.length());
 			
-			String repercussao = calculaRepercussao(id);
+			int repercussao = calculaRepercussao(id);
 			String conteudo = doc.select("article .content p").text();
 			System.out.println("repercussao: "+repercussao);
-			List<Comentario> comentarios = getComentarios(id);
+			
+			List<Comentario> comentarios = getComentarios(repercussao, id);
+			System.out.println("tamanho da lista: "+comentarios.size());
 			
 			if(conteudo.isEmpty()){
 				conteudo = doc.select("#articleNew p").text();
 			}
 
-			//Utiles.writeFile(doc, titulo);
-
 			return new NoticiasJornalFolhaSP(timestamp, "FOLHASP",
 					titulo, "", conteudo, 
-					emissor, url, repercussao);
+					emissor, url, Integer.toString(repercussao));
 		}
 
 		return null;
 
 	}
 	
-	public String calculaRepercussao(String id){
+	public int calculaRepercussao(String id){
 		String comentariosPage = comentariosPage_1+id+comentariosPage_2;
 		int comentarios = getCount(comentariosPage, "total_comments");
-		return Integer.toString(comentarios);
+		return comentarios;
 	}
 
-	public List<Comentario> getComentarios(String id) throws ParseException{
+	private List<Comentario> getComentarios(int repercussao, String id) throws ParseException{
 		String comentariosInfo = comentariosPage_1+id+comentariosPage_2;
 		
 		String json = getJson(comentariosInfo);
@@ -331,45 +331,74 @@ public class NoticiasJornalFolhaSP extends Noticia {
 		JSONObject json_comentarios = (JSONObject) parser.parse(json);
 
 		JSONObject subjects = (JSONObject) json_comentarios.get("subject");
-		String comentariosPage = subjects.get("subject_comments_url").toString();
-		//System.out.println(comentariosPage);
-		List<Comentario> comentarios = extraiComentariosDoHTML(comentariosPage);
+		String comentariosPageModel = subjects.get("subject_comments_url").toString()+"&sr=";
+		List<Comentario> comentarios = extraiComentariosDoHTML(repercussao, comentariosPageModel);
 		
 		return comentarios;
 	}
 	
 	
-	private List<Comentario> extraiComentariosDoHTML(String comentariosPage) {
-		Document pagina = obtemPaginaIgnoringType(comentariosPage);
-		while(pagina == null){
-			pagina = obtemPaginaIgnoringType(comentariosPage);
+	//TODO adicionar idNoticia, parar o loop quando houver duas interacoes sem mudar o numero de comentarios e retornar do jeito que esta
+	private List<Comentario> extraiComentariosDoHTML(int repercussao, String comentariosPageModel) {
+		
+		List<Comentario> lista_comentarios = new ArrayList<Comentario>();
+		
+		int n_comentario = 1;
+		while(repercussao > lista_comentarios.size()){
+			
+			String comentariosPage = comentariosPageModel+n_comentario;
+
+			System.out.println(comentariosPage);
+			
+			Document pagina = obtemPaginaIgnoringType(comentariosPage);
+			while(pagina == null){
+				pagina = obtemPaginaIgnoringType(comentariosPage);
+			}
+			
+			Elements bloco_users_comentarios_html = pagina.select(".comment.comment_li");
+			
+			int n_comentarios_pagina = bloco_users_comentarios_html.size();
+			
+			for (int i = 0; i < n_comentarios_pagina; i++) {
+				Element bloco_users_comentarios = bloco_users_comentarios_html.get(i);
+				
+				Elements usuarios = bloco_users_comentarios.getElementsByClass("comment-meta");
+				Elements comentarios = bloco_users_comentarios.getElementsByClass("comment-body");
+				
+				for (int j = 0; j < usuarios.size(); j++) { //usuarios e comentarios tem sempre o mesmo tamanho
+					
+					Comentario comment = new Comentario();
+					
+					Element usuario = usuarios.get(j);
+					
+					comment.setIdUsuario(usuario.getElementsByTag("span").get(0).text());
+					comment.setVotosThumbsUp(usuario.getElementsByClass("good").text());
+					comment.setVotosThumbsDown(usuario.getElementsByClass("bad").text());
+					
+					String quantidade_respostas = "isReply"; 
+					if(j==0){ //se eh o primeiro usuario 
+						quantidade_respostas = Integer.toString(bloco_users_comentarios.getElementsByClass("comment_li").size()-1); //desconsidera o proprio comentario
+					}
+					comment.setQuantidade_respostas(quantidade_respostas);
+					
+					comment.setComentario(comentarios.get(j).getElementsByTag("p").get(0).text());
+					
+					lista_comentarios.add(comment);
+				}
+			}
+			
+			// Caso haja mais de uma pagina de comentarios, atualiza o link para ir para a proxima
+			if(lista_comentarios.size()!=0){
+				n_comentario += n_comentarios_pagina;		
+			}
+			
+			System.out.println("tamanho lista: "+lista_comentarios.size());
+	
 		}
 		
-		Elements bloco_users_comentarios_html = pagina.select(".comment.comment_li");
-		for (int i = 0; i < bloco_users_comentarios_html.size(); i++) {
-			Element bloco_users_comentarios = bloco_users_comentarios_html.get(i);
-			
-			Elements usuarios = bloco_users_comentarios.getElementsByClass("comment-meta");
-			Elements comentarios = bloco_users_comentarios.getElementsByClass("comment-body");
-			
-			for (int j = 0; j < usuarios.size(); j++) { //usuarios e comentarios tem sempre o mesmo tamanho
-				
-				Element usuario = usuarios.get(j);
-				
-				String idUsuario = usuario.getElementsByTag("span").get(0).text();
-				String votosThumbsUp = usuario.getElementsByClass("good").text();
-				String votosThumbsDown = usuario.getElementsByClass("bad").text();
-				
-				String quantidade_respostas = "isReply"; 
-				if(j==0){ //se eh o primeiro usuario 
-					quantidade_respostas = Integer.toString(bloco_users_comentarios.getElementsByClass("comment_li").size()-1); //desconsidera o proprio comentario
-				}
-
-				String comentario = comentarios.get(j).getElementsByTag("p").get(0).text();
-			}
-		}
-
-		return null;
+		//Utiles.writeFile(pagina, Integer.toString(lista_comentarios.size()));	
+		
+		return lista_comentarios;
 	}
 
 	private String getJson(String url){
@@ -428,10 +457,6 @@ public class NoticiasJornalFolhaSP extends Noticia {
 		String searchDateStart= "01/07/2010";
 		String searchDateFinish="08/05/2017";
 		NoticiasJornalFolhaSP n = new NoticiasJornalFolhaSP();
-		/*
-		 * Na Folha de São Paulo o nome do cardeno é MERCADO ao invés de ECONOMIA
-		 * como é normalmente conhecido. 
-		 */
 		n.insereInformacao(searchDateStart, searchDateFinish, "poder");
 
 	}
