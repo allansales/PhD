@@ -2,10 +2,8 @@ package crawler.noticias.search;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -32,19 +30,21 @@ public class NoticiasJornalFolhaSP extends Noticia {
 	private static final String URL_FOLHASP = "http://search.folha.com.br/search?";
 	private static final String comentariosPage_1 = "http://comentarios1.folha.com.br/comentarios.jsonp?callback=get_comments&service_name=Folha+Online&category_name=Poder&external_id=";
 	private static final String comentariosPage_2 = "&type=news&show_replies=false&show_with_alternate=false&link_format=html&order_by=plugin&callback=get_comments";
+	private static final String idModel = "FOLHASP-";
 	
 	private static int NUM_PAGINA = 1;
 	
 	private DB stocks = null;
 	private DBCollection mongoCollectionNoticias = null;
+	private DBCollection mongoCollectionComentarios = null;
 
 	public NoticiasJornalFolhaSP(){}
 
 	public NoticiasJornalFolhaSP(long timestamp, String subFonte,
 			String titulo, String subTitulo, String conteudo, 
-			String emissor, String url, String repercussao) {
+			String emissor, String url, String repercussao, String idNoticia) {
 
-		super(timestamp, subFonte, titulo, subTitulo, conteudo, emissor, url, repercussao);
+		super(timestamp, subFonte, titulo, subTitulo, conteudo, emissor, url, repercussao, idNoticia);
 	}
 
 	public Document obtemPagina(String url){
@@ -89,6 +89,7 @@ public class NoticiasJornalFolhaSP extends Noticia {
 
 		stocks = MongoDB.getInstance();
 		mongoCollectionNoticias = stocks.getCollection("folhaNoticias");
+		mongoCollectionComentarios = stocks.getCollection("folhaComentarios");
 		
 		long unixTimesTampDataInicial = 0; 
 		long unixTimesTampDataFinal = 0;
@@ -138,45 +139,57 @@ public class NoticiasJornalFolhaSP extends Noticia {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean verificaLimiteInformacao(Elements noticias, long unixTimesTampDataInicial,
 			long unixTimesTampDataFinal, String consulta) throws IOException, ParseException {
 
-		if(!noticias.isEmpty()){
-
+if(!noticias.isEmpty()){
+			
 			if(unixTimesTampDataFinal == Utiles.ZERO){
-
-				for (Element noticia : noticias) {
-
-					Noticia noticiaAtual = criaInformacao(noticia);
-					if(noticiaAtual != null){
-						long timesTampDia = noticiaAtual.getTimestamp();
-						if(timesTampDia >= unixTimesTampDataInicial){
-							mongoCollectionNoticias.insert(converterToMap(noticiaAtual));
+				
+				for (Element notic : noticias) {
+					List<Object> objetos = criaInformacao(notic);
+					if(objetos == null){
+						continue;
+					}
+					Noticia noticia = (Noticia) objetos.get(0);
+					List<Comentario> comentarios = (List<Comentario>) objetos.get(1);
+					
+					if(noticia != null){
+						if(noticia.getTimestamp() >= unixTimesTampDataInicial){
+							//Se a lista de comentarios vier vazia, nao adiciona no BD							
+							if(comentarios.size() != 0){
+								mongoCollectionComentarios.insert(converterToMap(comentarios));	
+							}
+							mongoCollectionNoticias.insert(converterToMap(noticia));
+						
 						}else{
 							return true;
 						}
 					}
-
 				}
 
 			}else{
-				for (Element noticia : noticias) {
-
-					Noticia noticiaAtual = criaInformacao(noticia);
-
-					if(noticiaAtual != null){
-						long timesTampDia = noticiaAtual.getTimestamp();
-
-						if((timesTampDia <= unixTimesTampDataFinal) && 
-								(timesTampDia >= unixTimesTampDataInicial)){
-							mongoCollectionNoticias.insert(converterToMap(noticiaAtual));
-
-						}else if(timesTampDia < unixTimesTampDataInicial){
+				for (Element notic : noticias) {
+					List<Object> objetos = criaInformacao(notic);
+					if(objetos == null){
+						continue;
+					}
+					Noticia noticia = (Noticia) objetos.get(0);
+					List<Comentario> comentarios = (List<Comentario>) objetos.get(1);
+					
+					if(noticia != null){
+						if((noticia.getTimestamp() <= unixTimesTampDataFinal) && 
+								(noticia.getTimestamp() >= unixTimesTampDataInicial)){
+							//Se a lista de comentarios vier vazia, nao adiciona no BD
+							if(comentarios.size() != 0){								
+								mongoCollectionComentarios.insert(converterToMap(comentarios));	
+							}
+							mongoCollectionNoticias.insert(converterToMap(noticia));
+						}else if(noticia.getTimestamp() < unixTimesTampDataInicial){
 							return true;
 						}	
 					}
-
-
 				}
 				return false;
 			}
@@ -185,9 +198,27 @@ public class NoticiasJornalFolhaSP extends Noticia {
 		return true;
 	}
 
+	public List<DBObject> converterToMap(List<Comentario> comentarios) {
+		
+		List<DBObject> comentarios_dbo = new ArrayList<DBObject>();
+		
+		for (Comentario comentario : comentarios) {
+			DBObject comentario_dbo = new BasicDBObject();
+			comentario_dbo.put("idNoticia", comentario.getIdNoticia());  
+			comentario_dbo.put("comentario", comentario.getComentario());  
+			comentario_dbo.put("idUsuario", comentario.getIdUsuario());  
+			comentario_dbo.put("ThumbsUp", comentario.getVotosThumbsUp());  
+			comentario_dbo.put("ThumbsDown", comentario.getVotosThumbsDown());
+			comentario_dbo.put("n_respostas", comentario.getQuantidade_respostas());
+			comentarios_dbo.add(comentario_dbo);
+		}
+		return comentarios_dbo;    	
+	}
+	
 	public DBObject converterToMap(Noticia noticia) {   
-		//timestamp, subFonte, titulo, subTitulo, conteudo, emissor, url, repercussao
+		
 		DBObject news = new BasicDBObject();  
+
 		news.put("timestamp", noticia.getTimestamp());  
 		news.put("subFonte", noticia.getSubFonte());  
 		news.put("titulo", noticia.getTitulo());  
@@ -196,12 +227,12 @@ public class NoticiasJornalFolhaSP extends Noticia {
 		news.put("emissor", noticia.getEmissor());  
 		news.put("url", noticia.getUrl());  
 		news.put("repercussao", noticia.getRepercussao()); 
-		//news.put("idNoticia", noticia.getIdNoticia());
+		news.put("idNoticia", noticia.getIdNoticia());
 
 		return news;    
 	}
 
-	public Noticia criaInformacao(Element el) throws ParseException{
+	public List<Object> criaInformacao(Element el) throws ParseException{
 
 		String url = el.select("a").attr("href");
 		if (url == null || url.length() == 0){
@@ -249,7 +280,7 @@ public class NoticiasJornalFolhaSP extends Noticia {
 			if(doc == null){
 				return null;
 			}
-
+			
 			String data = "";
 			String hora = "";
 			long timestamp = 0;
@@ -278,6 +309,8 @@ public class NoticiasJornalFolhaSP extends Noticia {
 
 			String titulo = doc.select("article header h1").text();
 			
+			//Utiles.writeFile(doc, titulo);
+			
 			if(titulo.isEmpty()){
 				titulo = doc.select("#articleNew h1").text();
 			}
@@ -296,21 +329,30 @@ public class NoticiasJornalFolhaSP extends Noticia {
 
 			String id = doc.select(".shortcut").attr("data-shortcut");
 			id = id.substring(id.lastIndexOf("o")+1,id.length());
+			String idNoticia = idModel+id;
 			
 			int repercussao = calculaRepercussao(id);
 			String conteudo = doc.select("article .content p").text();
-			System.out.println("repercussao: "+repercussao);
-			
-			List<Comentario> comentarios = getComentarios(repercussao, id);
-			System.out.println("tamanho da lista: "+comentarios.size());
+						
+			List<Comentario> comentarios = new ArrayList<Comentario>();
+			if(repercussao > 0){
+				comentarios = getComentarios(repercussao, id);
+			}
 			
 			if(conteudo.isEmpty()){
 				conteudo = doc.select("#articleNew p").text();
 			}
 
-			return new NoticiasJornalFolhaSP(timestamp, "FOLHASP",
-					titulo, "", conteudo, 
-					emissor, url, Integer.toString(repercussao));
+			Noticia noticia = new NoticiasJornalFolhaSP(timestamp, "FOLHASP", titulo, "", conteudo, emissor, url, Integer.toString(repercussao), idNoticia);
+			
+			System.out.println("Data da noticia: "+data);
+			System.out.println("Todos comentarios: "+ (repercussao==comentarios.size()) + ". Repercussao: " + repercussao + ". Comentarios: " + comentarios.size()+"\n");
+			
+			List<Object> retorno = new ArrayList<Object>();
+			retorno.add(noticia);
+			retorno.add(comentarios);
+			
+			return retorno;
 		}
 
 		return null;
@@ -332,24 +374,21 @@ public class NoticiasJornalFolhaSP extends Noticia {
 
 		JSONObject subjects = (JSONObject) json_comentarios.get("subject");
 		String comentariosPageModel = subjects.get("subject_comments_url").toString()+"&sr=";
-		List<Comentario> comentarios = extraiComentariosDoHTML(repercussao, comentariosPageModel);
+		List<Comentario> comentarios = extraiComentariosDoHTML(repercussao, comentariosPageModel, id);
 		
 		return comentarios;
 	}
-	
-	
-	//TODO adicionar idNoticia, parar o loop quando houver duas interacoes sem mudar o numero de comentarios e retornar do jeito que esta
-	private List<Comentario> extraiComentariosDoHTML(int repercussao, String comentariosPageModel) {
+		
+	private List<Comentario> extraiComentariosDoHTML(int repercussao, String comentariosPageModel, String id) {
 		
 		List<Comentario> lista_comentarios = new ArrayList<Comentario>();
 		
 		int n_comentario = 1;
+		int loop_anterior = 0;
 		while(repercussao > lista_comentarios.size()){
 			
 			String comentariosPage = comentariosPageModel+n_comentario;
 
-			System.out.println(comentariosPage);
-			
 			Document pagina = obtemPaginaIgnoringType(comentariosPage);
 			while(pagina == null){
 				pagina = obtemPaginaIgnoringType(comentariosPage);
@@ -382,7 +421,7 @@ public class NoticiasJornalFolhaSP extends Noticia {
 					comment.setQuantidade_respostas(quantidade_respostas);
 					
 					comment.setComentario(comentarios.get(j).getElementsByTag("p").get(0).text());
-					
+					comment.setIdNoticia(idModel+id);
 					lista_comentarios.add(comment);
 				}
 			}
@@ -392,12 +431,14 @@ public class NoticiasJornalFolhaSP extends Noticia {
 				n_comentario += n_comentarios_pagina;		
 			}
 			
-			System.out.println("tamanho lista: "+lista_comentarios.size());
-	
+			if(loop_anterior==lista_comentarios.size()){
+				break;
+			}
+			
+			loop_anterior = lista_comentarios.size();
+			
 		}
-		
-		//Utiles.writeFile(pagina, Integer.toString(lista_comentarios.size()));	
-		
+				
 		return lista_comentarios;
 	}
 

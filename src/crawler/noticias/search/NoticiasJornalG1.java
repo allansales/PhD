@@ -216,8 +216,8 @@ public class NoticiasJornalG1 extends Noticia {
 	}
 	
 	public DBObject converterToMap(Noticia noticia) {   
-		//timestamp, subFonte, titulo, subTitulo, conteudo, emissor, url, repercussao
 		DBObject news = new BasicDBObject();  
+
 		news.put("timestamp", noticia.getTimestamp());  
 		news.put("subFonte", noticia.getSubFonte());  
 		news.put("titulo", noticia.getTitulo());  
