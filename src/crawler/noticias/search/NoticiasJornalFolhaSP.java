@@ -143,7 +143,7 @@ public class NoticiasJornalFolhaSP extends Noticia {
 	public boolean verificaLimiteInformacao(Elements noticias, long unixTimesTampDataInicial,
 			long unixTimesTampDataFinal, String consulta) throws IOException, ParseException {
 
-if(!noticias.isEmpty()){
+		if(!noticias.isEmpty()){
 			
 			if(unixTimesTampDataFinal == Utiles.ZERO){
 				
@@ -233,34 +233,16 @@ if(!noticias.isEmpty()){
 	}
 
 	public List<Object> criaInformacao(Element el) throws ParseException{
+		
+		try{
+			String url = el.select("a").attr("href");
+			if (url == null || url.length() == 0){
+				System.out.println(el);
+				return null;
+			}else{
 
-		String url = el.select("a").attr("href");
-		if (url == null || url.length() == 0){
-			System.out.println(el);
-
-		}else{
-
-			Document doc = obtemPagina(url);
-			
-			if(doc != null){
-				String corpo = doc.select("body").text();
-				if(corpo.isEmpty()){
-					url = doc.select("meta[http-equiv=Refresh]").attr("content");
-					if(url.isEmpty()){
-						System.out.println("url vazia...");
-						return null;
-					}
-					url = url.split("=")[1];
-					doc = null;
-				}
-			}
-			
-			int tentativas = 0;
-			
-			while((doc == null) && (tentativas <= 10)){
-
-				doc = obtemPagina(url);
-
+				Document doc = obtemPagina(url);
+				
 				if(doc != null){
 					String corpo = doc.select("body").text();
 					if(corpo.isEmpty()){
@@ -270,92 +252,112 @@ if(!noticias.isEmpty()){
 							return null;
 						}
 						url = url.split("=")[1];
-						doc = obtemPagina(url);
+						doc = null;
 					}
 				}
 				
-				tentativas++;	
-			}
+				int tentativas = 0;
+				
+				while((doc == null) && (tentativas <= 10)){
 
-			if(doc == null){
-				return null;
-			}
-			
-			String data = "";
-			String hora = "";
-			long timestamp = 0;
-			String tempo = doc.select("time").text();
+					doc = obtemPagina(url);
 
-			if(!tempo.isEmpty()){
-				
-				data = tempo.split(" ")[0];
-				hora = tempo.split(" ")[1];
-				timestamp = Utiles.dataToTimestamp(data, hora.replace("h", ""));
-			
-			}else{
-				
-				tempo = doc.select("#articleDate").text();
-				
-				if(!tempo.isEmpty()){
-					data = tempo.split("-")[0].trim();
-					hora = tempo.split("-")[1].trim();
-					timestamp = Utiles.dataToTimestamp(data, hora.replace("h", ""));		
-				}else{
-					System.out.println("Nao houve como capturar o tempo aqui...");
-					return null; 
+					if(doc != null){
+						String corpo = doc.select("body").text();
+						if(corpo.isEmpty()){
+							url = doc.select("meta[http-equiv=Refresh]").attr("content");
+							if(url.isEmpty()){
+								System.out.println("url vazia...");
+								return null;
+							}
+							url = url.split("=")[1];
+							doc = obtemPagina(url);
+						}
+					}
+					
+					tentativas++;	
 				}
-			
-			}
 
-			String titulo = doc.select("article header h1").text();
-			
-			//Utiles.writeFile(doc, titulo);
-			
-			if(titulo.isEmpty()){
-				titulo = doc.select("#articleNew h1").text();
-			}
-			
-			System.out.println("\t -"+titulo);
+				if(doc == null){
+					return null;
+				}
+				
+				String data = "";
+				String hora = "";
+				long timestamp = 0;
+				String tempo = doc.select("time").text();
 
-			if(titulo.contains("\"")){
-				return null;
-			}
+				if(!tempo.isEmpty()){
+					
+					data = tempo.split(" ")[0];
+					hora = tempo.split(" ")[1];
+					timestamp = Utiles.dataToTimestamp(data, hora.replace("h", ""));
+				
+				}else{
+					
+					tempo = doc.select("#articleDate").text();
+					
+					if(!tempo.isEmpty()){
+						data = tempo.split("-")[0].trim();
+						hora = tempo.split("-")[1].trim();
+						timestamp = Utiles.dataToTimestamp(data, hora.replace("h", ""));		
+					}else{
+						System.out.println("Nao houve como capturar o tempo aqui...");
+						return null; 
+					}
+				
+				}
 
-			String emissor = doc.select(".author p").text();
-			
-			if(emissor.isEmpty()){
-				emissor = doc.select("#articleBy p ").text();
-			}
+				String titulo = doc.select("article header h1").text();
+				
+				//Utiles.writeFile(doc, titulo);
+				
+				if(titulo.isEmpty()){
+					titulo = doc.select("#articleNew h1").text();
+				}
+				
+				System.out.println("\t -"+titulo);
 
-			String id = doc.select(".shortcut").attr("data-shortcut");
-			id = id.substring(id.lastIndexOf("o")+1,id.length());
-			String idNoticia = idModel+id;
-			
-			int repercussao = calculaRepercussao(id);
-			String conteudo = doc.select("article .content p").text();
-						
-			List<Comentario> comentarios = new ArrayList<Comentario>();
-			if(repercussao > 0){
-				comentarios = getComentarios(repercussao, id);
-			}
-			
-			if(conteudo.isEmpty()){
-				conteudo = doc.select("#articleNew p").text();
-			}
+				if(titulo.contains("\"")){
+					return null;
+				}
 
-			Noticia noticia = new NoticiasJornalFolhaSP(timestamp, "FOLHASP", titulo, "", conteudo, emissor, url, Integer.toString(repercussao), idNoticia);
-			
-			System.out.println("Data da noticia: "+data);
-			System.out.println("Todos comentarios: "+ (repercussao==comentarios.size()) + ". Repercussao: " + repercussao + ". Comentarios: " + comentarios.size()+"\n");
-			
-			List<Object> retorno = new ArrayList<Object>();
-			retorno.add(noticia);
-			retorno.add(comentarios);
-			
-			return retorno;
+				String emissor = doc.select(".author p").text();
+				
+				if(emissor.isEmpty()){
+					emissor = doc.select("#articleBy p ").text();
+				}
+
+				String id = doc.select(".shortcut").attr("data-shortcut");
+				id = id.substring(id.lastIndexOf("o")+1,id.length());
+				String idNoticia = idModel+id;
+				
+				int repercussao = calculaRepercussao(id);
+				String conteudo = doc.select("article .content p").text();
+							
+				List<Comentario> comentarios = new ArrayList<Comentario>();
+				if(repercussao > 0){
+					comentarios = getComentarios(repercussao, id);
+				}
+				
+				if(conteudo.isEmpty()){
+					conteudo = doc.select("#articleNew p").text();
+				}
+
+				Noticia noticia = new NoticiasJornalFolhaSP(timestamp, "FOLHASP", titulo, "", conteudo, emissor, url, Integer.toString(repercussao), idNoticia);
+				
+				System.out.println("Data da noticia: "+data);
+				System.out.println("Todos comentarios: "+ (repercussao==comentarios.size()) + ". Repercussao: " + repercussao + ". Comentarios: " + comentarios.size()+"");
+				
+				List<Object> retorno = new ArrayList<Object>();
+				retorno.add(noticia);
+				retorno.add(comentarios);
+				
+				return retorno;
+			}
+		} catch(Exception e){
+			return null;
 		}
-
-		return null;
 
 	}
 	
@@ -496,7 +498,7 @@ if(!noticias.isEmpty()){
 	public static void main(String args[]) throws IOException, ParseException{
 
 		String searchDateStart= "01/07/2010";
-		String searchDateFinish="08/05/2017";
+		String searchDateFinish="30/06/2016";
 		NoticiasJornalFolhaSP n = new NoticiasJornalFolhaSP();
 		n.insereInformacao(searchDateStart, searchDateFinish, "poder");
 
