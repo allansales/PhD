@@ -16,6 +16,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 
@@ -30,7 +31,9 @@ public class NoticiasJornalESTADAO extends Noticia{
 	private static int NUM_PAGINA = 16816;
 	private static final String CONSULTA = "&q=";
 
-	private DBCollection mongoCollection = null;
+	private DB stocks = null;
+	private DBCollection mongoCollectionNoticias = null;
+	private DBCollection mongoCollectionComentarios = null;
 
 	private static final Map<String, String> mesesDoAno;
 	static {
@@ -106,7 +109,9 @@ public class NoticiasJornalESTADAO extends Noticia{
 	public void insereInformacao(String dataInicial, String dataFinal,
 			String consulta) throws IOException {
 
-		mongoCollection = MongoDB.getInstance();
+		stocks = MongoDB.getInstance();
+		mongoCollectionNoticias = stocks.getCollection("g1Noticias");
+		mongoCollectionComentarios = stocks.getCollection("g1Comentarios");
 
 		long unixTimesTampDataInicial = 0; 
 		long unixTimesTampDataFinal = 0;
@@ -180,7 +185,7 @@ public class NoticiasJornalESTADAO extends Noticia{
 					if(timesTampDia >= unixTimesTampDataInicial){
 						Noticia noticia = criaInformacao(data,dia, consulta);
 						if(noticia != null){
-							mongoCollection.insert(converterToMap(noticia));
+							mongoCollectionNoticias.insert(converterToMap(noticia));
 						}
 					}else{
 						return true;
@@ -195,7 +200,7 @@ public class NoticiasJornalESTADAO extends Noticia{
 							(timesTampDia >= unixTimesTampDataInicial)){
 						Noticia noticia = criaInformacao(data, dia, consulta);
 						if(noticia != null){
-							mongoCollection.insert(converterToMap(noticia));
+							mongoCollectionNoticias.insert(converterToMap(noticia));
 						}
 					}else if(timesTampDia < unixTimesTampDataInicial){
 						return true;

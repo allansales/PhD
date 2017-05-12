@@ -89,8 +89,8 @@ public class NoticiasJornalFolhaSP extends Noticia {
 			String consulta) throws IOException, ParseException {
 
 		stocks = MongoDB.getInstance();
-		mongoCollectionNoticias = stocks.getCollection("folhaNoticias");
-		mongoCollectionComentarios = stocks.getCollection("folhaComentarios");
+		mongoCollectionNoticias = stocks.getCollection("folhaNoticiasTeste");
+		mongoCollectionComentarios = stocks.getCollection("folhaComentariosTeste");
 		
 		long unixTimesTampDataInicial = 0; 
 		long unixTimesTampDataFinal = 0;
@@ -496,7 +496,7 @@ public class NoticiasJornalFolhaSP extends Noticia {
 	public static void main(String args[]) throws IOException, ParseException{
 
 		String searchDateStart="01/07/2010";
-		String searchDateFinish="24/12/2010";
+		String searchDateFinish="08/05/2017";
 		NoticiasJornalFolhaSP n = new NoticiasJornalFolhaSP();
 		n.insereInformacao(searchDateStart, searchDateFinish, "poder");
 

@@ -72,9 +72,11 @@ public class NoticiasJornalG1 extends Noticia {
 		Document countPage = null;
 		try {
 			countPage = Jsoup.connect(url).ignoreContentType(true).get();
+
 		} catch (IOException e) {
 			return null;
 		}
+
 		return countPage;
 
 	}
@@ -82,8 +84,8 @@ public class NoticiasJornalG1 extends Noticia {
 	public void insereInformacao(String dataInicial, String dataFinal) throws IOException, ParseException {
 		
 		stocks = MongoDB.getInstance();
-		mongoCollectionNoticias = stocks.getCollection("g1Noticias");
-		mongoCollectionComentarios = stocks.getCollection("g1Comentarios");
+		mongoCollectionNoticias = stocks.getCollection("teste");
+		mongoCollectionComentarios = stocks.getCollection("testeDois");
 		
 		long unixTimesTampDataInicial = 0; 
 		long unixTimesTampDataFinal = 0;
@@ -337,6 +339,7 @@ public class NoticiasJornalG1 extends Noticia {
 		
 	}
 
+	@SuppressWarnings("deprecation")
 	public int calculaRepercussao(String titulo, List<String> elementos){		
 		
 		String uri_jq = elementos.get(1);
@@ -346,12 +349,12 @@ public class NoticiasJornalG1 extends Noticia {
 		String shortUrl_jq = elementos.get(7);
 		
 		final String n_comentariosPage = "http://comentarios.globo.com/comentarios/" + uri_jq.replace("/","%40%40") + "/" + idExterno_jq + "/" + url_jq.replace(":","%3A").replace("/","%40%40") + "/" + shortUrl_jq.replace(":","%3A").replace("/","%40%40") + "/" + URLEncoder.encode(titulo_jq.trim()) +"/numero";
-		
 		int n_comentarios = getCount(n_comentariosPage, "numeroDeComentarios");			
 		
 		return n_comentarios;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public JSONArray getItens(String titulo, int n_json, List<String> elementos) throws ParseException {		
 		
 		String uri_jq = elementos.get(1);
@@ -361,7 +364,6 @@ public class NoticiasJornalG1 extends Noticia {
 		String shortUrl_jq = elementos.get(7);
 		
 		String comentariosPage = "http://comentarios.globo.com/comentarios/" + uri_jq.replace("/","%40%40") + "/" + idExterno_jq + "/" + url_jq.replace(":","%3A").replace("/","%40%40") + "/" + shortUrl_jq.replace(":","%3A").replace("/","%40%40") + "/" + URLEncoder.encode(titulo_jq.trim()) + "/" + n_json + ".json";
-
 		Document pagina = obtemPaginaIgnoringType(comentariosPage);
 		while(pagina == null){
 			pagina = obtemPaginaIgnoringType(comentariosPage);
@@ -426,7 +428,6 @@ public class NoticiasJornalG1 extends Noticia {
 	public int getCount(String url, String atributo){
 		
 		Document pagina = obtemPaginaIgnoringType(url);
-
 		//se a pagina nao tiver espaco para comentario, insere no banco com repercussao -1
 		if(pagina == null){
 			return -1;
@@ -437,7 +438,7 @@ public class NoticiasJornalG1 extends Noticia {
 		if(json.contains("(")){
 			json = json.substring(json.indexOf("(")+1, json.indexOf(")"));
 		}
-
+		
 		int count  = 0;
 		JSONParser parser = new JSONParser();
 		KeyFinder finder = new KeyFinder();
