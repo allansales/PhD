@@ -361,7 +361,7 @@ public class NoticiasJornalFolhaSP extends Noticia {
 
 	}
 	
-	public int calculaRepercussao(String id){
+	public int calculaRepercussao(String id) {
 		String comentariosPage = comentariosPage_1+id+comentariosPage_2;
 		int comentarios = getCount(comentariosPage, "total_comments");
 		return comentarios;
@@ -464,7 +464,7 @@ public class NoticiasJornalFolhaSP extends Noticia {
 		return json;
 	}
 	
-	public int getCount(String url, String atributo){
+	public Integer getCount(String url, String atributo){
 
 		String json = getJson(url);
 
@@ -487,18 +487,15 @@ public class NoticiasJornalFolhaSP extends Noticia {
 			}           
 		}
 		catch(ParseException pe){
-			System.out.println("url:"+url);
-			System.out.println("json: "+json);
-			pe.printStackTrace();
-			System.exit(0); 	 	
+			return null;
 		}
 		return count;
 	}
 
 	public static void main(String args[]) throws IOException, ParseException{
 
-		String searchDateStart= "01/07/2010";
-		String searchDateFinish="30/06/2016";
+		String searchDateStart="01/07/2010";
+		String searchDateFinish="24/12/2010";
 		NoticiasJornalFolhaSP n = new NoticiasJornalFolhaSP();
 		n.insereInformacao(searchDateStart, searchDateFinish, "poder");
 
