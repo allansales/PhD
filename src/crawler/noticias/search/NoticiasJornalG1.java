@@ -84,8 +84,8 @@ public class NoticiasJornalG1 extends Noticia {
 	public void insereInformacao(String dataInicial, String dataFinal) throws IOException, ParseException {
 		
 		stocks = MongoDB.getInstance();
-		mongoCollectionNoticias = stocks.getCollection("teste");
-		mongoCollectionComentarios = stocks.getCollection("testeDois");
+		mongoCollectionNoticias = stocks.getCollection("g1Noticias");
+		mongoCollectionComentarios = stocks.getCollection("g1Comentarios");
 		
 		long unixTimesTampDataInicial = 0; 
 		long unixTimesTampDataFinal = 0;

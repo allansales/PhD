@@ -89,8 +89,8 @@ public class NoticiasJornalFolhaSP extends Noticia {
 			String consulta) throws IOException, ParseException {
 
 		stocks = MongoDB.getInstance();
-		mongoCollectionNoticias = stocks.getCollection("folhaNoticiasTeste");
-		mongoCollectionComentarios = stocks.getCollection("folhaComentariosTeste");
+		mongoCollectionNoticias = stocks.getCollection("folhaNoticias");
+		mongoCollectionComentarios = stocks.getCollection("folhaComentarios");
 		
 		long unixTimesTampDataInicial = 0; 
 		long unixTimesTampDataFinal = 0;
