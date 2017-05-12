@@ -1,5 +1,0 @@
-Coluna,Media,Tecnica
-media,0.480674631061,ExtraTreesClassifier
-negocios,0.508483084028,GradientBoostingClassifier
-quantidade_papeis,0.529464913161,GradientBoostingClassifier
-volume_financeiro,0.527657865676,AdaBoostClassifier

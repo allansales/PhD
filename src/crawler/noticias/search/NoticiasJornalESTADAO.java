@@ -19,6 +19,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 
+import crawler.KeyFinder;
 import crawler.Utiles;
 import crawler.db.MongoDB;
 import crawler.noticias.Noticia;
