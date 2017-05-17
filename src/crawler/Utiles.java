@@ -38,12 +38,12 @@ public class Utiles {
 			data = formatoYYYYMMddHHmm(data,horaMinuto);
 			DateFormat dfm = new SimpleDateFormat("yyyyMMddHHmm");  
 
-			dfm.setTimeZone(TimeZone.getTimeZone("GMT"));//Specify your timezone 
-
+			dfm.setTimeZone(TimeZone.getTimeZone("GMT"));
+			
 			try {
 				unixtime = dfm.parse(data).getTime();
 			} catch (ParseException e) {
-				System.out.println("Impossivel converter a data: "+data+"para o formato timestamp");
+				System.out.println("Impossivel converter a data: "+data+" para o formato timestamp");
 			}  
 			unixtime=unixtime/1000;
 		}
@@ -65,7 +65,6 @@ public class Utiles {
 
 	@SuppressWarnings("deprecation")
 	public static String timesTampData(long unixTimestamp){
-		//1386106407
 		java.sql.Timestamp stamp = new java.sql.Timestamp((long)unixTimestamp*1000); 
 		Date date = new Date(stamp.getTime()); 
 		return date.toGMTString();
@@ -80,9 +79,46 @@ public class Utiles {
 		}
 	}
 	
-	public static void main(String args[]){
-		System.out.println(dataToTimestamp("19/04/2007","0324"));
-		
+	public static String dataEscritaParaNumerica(String mes){
+		switch (mes) {
+		case "Janeiro":
+			mes = "01";
+			break;
+		case "Fevereiro":
+			mes = "02";
+			break;
+		case "Março":
+			mes = "03";
+			break;
+		case "Abril":
+			mes = "04";
+			break;
+		case "Maio":
+			mes = "05";
+			break;
+		case "Junho":
+			mes = "06";
+			break;
+		case "Julho":
+			mes = "07";
+			break;
+		case "Agosto":
+			mes = "08";
+			break;
+		case "Setembro":
+			mes = "09";
+			break;
+		case "Outubro":
+			mes = "10";
+			break;
+		case "Novembro":
+			mes = "11";
+			break;
+		case "Dezembro":
+			mes = "12";
+			break;
+		}
+		return mes;
 	}
 
 }

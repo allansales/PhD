@@ -25,36 +25,17 @@ import crawler.Utiles;
 import crawler.db.MongoDB;
 import crawler.noticias.Noticia;
 
+import crawler.Utiles;
+
 public class NoticiasJornalESTADAO extends Noticia{
 
-	private static final String URL_ESTADAO = "http://busca.estadao.com.br/?editoria[]=Economia&pagina=";
-	private static int NUM_PAGINA = 16816;
-	private static final String CONSULTA = "&q=";
+	private static final String URL_ESTADAO = "http://busca.estadao.com.br/modulos/busca-resultado?modulo=busca-resultado&config%5Bbusca%5D%5Bpage%5D=$NUMERO_DA_PAGINA$&config%5Bbusca%5D%5Bparams%5D=editoria%5B%5D%3Dpolitica%26q%3Dpolitica&ajax=1";
+	private static int NUM_PAGINA = 1;
 
 	private DB stocks = null;
 	private DBCollection mongoCollectionNoticias = null;
 	private DBCollection mongoCollectionComentarios = null;
-
-	private static final Map<String, String> mesesDoAno;
-	static {
-		
-		Map<String, String> aMap = new HashMap<String, String>();
-		aMap.put("janeiro", "01");
-		aMap.put("fevereiro", "02");
-		aMap.put("março", "03");
-		aMap.put("abril", "04");
-		aMap.put("maio", "05");
-		aMap.put("junho", "06");
-		aMap.put("julho", "07");
-		aMap.put("agosto", "08");
-		aMap.put("setembro", "09");
-		aMap.put("outubro", "10");
-		aMap.put("novembro", "11");
-		aMap.put("dezembro", "12");
-
-		mesesDoAno = Collections.unmodifiableMap(aMap);
-	}
-
+	
 	public NoticiasJornalESTADAO(){
 
 	}
@@ -65,11 +46,6 @@ public class NoticiasJornalESTADAO extends Noticia{
 
 		super(timestamp, subFonte, titulo, subTitulo, conteudo, emissor, url, repercussao);
 	}
-
-	public Map<String,String> getMesesDoAno(){
-		return mesesDoAno;
-	}
-
 
 	public Document obtemPagina(String url){
 
@@ -106,12 +82,21 @@ public class NoticiasJornalESTADAO extends Noticia{
 
 	}
 	
+	private String extraiDataMateria(String dataEHora){
+		String[] dataEHora_array = dataEHora.split(" de ");
+		String dia = dataEHora_array[0];
+		String mes = Utiles.dataEscritaParaNumerica(dataEHora_array[1]);
+		String ano = dataEHora_array[2].split(" | ")[0];
+		
+		return dia+"/"+mes+"/"+ano;
+	}
+	
 	public void insereInformacao(String dataInicial, String dataFinal,
 			String consulta) throws IOException {
 
 		stocks = MongoDB.getInstance();
-		mongoCollectionNoticias = stocks.getCollection("g1Noticias");
-		mongoCollectionComentarios = stocks.getCollection("g1Comentarios");
+		mongoCollectionNoticias = stocks.getCollection("estadaoNoticias");
+		mongoCollectionComentarios = stocks.getCollection("estadaoComentarios");
 
 		long unixTimesTampDataInicial = 0; 
 		long unixTimesTampDataFinal = 0;
@@ -119,26 +104,37 @@ public class NoticiasJornalESTADAO extends Noticia{
 		unixTimesTampDataInicial = Utiles.dataToTimestamp(dataInicial, "0000");
 		unixTimesTampDataFinal = Utiles.dataToTimestamp(dataFinal, "2359");
 
-		String url = URL_ESTADAO+NUM_PAGINA+CONSULTA+consulta;
+		String url = URL_ESTADAO.replace("$NUMERO_DA_PAGINA$", Integer.toString(NUM_PAGINA));
 		Document pagina = obtemPagina(url);
 
 		while(pagina == null){
 			pagina = obtemPagina(url);
 		}
+		
+		Elements noticiasEstadaoPagina = pagina.select("a.link-title");
+		String tag_span = pagina.select("span.data-posts").get(0).text();
+		String data = extraiDataMateria(tag_span);
 
-		Elements noticiasEstadaoPagina = pagina.select(".listaultimas");
-		String data = noticiasEstadaoPagina.select(".listaultimasdata").text();
-		noticiasEstadaoPagina = noticiasEstadaoPagina.select("ul .ultimas");
-
+//		String link_materia = "";
+//		long unixTimesTampDataAtual = 0;
+//		for (int i = 0; i < tag_a.size(); i++) { //tamanho de data_materia sempre eh igual ao de tag_a
+//			link_materia = tag_a.get(i).attr("href");
+//			data = extraiDataMateria(tag_span.get(i).text());
+//			unixTimesTampDataAtual = Utiles.dataToTimestamp(data, "0000");
+//			
+//			System.out.println(data + " " + link_materia);	
+//		}
+		
 		boolean limiteAlcancado =  verificaLimiteInformacao(data, noticiasEstadaoPagina, 
 				unixTimesTampDataInicial, unixTimesTampDataFinal, consulta);
 
+		System.out.println("ACABEI AQUI");
 		while(!limiteAlcancado){
 			NUM_PAGINA++;
 			System.out.println("PAGINA: "+NUM_PAGINA);
-			pagina = obtemPagina(URL_ESTADAO+NUM_PAGINA+CONSULTA+consulta);
+			pagina = obtemPagina(URL_ESTADAO.replace("$NUMERO_DA_PAGINA$", Integer.toString(NUM_PAGINA)));
 			while(pagina == null){
-				pagina = obtemPagina(URL_ESTADAO+NUM_PAGINA+CONSULTA+consulta);
+				pagina = obtemPagina(URL_ESTADAO.replace("$NUMERO_DA_PAGINA$", Integer.toString(NUM_PAGINA)));
 			}
 			noticiasEstadaoPagina = pagina.select(".listaultimas ");
 			data = noticiasEstadaoPagina.select(".listaultimasdata").text();
@@ -146,44 +142,28 @@ public class NoticiasJornalESTADAO extends Noticia{
 			limiteAlcancado =  verificaLimiteInformacao(data,noticiasEstadaoPagina, 
 					unixTimesTampDataInicial, unixTimesTampDataFinal, consulta);
 		}
-		//gravarArq.close();
 
 	}
 
 	public long timestampDoDia(String data){
-
-		String timesTamp = padronizaFormatoDDMMYYYY(data);
-		return Utiles.dataToTimestamp(timesTamp,"0000");
-
-	}
-
-	private String padronizaFormatoDDMMYYYY(String data){
-		//tratamento especial para o mes de [de]zembro
-		String diaMesAno [] = data.split(" ");
-
-		String dia = diaMesAno[0].trim();
-		String mes = diaMesAno[2].trim();
-		String ano = diaMesAno[4].trim();
-
-		mes = getMesesDoAno().get(mes);
-
-
-		return dia+"/"+mes+"/"+ano;
+		
+		return Utiles.dataToTimestamp(data,"0000");
 
 	}
+
+
 
 	public boolean verificaLimiteInformacao(String data, Elements dias, long unixTimesTampDataInicial,
 			long unixTimesTampDataFinal, String consulta) throws IOException {
-
+		
 		long timesTampDia = timestampDoDia(data);
-
 		if(!dias.isEmpty()){
-
+			
 			if(unixTimesTampDataFinal == Utiles.ZERO){
-
 				for (Element dia : dias) {
 					if(timesTampDia >= unixTimesTampDataInicial){
-						Noticia noticia = criaInformacao(data,dia, consulta);
+						
+						Noticia noticia = criaInformacao(data, dia, consulta);
 						if(noticia != null){
 							mongoCollectionNoticias.insert(converterToMap(noticia));
 						}
@@ -198,8 +178,11 @@ public class NoticiasJornalESTADAO extends Noticia{
 
 					if((timesTampDia <= unixTimesTampDataFinal) && 
 							(timesTampDia >= unixTimesTampDataInicial)){
+
 						Noticia noticia = criaInformacao(data, dia, consulta);
+
 						if(noticia != null){
+
 							mongoCollectionNoticias.insert(converterToMap(noticia));
 						}
 					}else if(timesTampDia < unixTimesTampDataInicial){
@@ -215,7 +198,6 @@ public class NoticiasJornalESTADAO extends Noticia{
 	}
 
 	public DBObject converterToMap(Noticia noticia) {   
-		//timestamp, subFonte, titulo, subTitulo, conteudo, emissor, url, repercussao
 		DBObject news = new BasicDBObject();  
 		news.put("timestamp", noticia.getTimestamp());  
 		news.put("subFonte", noticia.getSubFonte());  
@@ -230,42 +212,29 @@ public class NoticiasJornalESTADAO extends Noticia{
 	}
 	public Noticia criaInformacao(String data, Element el, String consulta){
 
-		String hora = el.select(".listainfo span").text();
-		data = padronizaFormatoDDMMYYYY(data);
-		long timestamp = Utiles.dataToTimestamp(data, hora.replace("h", ""));		
+		
+		long timestamp = Utiles.dataToTimestamp(data, "0000");		
 
-		String url = el.select(".listadesc a").attr("href");
-		String titulo = el.select(".listadesc h3").text();
-		System.out.println("\t -"+titulo);
-
+		String url = el.attr("href");
 		Document doc = obtemPagina(url);
+
 		int tentativas = 0;
 		while((doc == null) && (tentativas < 50)){
 			doc = obtemPagina(url);
 			tentativas++;
 		}
-
-		if(doc.baseUri().isEmpty()){
-			System.out.println("Retornei null...");
-			return null;
-		}
-
-		String subTitulo = doc.select(".chapeu p").text();
-		String emissor = el.select(".credito").text();
-		String conteudo = doc.select(".noticiainterna p").text();
-
-		if(conteudo.isEmpty()){
-			conteudo = doc.select(".texto p").text();
-			if(conteudo.isEmpty()){
-				System.out.println("Retornei null...");
-				return null;
-			}
-		}
-
+		
+		String titulo = doc.select("section[data-titulo]").attr("data-titulo");
+		System.out.println("\t -"+titulo);
+		
+		String subTitulo = doc.select("meta[name=description]").attr("content");
+		String emissor = doc.select("section[data-credito]").attr("data-credito");;		
+		String conteudo = doc.select(".n--noticia__content.content > p").text();
+		
 		conteudo = conteudo.replace("|", "");
 		conteudo = conteudo.replace("\"", "");
 		conteudo = conteudo.replace("\'", "");
-
+		
 		String guid = doc.select("#guid_noticia").attr("value");
 		//String repercussao = calculaRepercussao(url, guid);
 		String repercussao = "0";
@@ -341,13 +310,10 @@ public class NoticiasJornalESTADAO extends Noticia{
 
 	public static void main(String args[]) throws IOException{
 
-		/*String searchDateStart= "01/01/2000";
-		String searchDateFinish="25/04/2017";
+		String searchDateStart= "15/05/2017";
+		String searchDateFinish="17/05/2017";
 		NoticiasJornalESTADAO n = new NoticiasJornalESTADAO();
-		n.insereInformacao(searchDateStart, searchDateFinish, "economia");*/
-		
-		NoticiasJornalESTADAO e = new NoticiasJornalESTADAO();
-		System.out.println(e.timestampDoDia("26 de abril de 2017"));
+		n.insereInformacao(searchDateStart, searchDateFinish, "politica");
 		
 
 	}
