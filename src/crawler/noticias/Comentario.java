@@ -60,5 +60,8 @@ public class Comentario {
 	public void setQuantidade_respostas(String quantidade_respostas) {
 		this.quantidade_respostas = quantidade_respostas;
 	}
-	
+
+	public String toString(){
+		return "idNoticia: "+getIdNoticia()+ " idUsuario: "+getIdUsuario()+" ThumbsUp: "+getVotosThumbsUp()+" ThumbsDown: "+getVotosThumbsDown()+" n° respostas: "+getQuantidade_respostas();
+	}
 }

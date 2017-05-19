@@ -42,7 +42,7 @@ public abstract class Noticia implements Crawlable{
 	
 	public Noticia(long timestamp, String subFonte,
 			String titulo, String subTitulo, String conteudo, 
-			String emissor, String url, String repercussao, String id){
+			String emissor, String url, String repercussao, String idNoticia){
 
 		setTimestamp(timestamp);
 		setFonte("JORNAL");
@@ -53,7 +53,7 @@ public abstract class Noticia implements Crawlable{
 		setEmissor(emissor);
 		setUrl(url);
 		setRepercussao(repercussao);
-		setIdNoticia(id);
+		setIdNoticia(idNoticia);
 		
 	}
 
