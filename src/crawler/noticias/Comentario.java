@@ -62,6 +62,6 @@ public class Comentario {
 	}
 
 	public String toString(){
-		return "idNoticia: "+getIdNoticia()+ " idUsuario: "+getIdUsuario()+" ThumbsUp: "+getVotosThumbsUp()+" ThumbsDown: "+getVotosThumbsDown()+" n° respostas: "+getQuantidade_respostas();
+		return "idNoticia: "+getIdNoticia()+ "; idUsuario: "+getIdUsuario()+"; ThumbsUp: "+getVotosThumbsUp()+"; ThumbsDown: "+getVotosThumbsDown()+"; N° respostas: "+getQuantidade_respostas()+"; Texto:"+getComentario();
 	}
 }
