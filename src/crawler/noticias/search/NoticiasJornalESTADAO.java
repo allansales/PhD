@@ -36,7 +36,8 @@ import crawler.noticias.Noticia;
 
 public class NoticiasJornalESTADAO extends Noticia{
 
-	private static final String URL_ESTADAO = "http://busca.estadao.com.br/modulos/busca-resultado?modulo=busca-resultado&config%5Bbusca%5D%5Bpage%5D=$NUMERO_DA_PAGINA$&config%5Bbusca%5D%5Bparams%5D=editoria%5B%5D%3Dpolitica%26q%3Dpolitica&ajax=1";
+	//private static final String URL_ESTADAO = "http://busca.estadao.com.br/modulos/busca-resultado?modulo=busca-resultado&config%5Bbusca%5D%5Bpage%5D=$NUMERO_DA_PAGINA$&config%5Bbusca%5D%5Bparams%5D=editoria%5B%5D%3Dpolitica%26q%3Dpolitica&ajax=1";
+	private static final String URL_ESTADAO =  "http://busca.estadao.com.br/modulos/busca-resultado?modulo=busca-resultado&config%5Bbusca%5D%5Bpage%5D=$NUMERO_DA_PAGINA$&config%5Bbusca%5D%5Bparams%5D=tipo_conteudo%3DTodos%26quando%3D$DIA_INICIO$%252F$MES_INICIO$%252F$ANO_INICIO$-$DIA_FIM$%252F$MES_FIM$%252F$ANO_FIM$%26q%3Dpolitica%26editoria%5B%5D%3DPol%25C3%25ADtica%26editoria%5B%5D%3DPolitica&ajax=1";
 	private static final String COMENTARIOS_PAGE_BASE = "http://data.livefyre.com/bs3/v3.1/estadao.fyre.co/";
 	
 	private static int NUM_PAGINA = 1;
@@ -113,7 +114,7 @@ public class NoticiasJornalESTADAO extends Noticia{
 		unixTimesTampDataInicial = Utiles.dataToTimestamp(dataInicial, "0000");
 		unixTimesTampDataFinal = Utiles.dataToTimestamp(dataFinal, "2359");
 
-		String url = URL_ESTADAO.replace("$NUMERO_DA_PAGINA$", Integer.toString(NUM_PAGINA));
+		String url = montaURL_ESTADAO(dataInicial, dataFinal, Integer.toString(NUM_PAGINA));
 		Document pagina = obtemPagina(url);
 
 		while(pagina == null){
@@ -131,10 +132,10 @@ public class NoticiasJornalESTADAO extends Noticia{
 		while(!limiteAlcancado){
 			NUM_PAGINA++;
 			System.out.println("PAGINA: "+NUM_PAGINA);
-			pagina = obtemPagina(URL_ESTADAO.replace("$NUMERO_DA_PAGINA$", Integer.toString(NUM_PAGINA)));
+			pagina = obtemPagina(montaURL_ESTADAO(dataInicial, dataFinal, Integer.toString(NUM_PAGINA)));
 			
 			while(pagina == null){
-				pagina = obtemPagina(URL_ESTADAO.replace("$NUMERO_DA_PAGINA$", Integer.toString(NUM_PAGINA)));
+				pagina = obtemPagina(montaURL_ESTADAO(dataInicial, dataFinal, Integer.toString(NUM_PAGINA)));
 			}
 			
 			noticiasEstadaoPagina = pagina.select("a.link-title");
@@ -147,6 +148,18 @@ public class NoticiasJornalESTADAO extends Noticia{
 
 	}
 
+	private String montaURL_ESTADAO(String data_inicio, String data_fim, String num_pagina){
+		
+		String[] data_inicio_array = data_inicio.split("/");
+		String[] data_fim_array = data_fim.split("/");
+		
+		String URL_ESTADAO = this.URL_ESTADAO.replace("$DIA_INICIO$",data_inicio_array[0]).replace("$MES_INICIO$",data_inicio_array[1]).replace("$ANO_INICIO$",data_inicio_array[2])
+				.replace("$DIA_FIM$",data_fim_array[0]).replace("$MES_FIM$",data_fim_array[1]).replace("$ANO_FIM$",data_fim_array[2])
+				.replace("$NUMERO_DA_PAGINA$",num_pagina);
+		
+		return URL_ESTADAO;
+	}
+	
 	public long timestampDoDia(String data){
 		return Utiles.dataToTimestamp(data,"0000");
 	}
@@ -250,7 +263,8 @@ public class NoticiasJornalESTADAO extends Noticia{
 	}
 		
 	public List<Object> criaInformacao(String data, Element el, String consulta){
-		
+		String tit = "";
+		Document document = null; 
 		try{
 			long timestamp = Utiles.dataToTimestamp(data, "0000");		
 
@@ -270,10 +284,12 @@ public class NoticiasJornalESTADAO extends Noticia{
 			
 			String titulo = doc.select("section[data-titulo]").attr("data-titulo");			
 			if(titulo.isEmpty() || titulo == null){
-				//Utiles.writeFile(doc, "vazio");
 				return null;
 			}
 
+			tit = titulo;
+			document = doc;
+			
 			System.out.println("\t -"+titulo);
 			
 			String subTitulo = doc.select("meta[name=description]").attr("content");
@@ -324,7 +340,12 @@ public class NoticiasJornalESTADAO extends Noticia{
 			return retorno;
 
 		} catch (Exception e){
-			System.out.println("Não tem espaço para comentários nessa página ou a página veio com erro.");
+			if(e.getClass().equals(java.lang.NullPointerException.class)){
+				Utiles.writeFile(document,"paginas_erro/"+tit);
+			} else {
+				System.out.println("Não tem espaço para comentários nessa página ou a página veio com erro.");	
+			}
+			
 			return null;
 		}
 
@@ -461,8 +482,8 @@ public class NoticiasJornalESTADAO extends Noticia{
 
 	public static void main(String args[]) throws IOException, ParseException{
 
-		String searchDateStart= "01/07/2010";
-		String searchDateFinish="22/05/2017";
+		String searchDateStart= "23/05/2015";
+		String searchDateFinish="23/05/2017";
 		NoticiasJornalESTADAO n = new NoticiasJornalESTADAO();
 		n.insereInformacao(searchDateStart, searchDateFinish, "politica");
 			
