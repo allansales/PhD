@@ -9,8 +9,6 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 
-import org.apache.commons.collections.map.AbstractHashedMap;
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -102,11 +100,11 @@ public class NoticiasJornalESTADAO extends Noticia{
 	}
 	
 	public void insereInformacao(String dataInicial, String dataFinal,
-			String consulta) throws IOException {
+			String consulta) throws IOException, ParseException {
 
 		stocks = MongoDB.getInstance();
-		mongoCollectionNoticias = stocks.getCollection("estadaoNoticias");
-		mongoCollectionComentarios = stocks.getCollection("estadaoComentarios");
+		mongoCollectionNoticias = stocks.getCollection("NovoEstadaoNoticias");
+		mongoCollectionComentarios = stocks.getCollection("NovoEstadaoComentarios");
 
 		long unixTimesTampDataInicial = 0; 
 		long unixTimesTampDataFinal = 0;
@@ -116,7 +114,6 @@ public class NoticiasJornalESTADAO extends Noticia{
 
 		String url = montaURL_ESTADAO(dataInicial, dataFinal, Integer.toString(NUM_PAGINA));
 		Document pagina = obtemPagina(url);
-
 		while(pagina == null){
 			pagina = obtemPagina(url);
 		}
@@ -165,7 +162,7 @@ public class NoticiasJornalESTADAO extends Noticia{
 	}
 
 	public boolean verificaLimiteInformacao(String data, Elements dias, long unixTimesTampDataInicial,
-			long unixTimesTampDataFinal, String consulta) throws IOException {
+			long unixTimesTampDataFinal, String consulta) throws IOException, ParseException {
 		
 		long timesTampDia = timestampDoDia(data);
 		if(!dias.isEmpty()){
@@ -262,10 +259,8 @@ public class NoticiasJornalESTADAO extends Noticia{
 		return comentarios_dbo;    	
 	}
 		
-	public List<Object> criaInformacao(String data, Element el, String consulta){
-		String tit = "";
-		Document document = null; 
-		try{
+	public List<Object> criaInformacao(String data, Element el, String consulta) {
+		
 			long timestamp = Utiles.dataToTimestamp(data, "0000");		
 
 			String url = el.attr("href");
@@ -277,42 +272,51 @@ public class NoticiasJornalESTADAO extends Noticia{
 				tentativas++;
 			}
 			
-			//TODO retirar isso quando consertar os erros de null point e outofbounds
 			if(doc == null){
 				return null;
 			}
-			
-			String titulo = doc.select("section[data-titulo]").attr("data-titulo");			
-			if(titulo.isEmpty() || titulo == null){
+
+			//informacoes da noticia
+			String titulo = "";
+			String subTitulo = "";
+			String emissor = "";
+			String conteudo = "";
+			try{
+				titulo = doc.select("section[data-titulo]").attr("data-titulo");
+				subTitulo = doc.select("meta[name=description]").attr("content");
+				emissor = doc.select("section[data-credito]").attr("data-credito");;		
+				conteudo = doc.select(".n--noticia__content.content > p").text();
+				
+				System.out.println("\t -"+titulo);
+				
+				conteudo = conteudo.replace("|", "");
+				conteudo = conteudo.replace("\"", "");
+				conteudo = conteudo.replace("\'", "");
+			} catch (Exception e){
+				System.out.println("Não consigo buscar informacoes da noticia");
 				return null;
 			}
 
-			tit = titulo;
-			document = doc;
-			
-			System.out.println("\t -"+titulo);
-			
-			String subTitulo = doc.select("meta[name=description]").attr("content");
-			String emissor = doc.select("section[data-credito]").attr("data-credito");;		
-			String conteudo = doc.select(".n--noticia__content.content > p").text();
-			
-			conteudo = conteudo.replace("|", "");
-			conteudo = conteudo.replace("\"", "");
-			conteudo = conteudo.replace("\'", "");
+			//informacoes dos comentarios
+			String repercussao = "0";
+			List<Comentario> comentarios = new ArrayList<Comentario>();
 
-			List<Object> json_ids = getJSONComentarios_ids(doc);
-			String id_pagina = (String) json_ids.get(1);
-			String idNoticia = "ESTADAO-"+id_pagina; //posicao do ID
+			String id_pagina = "-";
+			String idNoticia = "-";
+			String site_id = "-";
 			
-			String site_id = (String) json_ids.get(2);
+			try{
+				List<Object> json_ids = getJSONComentarios_ids(doc);
+				id_pagina = (String) json_ids.get(1);
+				idNoticia = "ESTADAO-"+id_pagina; //posicao do ID
+				site_id = (String) json_ids.get(2);
 			
 			//comentarios
 			JSONObject json_pag_comentarios = (JSONObject) json_ids.get(0); //posicao do JSON
 			
-			String repercussao = calculaRepercussao(json_pag_comentarios);
+			repercussao = calculaRepercussao(json_pag_comentarios);
 			System.out.println("Repercussao: "+repercussao);
 			
-			List<Comentario> comentarios = new ArrayList<Comentario>();
 			if(Integer.parseInt(repercussao)!=0){
 				
 				if (Integer.parseInt(repercussao)>0 && Integer.parseInt(repercussao)<=50) {
@@ -329,25 +333,17 @@ public class NoticiasJornalESTADAO extends Noticia{
 			
 			System.out.println("N° comentarios: "+comentarios.size());
 			
-			Noticia noticia = new NoticiasJornalESTADAO(timestamp, "ESTADAO",
-					titulo, subTitulo, conteudo, 
-					emissor, url, repercussao, idNoticia);
-			
-			List<Object> retorno = new ArrayList<Object>();
-			retorno.add(noticia);
-			retorno.add(comentarios);
-			
-			return retorno;
-
 		} catch (Exception e){
-			if(e.getClass().equals(java.lang.NullPointerException.class)){
-				Utiles.writeFile(document,"paginas_erro/"+tit);
-			} else {
-				System.out.println("Não tem espaço para comentários nessa página ou a página veio com erro.");	
-			}
-			
-			return null;
+			System.out.println("Não tem espaço para comentários nessa página ou a página veio com erro.");	
 		}
+			
+		Noticia noticia = new NoticiasJornalESTADAO(timestamp, "ESTADAO", titulo, subTitulo, conteudo, emissor, url, repercussao, idNoticia);
+			
+		List<Object> retorno = new ArrayList<Object>();
+		retorno.add(noticia);
+		retorno.add(comentarios);
+			
+		return retorno;
 
 	}
 	
@@ -363,32 +359,73 @@ public class NoticiasJornalESTADAO extends Noticia{
 		
 		String livefyre_cm = doc.select("[data-collection-meta]").attr("data-collection-meta");
 		String site_id = doc.select("[data-collection-meta]").attr("data-site-id");
-		
-		String id1 = livefyre_cm.substring(85, 100)+"="; //o = eh o complemento da string das posicoes 85 e 100. posicoes para buscar o codigo dos comentarios no livefyre
-		String id2 = livefyre_cm.substring(85, 101); //101 algumas noticias vem com um charactere a mais
-		
 		JSONObject json = null;
-		try{
-			json = requisitaJSON_menor50(id1, site_id);
-		} catch (NullPointerException e1) {
-				try{
-					json = requisitaJSON_menor50(id2, site_id);	
-				} catch (NullPointerException e2) {
-					return null;
-				}
-				json_id.add(json);
-				json_id.add(id2);
-				json_id.add(site_id);
-				return json_id;
+
+		String id1 = livefyre_cm.substring(85, 100)+"="; //o = eh o complemento da string das posicoes 85 e 100. posicoes para buscar o codigo dos comentarios no livefyre
+		json = testaValidadeDoLink(id1, site_id);
+		if(json!=null){
+			json_id.add(json);
+			json_id.add(id1);
+			json_id.add(site_id);
+			return json_id;
+		} 
+		
+		String id2 = livefyre_cm.substring(85, 101); //101 algumas noticias vem com um charactere a mais
+		json = testaValidadeDoLink(id2, site_id);
+		if (json!=null){
+			json_id.add(json);
+			json_id.add(id2);
+			json_id.add(site_id);
+			return json_id;
 		}
-		json_id.add(json);
-		json_id.add(id1);
-		json_id.add(site_id);
-		return json_id;
+		
+		String id3 = "";
+		int[] posicoes1 = {94, 98, 102};
+		String[] complementos1 = {"g==","A==","Q==","w=="};
+		for (int i = 0; i < posicoes1.length; i++) {
+			for (int j = 0; j < complementos1.length; j++) {
+				id3 = livefyre_cm.substring(85, posicoes1[i])+complementos1[j];
+				json = testaValidadeDoLink(id3, site_id);
+				if(json!=null){
+					json_id.add(json);
+					json_id.add(id3);
+					json_id.add(site_id);
+					return json_id;
+				}
+			}
+		}
+		
+		String id4 = "";
+		int[] posicoes2 = {95, 99, 103};
+		String[] complementos2 = {"g=","A=","Q=","w="};
+		for (int i = 0; i < posicoes2.length; i++) {
+			for (int j = 0; j < complementos2.length; j++) {
+				id4 = livefyre_cm.substring(85, posicoes2[i])+complementos2[j];
+				json = testaValidadeDoLink(id4, site_id);
+				if(json!=null){
+					json_id.add(json);
+					json_id.add(id4);
+					json_id.add(site_id);
+					return json_id;
+				}
+			}
+		}
+
+		return null;
+	}
+	
+	private JSONObject testaValidadeDoLink(String id, String site_id){
+		JSONObject json = null;;
+		try{
+			json = requisitaJSON_menor50(id, site_id);
+		} catch (Exception e){
+			return null;
+		}
+		return json;
 	}
 
 	private JSONObject requisitaJSON_menor50(String codigo_pagina_comentarios, String site_id) throws ParseException {
-		String comentarios_page = COMENTARIOS_PAGE_BASE+site_id+"/"+codigo_pagina_comentarios+"/init";
+		String comentarios_page = COMENTARIOS_PAGE_BASE+site_id+"/"+codigo_pagina_comentarios+"/init";		
 		String json = obtemPaginaIgnoringType(comentarios_page).text();
 		JSONParser parser = new JSONParser();
 		return (JSONObject) parser.parse(json);
@@ -482,11 +519,11 @@ public class NoticiasJornalESTADAO extends Noticia{
 
 	public static void main(String args[]) throws IOException, ParseException{
 
-		String searchDateStart= "23/05/2015";
-		String searchDateFinish="23/05/2017";
+		String searchDateStart= "01/07/2010";
+		String searchDateFinish="24/05/2017";
 		NoticiasJornalESTADAO n = new NoticiasJornalESTADAO();
 		n.insereInformacao(searchDateStart, searchDateFinish, "politica");
-			
+		
 	}
 
 }
