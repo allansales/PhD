@@ -29,6 +29,7 @@ import crawler.db.MongoDB;
 import crawler.noticias.Noticia;
 import crawler.noticias.Comentario;
 
+//TODO buscar todas noticias independnete se tem comentarios
 public class NoticiasJornalG1 extends Noticia {
 
 	private static final String URL_G1 = "http://g1.globo.com/dynamo/plantao/politica/";
@@ -84,8 +85,8 @@ public class NoticiasJornalG1 extends Noticia {
 	public void insereInformacao(String dataInicial, String dataFinal) throws IOException, ParseException {
 		
 		stocks = MongoDB.getInstance();
-		mongoCollectionNoticias = stocks.getCollection("g1Noticias");
-		mongoCollectionComentarios = stocks.getCollection("g1Comentarios");
+		mongoCollectionNoticias = stocks.getCollection("g1Noticias2");
+		mongoCollectionComentarios = stocks.getCollection("g1Comentarios2");
 		
 		long unixTimesTampDataInicial = 0; 
 		long unixTimesTampDataFinal = 0;
@@ -428,9 +429,9 @@ public class NoticiasJornalG1 extends Noticia {
 	public int getCount(String url, String atributo){
 		
 		Document pagina = obtemPaginaIgnoringType(url);
-		//se a pagina nao tiver espaco para comentario, insere no banco com repercussao -1
+		//se a pagina nao tiver espaco para comentario, insere no banco com repercussao 0
 		if(pagina == null){
-			return -1;
+			return 0;
 		}
 		
 		String json = pagina.select("body").text();

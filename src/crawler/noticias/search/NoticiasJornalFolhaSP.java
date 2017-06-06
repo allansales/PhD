@@ -26,6 +26,8 @@ import crawler.db.MongoDB;
 import crawler.noticias.Comentario;
 import crawler.noticias.Noticia;
 
+
+//TODO consertar para buscar todas noticias, independnete de ter comentarios
 public class NoticiasJornalFolhaSP extends Noticia {
 
 	private static final String URL_FOLHASP = "http://search.folha.com.br/search?";
