@@ -13,20 +13,19 @@ get_data <- function(colecao){
 }
 
 g1_noticias <- get_data("g1Noticias")
-#g1_comentarios <- get_data("g1Comentarios")
 folha_noticias <- get_data("folhaNoticias")
-# folha_comentarios <- get_data("folhaComentarios")
 estadao_noticias <- get_data("estadaoNoticias")
-# estadao_comentarios <- get_data("estadaoComentarios")
 
 noticias <- bind_rows(g1_noticias, folha_noticias, estadao_noticias)
+anos_eleicao <- c(2010,2012,2014,2016)
 noticias <- noticias %>% mutate(data = utcdate(timestamp), repercussao = as.integer(repercussao), 
-                                ano = year(data), mes = month(data), dia = day(data), dia_do_ano = yday(data))
+                                ano = year(data), mes = month(data, label=T, abbr=T), dia = day(data), dia_do_ano = yday(data),
+                                is_ano_eleicao = if_else(ano %in% anos_eleicao, TRUE, FALSE))
 
 # geral
 summary(noticias)
 
-## descricao noticias
+### descricao noticias
 # numero de noticias por ano
 ggplot(noticias) + geom_bar(aes(x=ano))
 
@@ -46,37 +45,50 @@ correlacao_n_noticias_portal <- noticias %>%
   table() %>% 
   correlate()
 
-# repercussao por dia x mes x ano por portal
-repercussao_dia <- noticias %>% mutate(ano = year(data), mes = month(data), dia = day(data), dia_do_ano = yday(data)) %>% 
-  group_by(ano, mes, dia, subFonte) %>% 
-  summarise(n_comentarios = sum(repercussao))
-
-ggplot(repercussao_dia) + geom_jitter(mapping = aes(x=dia, y=n_comentarios, group=subFonte, color=subFonte)) + facet_grid(ano ~ mes)
-
-# media de noticias por mes 
-## melhor solucao eh uma linha da figura para cada portal. cada mes de cada portal eh representado por uma barra e a barra tem uma linha representando o desvio padrao.
+# medias e desvios padroes dos portais por mes
 n_noticias_mes_ano <- noticias %>% group_by(ano, mes, subFonte) %>% summarise(numero = n())
 noticias_mes <- n_noticias_mes_ano %>% group_by(mes, subFonte) %>% summarise(media = mean(numero), dp = sd(numero), mediana = median(numero))
 
-ggplot(noticias_mes) + geom_pointrange(mapping = aes(subFonte, media, ymin=media-dp, ymax=media+dp)) + facet_wrap(~mes)
+ggplot(noticias_mes) + geom_pointrange(mapping = aes(subFonte, media, ymin=media-dp, ymax=media+dp)) + facet_wrap(~mes) 
+
+# noticias por mes para comparar as medias e desvios padroes dos portais com eles mesmos
+ggplot(noticias_mes, aes(mes, media)) + geom_col() + geom_pointrange(aes(ymin=media-dp, ymax=media+dp)) + facet_wrap(~subFonte, dir = "v")
+
+# intervalo de confianca de quantidade de noticias por mes
+ic_noticias_mes <- n_noticias_mes_ano %>% group_by(mes, subFonte) %>% 
+  summarise(media = mean(numero), erro = qt(0.975,df=n()-1)*sd(numero)/sqrt(n()))
+
+ggplot(ic_noticias_mes, aes(mes, media)) + geom_crossbar(aes(ymin=media-erro, ymax=media+erro)) + facet_wrap(~subFonte, dir = "v")
+ggplot(ic_noticias_mes) + geom_pointrange(aes(subFonte, media, ymin=media-erro, ymax=media+erro)) + facet_wrap(~mes) 
+
+## separando por ano de eleicao
+# intervalo de confianca de quantidade de noticias por mes
+n_noticias_mes_ano_eleicao <- noticias %>% group_by(ano, mes, is_ano_eleicao, subFonte) %>% summarise(numero = n())
+
+ic_noticias_mes_eleicao <- n_noticias_mes_ano_eleicao %>% group_by(mes, is_ano_eleicao, subFonte) %>% 
+  summarise(media = mean(numero), erro = qt(0.975,df=n()-1)*sd(numero)/sqrt(n()))
+
+ggplot(ic_noticias_mes_eleicao) + geom_pointrange(mapping = aes(subFonte, media, ymin=media-erro, ymax=media+erro, color=is_ano_eleicao), position = position_dodge(width = 0.5)) + facet_wrap(~mes) 
+
+#intervalo de confianca de quantidade de repercussao
+# TODO: FAZER ISSO PARA REPERCUSSAO
+
+### Comentarios
+# g1_comentarios <- get_data("g1Comentarios")
+# folha_comentarios <- get_data("folhaComentarios")
+# estadao_comentarios <- get_data("estadaoComentarios")
 
 # media de comentarios por mes
 
-# um grafico com barras indicando a quantidade de noticias que cada portal colocou no mes, a quantidade de noticias media (por mes) do ano e a quantidade media dos 7 anos coletados
-## Misturar o grafico de barras dodge com o stack ou usar o stack e passar duas linhas indicando a media do ano e a do geral http://r4ds.had.co.nz/data-visualisation.html#position-adjustments
-
-
-
-
-
-
-
-# para cada portal
-## distribuicao do numero de noticias por dia (dd/mm/yy), numero de noticias por ano x meses (algo como violin plot), numero de noticias meses x dia, 
-## numero de comentarios no tempo (mesma coisa que foi feita para noticias, agora para o numero de comentarios)
-
-
+# repercussao por dia x mes x ano por portal
+# TODO fazer igual ao das noticias usando geom_col
+# repercussao_dia <- noticias %>% mutate(ano = year(data), mes = month(data), dia = day(data), dia_do_ano = yday(data)) %>% 
+#   group_by(ano, mes, dia, data, subFonte) %>% 
+#   summarise(n_comentarios = sum(repercussao))
+# 
+# ggplot(repercussao_dia) + geom_col(mapping = aes(x=dia, y=n_comentarios, group=subFonte, color=subFonte)) + facet_grid(ano ~ mes)
+# ggplot(repercussao_dia) + geom_jitter(mapping = aes(x=dia, y=n_comentarios, group=subFonte, color=subFonte)) + facet_grid(ano ~ mes)
+# TODO fazer igual ao das noticias usando a tabela de comentarios.
 ## palavras mais utilizadas nas noticias no tempo
 ## sentimento das noticias ao longo do tempo
 ## polaridade das noticias ao longo do tempo (analise de valencias entra aqui?)
-
