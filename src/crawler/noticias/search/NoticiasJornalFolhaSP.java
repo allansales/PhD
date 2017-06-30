@@ -26,8 +26,6 @@ import crawler.db.MongoDB;
 import crawler.noticias.Comentario;
 import crawler.noticias.Noticia;
 
-
-//TODO consertar para buscar todas noticias, independnete de ter comentarios
 public class NoticiasJornalFolhaSP extends Noticia {
 
 	private static final String URL_FOLHASP = "http://search.folha.com.br/search?";
@@ -236,15 +234,26 @@ public class NoticiasJornalFolhaSP extends Noticia {
 	}
 
 	public List<Object> criaInformacao(Element el) throws ParseException{
-		
-		try{
-			String url = el.select("a").attr("href");
+
+		//informacoes da noticia
+		String titulo = "";
+		String subTitulo = "";
+		String emissor = "";
+		String conteudo = "";
+		int repercussao = 0;
+		String id = "";
+		String idNoticia = "";
+		Document doc;
+		long timestamp = 0;
+		String url = "";
+		try {
+			url = el.select("a").attr("href");
 			if (url == null || url.length() == 0){
 				System.out.println(el);
 				return null;
-			}else{
+			} else {
 
-				Document doc = obtemPagina(url);
+				doc = obtemPagina(url);
 				
 				if(doc != null){
 					String corpo = doc.select("body").text();
@@ -287,7 +296,6 @@ public class NoticiasJornalFolhaSP extends Noticia {
 				
 				String data = "";
 				String hora = "";
-				long timestamp = 0;
 				String tempo = doc.select("time").text();
 
 				if(!tempo.isEmpty()){
@@ -303,7 +311,8 @@ public class NoticiasJornalFolhaSP extends Noticia {
 					if(!tempo.isEmpty()){
 						data = tempo.split("-")[0].trim();
 						hora = tempo.split("-")[1].trim();
-						timestamp = Utiles.dataToTimestamp(data, hora.replace("h", ""));		
+						timestamp = Utiles.dataToTimestamp(data, hora.replace("h", ""));
+						System.out.println("Data da noticia: "+data);
 					}else{
 						System.out.println("Nao houve como capturar o tempo aqui...");
 						return null; 
@@ -311,7 +320,7 @@ public class NoticiasJornalFolhaSP extends Noticia {
 				
 				}
 
-				String titulo = doc.select("article header h1").text();
+				titulo = doc.select("article header h1").text();
 				
 				//Utiles.writeFile(doc, titulo);
 				
@@ -325,43 +334,45 @@ public class NoticiasJornalFolhaSP extends Noticia {
 					return null;
 				}
 
-				String emissor = doc.select(".author p").text();
+				emissor = doc.select(".author p").text();
 				
 				if(emissor.isEmpty()){
 					emissor = doc.select("#articleBy p ").text();
 				}
 
-				String id = doc.select(".shortcut").attr("data-shortcut");
+				id = doc.select(".shortcut").attr("data-shortcut");
 				id = id.substring(id.lastIndexOf("o")+1,id.length());
-				String idNoticia = idModel+id;
+				idNoticia = idModel+id;
 				
-				int repercussao = calculaRepercussao(id);
-				String conteudo = doc.select("article .content p").text();
-							
-				List<Comentario> comentarios = new ArrayList<Comentario>();
-				if(repercussao > 0){
-					comentarios = getComentarios(repercussao, id);
-				}
-				
-				if(conteudo.isEmpty()){
-					conteudo = doc.select("#articleNew p").text();
-				}
-
-				Noticia noticia = new NoticiasJornalFolhaSP(timestamp, "FOLHASP", titulo, "", conteudo, emissor, url, Integer.toString(repercussao), idNoticia);
-				
-				System.out.println("Data da noticia: "+data);
-				System.out.println("Todos comentarios: "+ (repercussao==comentarios.size()) + ". Repercussao: " + repercussao + ". Comentarios: " + comentarios.size()+"");
-				
-				List<Object> retorno = new ArrayList<Object>();
-				retorno.add(noticia);
-				retorno.add(comentarios);
-				
-				return retorno;
+				repercussao = calculaRepercussao(id);
+				conteudo = doc.select("article .content p").text();
 			}
-		} catch(Exception e){
+			
+		} catch (Exception e){
+			System.out.println("Não consigo buscar informacoes da noticia");
 			return null;
 		}
-
+				
+				
+		List<Comentario> comentarios = new ArrayList<Comentario>();
+		try{
+			if(repercussao > 0){
+				comentarios = getComentarios(repercussao, id);
+			}
+				
+			if(conteudo.isEmpty()){
+				conteudo = doc.select("#articleNew p").text();
+			}
+		} catch (Exception e) {
+			System.out.println("Não tem espaço para comentários nessa página ou a página veio com erro.");	
+		}
+			
+		Noticia noticia = new NoticiasJornalFolhaSP(timestamp, "FOLHASP", titulo, "", conteudo, emissor, url, Integer.toString(repercussao), idNoticia);
+				
+		List<Object> retorno = new ArrayList<Object>();
+		retorno.add(noticia);
+		retorno.add(comentarios);
+		return retorno;
 	}
 	
 	public int calculaRepercussao(String id) {
@@ -498,7 +509,7 @@ public class NoticiasJornalFolhaSP extends Noticia {
 	public static void main(String args[]) throws IOException, ParseException{
 
 		String searchDateStart="01/07/2010";
-		String searchDateFinish="08/05/2017";
+		String searchDateFinish="24/05/2017";
 		NoticiasJornalFolhaSP n = new NoticiasJornalFolhaSP();
 		n.insereInformacao(searchDateStart, searchDateFinish, "poder");
 

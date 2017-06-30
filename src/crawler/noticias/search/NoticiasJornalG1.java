@@ -29,7 +29,6 @@ import crawler.db.MongoDB;
 import crawler.noticias.Noticia;
 import crawler.noticias.Comentario;
 
-//TODO buscar todas noticias independnete se tem comentarios
 public class NoticiasJornalG1 extends Noticia {
 
 	private static final String URL_G1 = "http://g1.globo.com/dynamo/plantao/politica/";
@@ -85,8 +84,8 @@ public class NoticiasJornalG1 extends Noticia {
 	public void insereInformacao(String dataInicial, String dataFinal) throws IOException, ParseException {
 		
 		stocks = MongoDB.getInstance();
-		mongoCollectionNoticias = stocks.getCollection("g1Noticias2");
-		mongoCollectionComentarios = stocks.getCollection("g1Comentarios2");
+		mongoCollectionNoticias = stocks.getCollection("g1Noticias");
+		mongoCollectionComentarios = stocks.getCollection("g1Comentarios");
 		
 		long unixTimesTampDataInicial = 0; 
 		long unixTimesTampDataFinal = 0;
@@ -100,7 +99,7 @@ public class NoticiasJornalG1 extends Noticia {
 		while(pagina == null){
 			pagina = obtemPagina(url);
 		}
-
+		
 		JSONArray noticiasG1Pagina = getAttr(pagina.select("body").text(),"conteudos");
 		
 		boolean limiteAlcancado =  verificaLimiteInformacao(noticiasG1Pagina, 
@@ -146,7 +145,7 @@ public class NoticiasJornalG1 extends Noticia {
 	@SuppressWarnings("unchecked")
 	public boolean verificaLimiteInformacao(JSONArray noticias, long unixTimesTampDataInicial,
 			long unixTimesTampDataFinal) throws IOException, ParseException {
-		
+
 		if(!noticias.isEmpty()){
 			
 			if(unixTimesTampDataFinal == Utiles.ZERO){
@@ -245,41 +244,52 @@ public class NoticiasJornalG1 extends Noticia {
 		return padroes;
 	}
 	
-	
-	public List<Object> criaInformacao(JSONObject data) throws ParseException{
-		
-		String url = data.get("permalink").toString();
-		String titulo = data.get("titulo").toString();
-		
-		String subTitulo = "";
 
-		if(data.get("subtitulo")!= null){
-			subTitulo = data.get("subtitulo").toString();
-		}
-		
-		System.out.println("\t -"+titulo);
-		
-		Document doc = obtemPagina(url);
+	public List<Object> criaInformacao(JSONObject data) throws ParseException{
+
+		//informacoes da noticia
+		String titulo = "";
+		String subTitulo = "";
+		String emissor = "";
+		String conteudo = "";
+		int repercussao = 0;
+		String idNoticia = "";
+		Document doc;
+		long timestamp = 0;
+		String url = "";
+		List<String> elementos = new ArrayList<String>();
+
 		try{
+			url = data.get("permalink").toString();
+			titulo = data.get("titulo").toString();
+			subTitulo = "";
+
+			if(data.get("subtitulo")!= null){
+				subTitulo = data.get("subtitulo").toString();
+			}
+
+			System.out.println("\t -"+titulo);
+
+			doc = obtemPagina(url);
+
 			String jquery = doc.getElementsByAttributeValue("type", "text/javascript").get(POSICAO_BOXCOMENTARIOS).toString();
 			if(!jquery.contains("#boxComentarios")){
 				return null;
 			}
 			jquery = jquery.replace("\n", " ").replace("\r", "");
-			
+
 			List<String> elementos_1 = getElementByRegex("\\'(.*?)\\'", jquery); //Utiliza o que estiver entre aspas simples
 			List<String> elementos_2 = getElementByRegex("\"([^\"]*)\"", jquery); //Utiliza o que estiver entre aspas duplas
-			
-			List<String> elementos = new ArrayList<String>();
+
 			elementos.addAll(elementos_1);
 			elementos.addAll(elementos_2);
 			
+			//Utiles.writeFile(doc, titulo);
+
 			if(!elementos.get(1).contains("/jornalismo/g1/politica")){ //Busca o uri e verifica se pertence ao caderno de politica
 				return null;
 			}
-			
-			//Utiles.writeFile(doc, titulo);
-			
+
 			int tentativas = 0;
 			while((doc == null) && (tentativas <= 5)){
 				doc = obtemPagina(url);
@@ -297,47 +307,52 @@ public class NoticiasJornalG1 extends Noticia {
 					return null;
 				}
 			}
-			
+
 			String dataHora[] = momento.split(" ");
-			long timestamp = Utiles.dataToTimestamp(dataHora[0], dataHora[1].replace("h", ""));	
+			timestamp = Utiles.dataToTimestamp(dataHora[0], dataHora[1].replace("h", ""));	
 
-			String emissor = doc.select(".fn").text() +" "+doc.select(".locality").text();
+			emissor = doc.select(".fn").text() +" "+doc.select(".locality").text();
 
-			String conteudo = doc.select(".entry-content p").text();
+			conteudo = doc.select(".entry-content p").text();
 
 			conteudo = conteudo.replace("|", "");
 			conteudo = conteudo.replace("\"", "");
 			conteudo = conteudo.replace("\'", "");
 
-			int repercussao = calculaRepercussao(titulo, elementos);
+			repercussao = calculaRepercussao(titulo, elementos);
 			System.out.println("repercussao: "+repercussao);
-			String idNoticia = "G1-"+elementos.get(4);
+			idNoticia = "G1-"+elementos.get(4);
 			
-			List<Comentario> comentarios = new ArrayList<Comentario>();
+		} catch (Exception e){
+			System.out.println("Não consigo buscar informacoes da noticia");
+			return null;
+		}
+
+		List<Comentario> comentarios = new ArrayList<Comentario>();
+		try{
 			int n_json = 0;
 			while(repercussao > comentarios.size()){
 				n_json++;
-				
+
 				JSONArray item = getItens(titulo, n_json, elementos);
 				if(item.size()==0){
 					break;
 				}
 				comentarios.addAll(getComentarios(item, idNoticia));
-					
-			}
-			 
-			Noticia noticia = new NoticiasJornalG1(timestamp, "G1", titulo, subTitulo, conteudo, emissor, url, String.valueOf(repercussao), idNoticia);
-			
-			List<Object> retorno = new ArrayList<Object>();
-			retorno.add(noticia);
-			retorno.add(comentarios);
-			
-			return retorno; 
 
+			}	
 		} catch (Exception e){
-			return null;
+			System.out.println("Não tem espaço para comentários nessa página ou a página veio com erro.");	
 		}
 		
+		Noticia noticia = new NoticiasJornalG1(timestamp, "G1", titulo, subTitulo, conteudo, emissor, url, String.valueOf(repercussao), idNoticia);
+
+		List<Object> retorno = new ArrayList<Object>();
+		retorno.add(noticia);
+		retorno.add(comentarios);
+
+		return retorno;
+
 	}
 
 	@SuppressWarnings("deprecation")
@@ -463,7 +478,7 @@ public class NoticiasJornalG1 extends Noticia {
 	public static void main(String args[]) throws IOException, ParseException{
 
 		String searchDateStart= "01/07/2010";
-		String searchDateFinish="08/05/2017";
+		String searchDateFinish="24/05/2017";
 		NoticiasJornalG1 n = new NoticiasJornalG1();
 		n.insereInformacao(searchDateStart, searchDateFinish);
 		

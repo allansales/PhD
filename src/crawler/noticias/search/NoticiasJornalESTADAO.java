@@ -34,7 +34,6 @@ import crawler.noticias.Noticia;
 
 public class NoticiasJornalESTADAO extends Noticia{
 
-	//private static final String URL_ESTADAO = "http://busca.estadao.com.br/modulos/busca-resultado?modulo=busca-resultado&config%5Bbusca%5D%5Bpage%5D=$NUMERO_DA_PAGINA$&config%5Bbusca%5D%5Bparams%5D=editoria%5B%5D%3Dpolitica%26q%3Dpolitica&ajax=1";
 	private static final String URL_ESTADAO =  "http://busca.estadao.com.br/modulos/busca-resultado?modulo=busca-resultado&config%5Bbusca%5D%5Bpage%5D=$NUMERO_DA_PAGINA$&config%5Bbusca%5D%5Bparams%5D=tipo_conteudo%3DTodos%26quando%3D$DIA_INICIO$%252F$MES_INICIO$%252F$ANO_INICIO$-$DIA_FIM$%252F$MES_FIM$%252F$ANO_FIM$%26q%3Dpolitica%26editoria%5B%5D%3DPol%25C3%25ADtica%26editoria%5B%5D%3DPolitica&ajax=1";
 	private static final String COMENTARIOS_PAGE_BASE = "http://data.livefyre.com/bs3/v3.1/estadao.fyre.co/";
 	
@@ -103,8 +102,8 @@ public class NoticiasJornalESTADAO extends Noticia{
 			String consulta) throws IOException, ParseException {
 
 		stocks = MongoDB.getInstance();
-		mongoCollectionNoticias = stocks.getCollection("NovoEstadaoNoticias");
-		mongoCollectionComentarios = stocks.getCollection("NovoEstadaoComentarios");
+		mongoCollectionNoticias = stocks.getCollection("estadaoNoticias");
+		mongoCollectionComentarios = stocks.getCollection("estadaoComentarios");
 
 		long unixTimesTampDataInicial = 0; 
 		long unixTimesTampDataFinal = 0;
