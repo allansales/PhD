@@ -32,9 +32,8 @@ gera_tabela_frequencias <- function(texto){
   return(data)  
 }
 
-tf_conteudo_estadao <- gera_tabela_frequencias(conteudo_estadao)
-tf_conteudo_folha <- gera_tabela_frequencias(conteudo_folha)
-
+#tf_conteudo_estadao <- gera_tabela_frequencias(conteudo_estadao)
+#tf_conteudo_folha <- gera_tabela_frequencias(conteudo_folha)
 #write_csv(tf_conteudo_estadao, "frequencia_palavras_estadao.csv")
 #write_csv(tf_conteudo_folha, "frequencia_palavras_folha.csv")
 

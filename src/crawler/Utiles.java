@@ -19,13 +19,19 @@ public class Utiles {
 	public final static long ZERO = 0;
 
 	public static String formatoYYYYMMddHHmm(String data, String horaMinuto){
-		String diaMesAno [] = data.split("/");
+
+		String diaMesAno [];
+		if(data.contains("/")){
+			diaMesAno = data.split("/");
+		} else {
+			diaMesAno = data.split("-");
+		}
+		
 		String dia = diaMesAno[0];
 		String mes = diaMesAno[1];
 		String ano = diaMesAno[2];
 		
 		data = ano+mes+dia+horaMinuto;
-
 		return data;
 
 	}
@@ -37,9 +43,7 @@ public class Utiles {
 		if(!data.isEmpty()){
 			data = formatoYYYYMMddHHmm(data,horaMinuto);
 			DateFormat dfm = new SimpleDateFormat("yyyyMMddHHmm");  
-
 			dfm.setTimeZone(TimeZone.getTimeZone("GMT"));
-			
 			try {
 				unixtime = dfm.parse(data).getTime();
 			} catch (ParseException e) {
@@ -47,7 +51,6 @@ public class Utiles {
 			}  
 			unixtime=unixtime/1000;
 		}
-
 
 		return unixtime;
 

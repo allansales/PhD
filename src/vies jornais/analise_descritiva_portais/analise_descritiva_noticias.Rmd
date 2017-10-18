@@ -1,0 +1,549 @@
+---
+title: "Descrição Noticias"
+author: "Allan Sales"
+date: "22 de junho de 2017"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+
+source("utils/mongo_utils.R")
+source("utils/utils.R")
+library(corrr)
+
+library(DT)
+library(tm)
+library(wordcloud2)
+library(readr)
+
+library(stringr)
+
+require(cowplot)
+library(plotluck)
+
+noticias <- get_todas_noticias()
+
+n_palavras <- noticias %>% select(conteudo) %>% 
+  unlist() %>% as.vector() %>% 
+  tolower() %>% str_count(" ")+1
+
+noticias <- cbind(noticias, n_palavras)
+
+noticias_estadao <- noticias %>% filter(subFonte == "ESTADAO")
+noticias_folha <- noticias %>% filter(subFonte == "FOLHASP")
+noticias_g1 <- noticias %>% filter(subFonte == "G1")
+```
+
+Bases de dados 
+==================
+
+Column {data-width=1000}
+-------------------------------------
+### Sumário  dos dados
+
+```{r}
+summary(noticias)
+```
+
+***
+
+Este documento apresenta uma descrição da coleta de notícias nos cadernos de política dos portais G1, Estadão e Folha de São Paulo. De cada notícia foram coletadas informaçãoes sobre data de publicação (timestamp), fonte (subFonte), título, subtítulo, conteúdo, emissor, url e número de comentários na notícia (repercussão). Outras informações contidas na base foram adicionadas manualmente ou são derivadas das originais. Do total de notícias coletados, `r nrow(noticias_estadao)` são provenientes do jornal Estadão, `r nrow(noticias_folha)` são provenientes da Folha de São Paulo e `r nrow(noticias_g1)` são do G1.
+
+### Exemplo de notícia
+
+![](/home/allan/workspace/PhD/src/vies jornais/analise_descritiva_portais/comentarios.png)
+***
+
+Notícia com `r max(noticias$repercussao)` comentários
+
+
+### Distribuição do número de comentários por portal
+
+```{r}
+noticias %>% filter(repercussao > 0) %>% 
+  plotluck(subFonte ~ repercussao)
+```
+
+***
+
+É possível visualizar ainda a partir do sumário que diversas são as notícias que não são comentadas. De fato, pelo menos 50% das notícias de toda a base apresentam até `r median(noticias$repercussao)` comentário(s). Considerando apenas as notícias comentadas, podemos visualizar a distribuição da repercurssão para cada portal de notícias como mostra o gráfico acima.
+
+
+### Distribuição do número de palavras por portal
+
+```{r, echo=FALSE}
+noticias %>% filter(repercussao > 0) %>%
+  plotluck(subFonte ~ n_palavras)
+```
+
+*** 
+
+Além dos comentários, também é possível visualizar a distribuição do número de palavras de cada notícia. Isso é importante pode ser utilizado para se medir o detalhamento que o portal dá a sua notícias. Por exemplo, inferir se para notícias do assunto X o portal costuma fazer notícias resumidas enquanto para notícias do assunto Y as notícias são mais detalhadas.
+
+### Número de notícias por ano
+
+```{r, echo=F,warning=F, eval=TRUE, echo=FALSE}
+noticias %>% plotluck(ano~1, opts=plotluck.options(geom='histogram')) + theme_light()
+```
+
+***
+
+Total de notícias por ano apresentada na base de dados.
+
+### Distribuição de notícias por ano
+
+```{r, echo=F,warning=F}
+noticias_ano_subfonte <- noticias %>% group_by(ano, subFonte) %>% summarise(n_noticias = n())
+noticias_ano_subfonte %>% ggplot(aes(ano, n_noticias, fill=subFonte, color=subFonte)) + geom_point() + geom_line()
+```
+
+***
+
+Total de notícias por ano e separadas por portal na base de dados. É possível notar-se, a partir desse gráfico que as notícias coletadas no site do G1 ainda precisam ser colhidas novamente. O ano de 2010, 2014 e 2017 indicam o problema.
+
+### Distribuição de noticias por dia
+
+```{r, echo=F,warning=F}
+numero_noticias_dia <- bind_rows(noticias_folha, noticias_estadao) %>% 
+  group_by(subFonte, data) %>% summarise(n_noticias = n())
+
+numero_noticias_dia %>% plotluck(n_noticias ~ subFonte, opts=plotluck.options(geom='box')) + theme_light()
+
+```
+
+***
+
+Assim como o gráfico de barras anterior, o gráfico de densidade reforça a indicação de problemas na base do G1. Além disso, é possível visualizar uma tendência dos portais Estadão e Folha de São Paulo em publicar notícias de forma similar. Em períodos semelhantes as duas linhas crescem ou decrescem de forma similar. O que nos leva a pensar que pode existir uma correlação entre os portais.
+
+### Correlações de quantidades de notícias por portais
+
+```{r, echo=F}
+# correlacao das noticias por dia
+correlacao_n_noticias_portal <- noticias %>% 
+  select(data, subFonte) %>% 
+  table() %>% 
+  correlate(method="spearman")
+
+datatable(correlacao_n_noticias_portal, options = list(paging=F,info=F,searching=F))
+```
+
+***
+
+Os valores de correlação entre os portais são apresentados na tabela a seguir. Nota-se que, como especulado anteriormente, os portais Folha de São Paulo e Estadão apresentam um valor de correlação considerado alto, mas a surpresa dá-se pela relação entre G1 e Folha. Mesmo com problemas na coleta, a correlação entre esses dois portais que resultou no maior valor obtido.
+
+### Média de publicação de notícias por mês - Para todos os anos
+
+```{r, echo=F,warning=F}
+# medias e desvios padroes dos portais por mes
+n_noticias_mes_ano <- noticias %>% group_by(ano, mes, subFonte) %>% summarise(numero = n())
+ic_noticias_mes <- n_noticias_mes_ano %>% group_by(mes, subFonte) %>% 
+  summarise(media = mean(numero), erro = qt(0.975,df=n()-1)*sd(numero)/sqrt(n()))
+
+ggplot(ic_noticias_mes) + geom_pointrange(aes(subFonte, media, ymin=media-erro, ymax=media+erro)) + facet_wrap(~mes) 
+```
+
+***
+
+Uma forma de visualizar a quantidade de notícias que cada portal publica por mês é utilizando a média juntamente ao desvio padrão. Abaixo aprensenta-se um gráfico com média e um intervalo de um desvio padrão para cima e para baixo, para cada portal. Nota-se que o portal G1 publica uma quantidade média de notícias relativamente parecidas durante todo o ano. Por outro lado, para o Estadao e para a Folha, as notícias tendem a ser publicadas com mais frequências nos meses que antecedem eleições. Todavia, o desvio padrão aumenta consideravelmente nesses meses, o que nos dá a entender que a média de publicação naqueles meses deve cair em anos que não há eleição.
+
+### Média de publicação de notícias por mês - Por anos de eleição
+
+```{r, echo=F,warning=F}
+## separando por ano de eleicao
+# intervalo de confianca de quantidade de noticias por mes
+n_noticias_mes_ano_eleicao <- noticias %>% group_by(ano, mes, is_ano_eleicao, subFonte) %>% summarise(numero = n())
+
+ic_noticias_mes_eleicao <- n_noticias_mes_ano_eleicao %>% group_by(mes, is_ano_eleicao, subFonte) %>% 
+  summarise(media = mean(numero), erro = qt(0.975,df=n()-1)*sd(numero)/sqrt(n()))
+
+ggplot(ic_noticias_mes_eleicao) + geom_pointrange(mapping = aes(subFonte, media, ymin=media-erro, ymax=media+erro, color=is_ano_eleicao), position = position_dodge(width = 0.5)) + facet_wrap(~mes)
+```
+
+***
+
+Para saber se há diferença de publicação nos anos de eleição e nos anos de eleição, pode-se utilizar o intervalo de confiança de publicações nesses meses. Na figura abaixo, percebe-se que há sim o aumento de na média de publicações nos jornais Estadão e Folha de São Paulo. A medida que outubro vai se aproximando, a quantidade de publicações tende a crescer. No mês de outubro e setembro a distância é visualmente grande. Apesar disso, ainda é necessário aplicar o teste t para validar a informação de que há diferença estatística significante entre elas.
+
+### Publicação em eventos importantes
+
+```{r}
+# noticias_tema <- function(data, pattern, secao){
+#   true_false_vector <- data %>% select(secao) %>% 
+#     unlist() %>% as.vector() %>% 
+#     tolower() %>% str_detect(pattern)
+# 
+#   noticias <- data %>% filter(true_false_vector == TRUE)
+#   return(noticias)
+# }
+
+media_noticias_dia <- numero_noticias_dia %>% 
+  group_by(subFonte) %>% summarise(media = mean(n_noticias), mediana = median(n_noticias))
+
+folha_impeachment_noticias <- noticias_tema(noticias_folha, "impeachment", "titulo")
+estadao_impeachment_noticias <- noticias_tema(noticias_estadao, "impeachment", "titulo")
+
+total_noticias_dia_impeachment_folha <- noticias_folha %>% filter(data=="2016-04-17") %>% nrow()
+total_noticias_dia_impeachment_estadao <- noticias_estadao %>% filter(data=="2016-04-17") %>% nrow()
+
+folha_dia_impeachment_noticias <- folha_impeachment_noticias %>% filter(data=="2016-04-17") %>% nrow()
+estadao_dia_impeachment_noticias <- estadao_impeachment_noticias %>% filter(data=="2016-04-17") %>% nrow()
+
+total_noticias_dia <- c(total_noticias_dia_impeachment_estadao, total_noticias_dia_impeachment_folha)
+impeachment_titulo <- c(estadao_dia_impeachment_noticias, folha_dia_impeachment_noticias)
+
+dados_dia_impeachment <- cbind(media_noticias_dia, total_noticias_dia, impeachment_titulo)
+datatable(dados_dia_impeachment, options = list(paging=F,info=F,searching=F))
+```
+
+
+Viés - Palavras mais comuns
+==================
+
+-------------------------------------
+```{r, echo=F, include=F, warning=F}
+conteudo_estadao <- select(noticias_estadao, conteudo)
+conteudo_folha <- select(noticias_folha, conteudo)
+
+titulo_estadao <- select(noticias_estadao, titulo)
+titulo_folha <- select(noticias_folha, titulo)
+
+# gera_tabela_frequencias <- function(texto){
+# 
+#   texto <- Corpus(VectorSource(texto))
+#   texto <- tm_map(texto, tolower)
+#   texto <- tm_map(texto, removePunctuation, preserve_intra_word_dashes = TRUE)
+#   texto <- tm_map(texto, removeWords, stopwords("pt"))
+#   texto <- tm_map(texto, removeNumbers)
+#   texto <- tm_map(texto, stripWhitespace)
+#   texto <- tm_map(texto, stemDocument)
+#   texto <- tm_map(texto, PlainTextDocument)
+# 
+# 
+#   dtm <- TermDocumentMatrix(texto)
+#   matriz <- as.matrix(dtm)
+#   vector <- sort(rowSums(matriz),decreasing=TRUE)
+#   data <- data.frame(word = names(vector),freq=vector)
+# 
+#   return(data)
+# }
+
+#tf_conteudo_estadao <- gera_tabela_frequencias(conteudo_estadao)
+#tf_conteudo_folha <- gera_tabela_frequencias(conteudo_folha)
+#write_csv(tf_conteudo_estadao, "frequencia_palavras_estadao.csv")
+#write_csv(tf_conteudo_folha, "frequencia_palavras_folha.csv")
+```
+
+### Escolha das palavras
+
+***
+
+Uma forma simples de verificar a presença de viés é verificando as palavras mais frequêntes de cada texto. Nesse exemplo, faremos isso para a Folha de São Paulo e para o Estadão, tanto para os títulos das matérias quanto para o seu conteúdo. No caso de verificar as palavras mais utilizadas em todas as notícias coletadas, percebemos um padrão para a forma dos títulos das notícias: X disse Y.
+
+Jornal Estadão {.tabset .tabset-fade}
+-------------------------------------
+### Título 
+
+```{r, echo=F,warning=F}
+tf_titulo_estadao <- gera_tabela_frequencias(titulo_estadao) 
+wordcloud2(head(tf_titulo_estadao,100), fontFamily = 'Segoe UI', size = 1, color = "random-light")
+```
+
+***
+
+Wordcloud de termos mais utilizados nos títulos do jornal Estadão. Algumas palavras para se destacar: diz, impeachment, nega, cpi, mil.
+
+
+### Conteúdo
+
+```{r, echo=F,warning=F}
+tf_estadao <- read_csv("frequencia_palavras_estadao.csv")
+tf_estadao <- tf_estadao %>% as.data.frame()
+wordcloud2(head(tf_estadao,100),  fontFamily = 'Segoe UI', size = 1, color = "random-light")
+```
+
+***
+
+Wordcloud de termos mais utilizados nos conteúdos do jornal Estadão.
+
+Folha de São Paulo {.tabset .tabset-fade}
+-------------------------------------
+### Título
+
+```{r, echo=F,warning=F}
+tf_titulo_folha <- gera_tabela_frequencias(titulo_folha)
+wordcloud2(head(tf_titulo_folha,100),  fontFamily = 'Segoe UI', size = 1, color = "random-light")
+```
+
+***
+
+Wordcloud de termos mais utilizados nos títulos do jornal Folha de São Paulo. Algumas palavras para se destacar: diz, cpi, nega, mil.
+
+### Conteúdo
+
+```{r, echo=F,warning=F}
+tf_folha <- read_csv("frequencia_palavras_folha.csv")
+tf_folha <- tf_folha %>% as.data.frame()
+wordcloud2(head(tf_folha,100), fontFamily = 'Segoe UI', size = 1, color = "random-light")
+```
+
+***
+
+Wordcloud de termos mais utilizados nos conteúdos do jornal Folha de São Paulo.
+
+
+Impeachment {.tabset .tabset-fade}
+-------------------------------------
+
+### Folha de São Paulo
+
+```{r, echo=F,warning=F}
+tf_folha_impeachment_titulo <- gera_tabela_frequencias(folha_impeachment_noticias %>% select(titulo))
+wordcloud2(head(tf_folha_impeachment_titulo, 100),  fontFamily = 'Segoe UI', size = 3, color = "random-light")
+```
+
+### Estadão
+
+```{r, echo=F,warning=F}
+tf_estadao_impeachment_titulo <- gera_tabela_frequencias(estadao_impeachment_noticias %>% select(titulo))
+wordcloud2(head(tf_estadao_impeachment_titulo, 100), fontFamily = 'Segoe UI', size = 3, color = "random-light")
+```
+
+***
+
+A mesma aplicação pode ser feita em um contexto específico. Contanto as palavras que mais aparecem nas notícias que apresentam a palavra 'impeachment' no seu título, temos os wordclouds apresentados.
+
+Viés - Visibilidade
+==================
+
+### Escolha de que notícias publicar
+
+As notícias são publicadas baseadas na visibilidade que ela trará para o jornal. Como exemplo desse tipo de viés, mostramos alguns números a respeito de operações realizadas pela polícia federal e quanto de atenção cada operação teve dos veículos.
+
+As operações utilizadas são:
+
+* Operação Boca Livre: Fraude na Lei Rouanet - lei que institui políticas públicas para a cultura nacional;
+
+* Operação Bullish: irregularidades em empréstimos do BNDES ao Frigorífico JBS;
+
+* Operação Carne Fraca: grandes frigoríficos comercializavam e exportavam carnes vencidas mantidas com ácido sórbico e ácido ascórbico e pagamentos de propinas à fiscais do Ministério da Agricultura;
+
+* Operação Perfídia: lavagem internacional de dinheiro por agências de turismo, casas lotéricas e postos de gasolina;
+
+* Operação Zelotes: investigar um esquema de corrupção no Conselho de Administração de Recursos Fiscais (Carf), órgão colegiado do Ministério da Fazenda, responsável por julgar os recursos administrativos de autuações contra empresas e pessoas físicas por sonegação fiscal e previdenciária.
+
+### Quantidade de notícias - título x conteúdo
+
+```{r, echo=F, warning=F}
+#conta numero de noticias com cada candidato / escandalo
+metricas_noticias_tema <- function(data, pattern, secao, subfonte){
+  noticias <- noticias_tema(data, pattern, secao)
+  
+  media_palavras <- noticias %>% select(n_palavras) %>% colMeans()
+  
+  if(is.nan(media_palavras)){
+    n_noticias <- 0
+    media_palavras <- 0
+  } else {
+    n_noticias <- nrow(noticias)
+  }
+  
+  return(list(n_noticias = n_noticias, media_palavras = media_palavras,
+              secao = secao, subfonte = subfonte, busca = pattern))
+}
+
+#match pelo titulo das noticias
+op_titulo_estadao_bullish <- metricas_noticias_tema(noticias_estadao, "bullish", "titulo", "estadao")
+op_titulo_estadao_perfidia <- metricas_noticias_tema(noticias_estadao, "perfídia", "titulo", "estadao")
+op_titulo_estadao_carne_fraca <- metricas_noticias_tema(noticias_estadao, "carne fraca", "titulo", "estadao")
+op_titulo_estadao_zelotes <- metricas_noticias_tema(noticias_estadao, "zelotes", "titulo", "estadao")
+op_titulo_estadao_boca_livre <- metricas_noticias_tema(noticias_estadao, "boca livre", "titulo", "estadao")
+
+op_titulo_folha_bullish <- metricas_noticias_tema(noticias_folha, "bullish", "titulo", "folha")
+op_titulo_folha_perfidia <- metricas_noticias_tema(noticias_folha, "perfídia", "titulo", "folha")
+op_titulo_folha_carne_fraca <- metricas_noticias_tema(noticias_folha, "carne fraca", "titulo", "folha")
+op_titulo_folha_zelotes <- metricas_noticias_tema(noticias_folha, "zelotes", "titulo", "folha")
+op_titulo_folha_boca_livre <- metricas_noticias_tema(noticias_folha, "boca livre", "titulo", "folha")
+
+match_titulos <- list(op_titulo_estadao_bullish, op_titulo_estadao_perfidia, op_titulo_estadao_carne_fraca,
+                      op_titulo_estadao_zelotes, op_titulo_estadao_boca_livre, op_titulo_folha_bullish, op_titulo_folha_perfidia, op_titulo_folha_carne_fraca,
+                      op_titulo_folha_zelotes, op_titulo_folha_boca_livre)
+
+match_titulos <- data.table::rbindlist(match_titulos)
+
+p1 <- ggplot(match_titulos) + geom_col(aes(x=busca, y=n_noticias, fill=subfonte), position = "dodge") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + theme(legend.position="none")
+
+# match pelo conteudo das noticias
+op_conteudo_estadao_bullish <- metricas_noticias_tema(noticias_estadao, "bullish", "conteudo", "estadao")
+op_conteudo_estadao_perfidia <- metricas_noticias_tema(noticias_estadao, "perfídia", "conteudo", "estadao")
+op_conteudo_estadao_carne_fraca <- metricas_noticias_tema(noticias_estadao, "carne fraca", "conteudo", "estadao")
+op_conteudo_estadao_zelotes <- metricas_noticias_tema(noticias_estadao, "zelotes", "conteudo", "estadao")
+op_conteudo_estadao_boca_livre <- metricas_noticias_tema(noticias_estadao, "boca livre", "conteudo", "estadao")
+
+op_conteudo_folha_bullish <- metricas_noticias_tema(noticias_folha, "bullish", "conteudo", "folha")
+op_conteudo_folha_perfidia <- metricas_noticias_tema(noticias_folha, "perfídia", "conteudo", "folha")
+op_conteudo_folha_carne_fraca <- metricas_noticias_tema(noticias_folha, "carne fraca", "conteudo", "folha")
+op_conteudo_folha_zelotes <- metricas_noticias_tema(noticias_folha, "zelotes", "conteudo", "folha")
+op_conteudo_folha_boca_livre <- metricas_noticias_tema(noticias_folha, "boca livre", "conteudo", "folha")
+
+match_conteudo <- list(op_conteudo_estadao_bullish, op_conteudo_estadao_perfidia,
+                       op_conteudo_estadao_carne_fraca, op_conteudo_estadao_zelotes, op_conteudo_estadao_boca_livre, op_conteudo_folha_bullish, op_conteudo_folha_perfidia,
+                       op_conteudo_folha_carne_fraca, op_conteudo_folha_zelotes, op_conteudo_folha_boca_livre)
+
+match_conteudo <- data.table::rbindlist(match_conteudo)
+
+dados_noticias <- bind_rows(match_conteudo, match_titulos)
+
+p2 <- ggplot(match_conteudo) + geom_col(aes(x=busca, y=n_noticias, fill=subfonte), position = "dodge") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
+legend <- get_legend(p2)
+p2 <- p2 + theme(legend.position="none")
+
+plot_grid(p1, p2, legend, labels=c('Titulo', 'Conteúdo'), rel_widths = c(1, 1, .3), nrow = 1)
+```
+
+***
+
+Buscando pelo nome da operação nos títulos das matérias em cada jornal obtemos:
+
+### Quantidade de notícias x lava jato - título x conteúdo
+
+```{r, echo=F, warning=F}
+#titulo
+op_titulo_estadao_lava_jato <- metricas_noticias_tema(noticias_estadao, "lava jato", "titulo", "estadao")
+op_titulo_folha_lava_jato <- metricas_noticias_tema(noticias_folha, "lava jato", "titulo", "folha")
+
+match_titulos_lj <- list(op_titulo_estadao_lava_jato, op_titulo_folha_lava_jato, op_titulo_estadao_bullish, op_titulo_estadao_perfidia, op_titulo_estadao_carne_fraca,
+                      op_titulo_estadao_zelotes, op_titulo_estadao_boca_livre, op_titulo_folha_bullish, op_titulo_folha_perfidia, op_titulo_folha_carne_fraca,
+                      op_titulo_folha_zelotes, op_titulo_folha_boca_livre)
+
+match_titulos_lj <- data.table::rbindlist(match_titulos_lj)
+
+p3 <- ggplot(match_titulos_lj) + geom_col(aes(x=busca, y=n_noticias, fill=subfonte), position = "dodge") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + theme(legend.position="none")
+
+# conteudo
+op_conteudo_estadao_lava_jato <- metricas_noticias_tema(noticias_estadao, "lava jato", "conteudo", "estadao")
+op_conteudo_folha_lava_jato <- metricas_noticias_tema(noticias_folha, "lava jato", "conteudo", "folha")
+
+match_conteudo_lj <- list(op_conteudo_estadao_lava_jato, op_conteudo_folha_lava_jato, op_conteudo_estadao_bullish, op_conteudo_estadao_perfidia,
+                       op_conteudo_estadao_carne_fraca, op_conteudo_estadao_zelotes, op_conteudo_estadao_boca_livre, op_conteudo_folha_bullish, op_conteudo_folha_perfidia,
+                       op_conteudo_folha_carne_fraca, op_conteudo_folha_zelotes, op_conteudo_folha_boca_livre)
+match_conteudo_lj <- data.table::rbindlist(match_conteudo_lj)
+
+p4 <- ggplot(match_conteudo_lj) + geom_col(aes(x=busca, y=n_noticias, fill=subfonte), position = "dodge") + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+legend <- get_legend(p4)
+p4 <- p4 + theme(legend.position="none")
+
+plot_grid(p3, p4, legend, labels=c('Titulo', 'Conteúdo'), rel_widths = c(1, 1, .3), nrow = 1)
+```
+
+***
+
+Comparação do número de notícias mencionando, no título e conteúdo, a lava jato e as demais operações.
+
+### Zelotes - Emissores
+
+```{r}
+noticias_folha_zelotes <- noticias_tema(noticias_folha, "zelotes", "titulo")
+rubens_valente <- metricas_noticias_tema(noticias_folha_zelotes, "rubens valente", "emissor", "folha")
+aguirre_talento <- metricas_noticias_tema(noticias_folha_zelotes, "aguirre talento", "emissor", "folha")
+bela_megale <- metricas_noticias_tema(noticias_folha_zelotes, "bela megale", "emissor", "folha")
+catia_seabra <- metricas_noticias_tema(noticias_folha_zelotes, "catia seabra", "emissor", "folha")
+gabriel_mascarenhas <- metricas_noticias_tema(noticias_folha_zelotes, "gabriel mascarenhas", "emissor", "folha")
+marcio_falcao <- metricas_noticias_tema(noticias_folha_zelotes, "márcio falcão", "emissor", "folha")
+eduardo_cucolo <- metricas_noticias_tema(noticias_folha_zelotes, "eduardo cucolo", "emissor", "folha")
+flavio_ferreira <- metricas_noticias_tema(noticias_folha_zelotes, "flávio ferreira", "emissor", "folha")
+catia_seabra <- metricas_noticias_tema(noticias_folha_zelotes, "catia seabra", "emissor", "folha")
+monica_bergamo <- metricas_noticias_tema(noticias_folha_zelotes, "mônica bergamo", "emissor", "folha")
+marina_dias <- metricas_noticias_tema(noticias_folha_zelotes, "marina dias", "emissor", "folha")
+leticia_casado <- metricas_noticias_tema(noticias_folha_zelotes, "letícia casado", "emissor", "folha")
+natuza_nery <- metricas_noticias_tema(noticias_folha_zelotes, "natuza nery", "emissor", "folha")
+
+match_emissores <- list(rubens_valente, aguirre_talento, bela_megale, catia_seabra, gabriel_mascarenhas, marcio_falcao, eduardo_cucolo, flavio_ferreira, catia_seabra, monica_bergamo, marina_dias, leticia_casado, natuza_nery)
+
+match_emissores <- data.table::rbindlist(match_emissores)
+
+match_emissores$emissor <- with(match_emissores, ifelse(n_noticias==1, "outros", busca))
+
+match_emissores %>% ggplot(aes(n_noticias, media_palavras, color = emissor)) + geom_point()
+
+match_emissores <- match_emissores %>% select(media_palavras, n_noticias, busca)
+```
+
+
+```{r}
+noticias_folha_zelotes %>% group_by(emissor) %>% summarise(n =n())
+```
+
+
+Viés - Seleção
+==================
+
+### Inclinação partidária ou a um político/pessoa
+
+Quando notícias são selecionadas ou não selecionadas devido a inclinação política do jornal. Para verificar a inclinação política partidária ou pessoal de cada jornal, utilizamos a eleição de 2014 como parâmetro. O período das notícias vai de 6 de julho de 2014 a 6 de outubro de 2014, dia da votação do primeiro turno.
+
+### Número de notícias sobre cada candidato
+
+```{r, echo=F, warning=F}
+noticias_estadao_eleicao <- noticias_estadao %>% filter(ano==2014, dia_do_ano >=187, dia_do_ano<=279)
+noticias_folha_eleicao <- noticias_folha %>% filter(ano==2014, dia_do_ano >=187, dia_do_ano<=279)
+
+
+dilma_estadao <- metricas_noticias_tema(noticias_estadao_eleicao, "dilma", "titulo", "estadao")
+lula_estadao <- metricas_noticias_tema(noticias_estadao_eleicao, "lula", "titulo", "estadao")
+marina_estadao <- metricas_noticias_tema(noticias_estadao_eleicao, "marina", "titulo", "estadao")
+levy_estadao <- metricas_noticias_tema(noticias_estadao_eleicao, "levy", "titulo", "estadao")
+aecio_estadao <- metricas_noticias_tema(noticias_estadao_eleicao, "aécio", "titulo", "estadao")
+eduardo_jorge_estadao <- metricas_noticias_tema(noticias_estadao_eleicao, "eduardo jorge", "titulo", "estadao")
+luciana_estadao <- metricas_noticias_tema(noticias_estadao_eleicao, "luciana genro", "titulo", "estadao")
+
+dilma_folha <- metricas_noticias_tema(noticias_folha_eleicao, "dilma", "titulo", "folha")
+lula_folha <- metricas_noticias_tema(noticias_folha_eleicao, "lula", "titulo", "folha")
+marina_folha <- metricas_noticias_tema(noticias_folha_eleicao, "marina", "titulo", "folha")
+levy_folha <- metricas_noticias_tema(noticias_folha_eleicao, "levy", "titulo", "folha")
+aecio_folha <- metricas_noticias_tema(noticias_folha_eleicao, "aécio", "titulo", "folha")
+eduardo_jorge_folha <- metricas_noticias_tema(noticias_folha_eleicao, "eduardo jorge", "titulo", "folha")
+luciana_folha <- metricas_noticias_tema(noticias_folha_eleicao, "luciana genro", "titulo", "folha")
+
+match_politicos_titulo <- list(dilma_folha, dilma_estadao, lula_estadao, lula_folha, marina_estadao, marina_folha, levy_estadao, levy_folha, 
+                               aecio_estadao, aecio_folha, eduardo_jorge_estadao, eduardo_jorge_folha, luciana_estadao, luciana_folha)
+
+match_politicos_titulo <- data.table::rbindlist(match_politicos_titulo)
+
+match_politicos_titulo %>% plotluck(n_noticias ~ busca|subfonte) + theme_light()
+```
+
+***
+
+De forma similar ao que já foi apresentado, pode-se verificar quantas notícias foram publicadas sobre cada um dos candidatos. Percebe-se que Dilma era mais citada na Folha de São Paulo do que qualquer outro político, mas sendo acompanhada de perto por Marina e com uma larga vantagem para Aécio e os outros candidatos. Até mesmo Lula, que não era candidato nessa eleição, tinha mais matérias sendo citado do que alguns dos candidatos.
+
+
+### Caso Gilmar Mendes
+
+
+```{r}
+gilmar_mendes <- noticias %>% filter(str_detect(titulo, "(impeachment[:print:]*Gilmar Mendes)|(Gilmar Mendes[:print:]*impeachment)"))
+
+#filtrando manualmente são 4 notícias a respeito do impeachment dele
+```
+
+
+
+Viés - Concisão
+==================
+
+### Concisão
+
+A concisão é uma qualiadade de quem fala ou escreve com clareza e de modo breve. Assim, um indício de falta de concisão num texto é o seu tamanho. Verificamos, aqui, o número médio de palavras que continham os textos a respeito de cada candidato.
+
+### Média de palavras por notícia
+
+```{r, echo=F}
+match_politicos_titulo %>% plotluck(media_palavras ~ busca|subfonte) + theme_light()
+```
+
+***
+
+Pode-se questionar que mesmo que a quantidade de notícias seja a mesma, a discussão sobre aquele candidato não seja concisa. O tempo de atenção que um leitor comum aplica a uma notícia é curto, sendo assim, os textos precisam ser escritos com o mínimo de palavras suficientes para passar a mensagem correta para o leitor. Sabendo disso, é possível entender que o tamanho e a concisão do texto são fatores que podem evidenciar viés.
+
+Ainda utilizando as notícias publicadas durante as eleições de 2014, pode-se medir a quantidade média de palavras que eram escritas falando sobre cada candidato. Nesse caso, nota-se que não há uma grande diferença de uns para os outros.

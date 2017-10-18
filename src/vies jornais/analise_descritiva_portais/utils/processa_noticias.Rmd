@@ -1,0 +1,42 @@
+---
+title: "processa_noticias"
+author: "Allan Sales"
+date: "18 de setembro de 2017"
+output: pdf_document
+---
+
+
+Arquivo para processar o conteúdo das notícias no mongo DB e criar uma tabela similar a anterior mas com algumas informações a mais como dia, mes, ano, numero de palavras na notícia e com o conteúdo da notícia já processada pelo pacote TM.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+
+source("utils.R")
+source("mongo_utils.R")
+```
+
+```{r}
+processa_palavras <- function(base){
+  noticias_processadas <- base  %>% 
+    group_by(url) %>% 
+    summarise(conteudo_processado = build_corpus(conteudo))
+  
+  noticias_tema <- inner_join(base, noticias_processadas, by = "url")
+  return(noticias_tema)
+}
+
+noticias <- get_todas_noticias_originais()
+noticias_estadao <- noticias %>% filter(subFonte == "ESTADAO")
+noticias_folha <- noticias %>% filter(subFonte == "FOLHASP")
+noticias_G1 <- noticias %>% filter(subFonte == "G1")
+```
+
+```{r}
+noticias_estadao <- processa_palavras(noticias_estadao)
+insert_in_database(noticias_estadao, "estadaoNoticiasProcessadas")
+
+noticias_folha <- processa_palavras(noticias_folha)
+insert_in_database(noticias_folha, "folhaNoticiasProcessadas")
+
+noticias_G1 <- processa_palavras(noticias_G1)
+insert_in_database(noticias_G1, "g1NoticiasProcessadas")
+```
