@@ -1,0 +1,16 @@
+## Formas de avaliar word embeddings
+
+Relatedness (relacionamento): A correlação entre a similaridade do cosseno entre pares de palavras e os scores humanos para os mesmos pares de palavras devem ser altos.
+
+Analogia: Verificar a veracidade de algumas analogias que espera-se previamente que necessitam estar corretas. Por exemplo, um indício que os word embeddings estão treinados corretamente é que as analogias abaixo sejam verdadeiras:
+
+pt -> petista, psdb -> tucano ##ok
+dilma -> rousseff, aécio -> neves ##ok
+dilma -> petista, aécio -> tucano ##ok
+pt -> dilma, psdb -> aécio ##ok
+
+Categorização: Dividir as palavras em grupos e medir a pureza dos grupos. Medir quão faz sentido as palavras pertencerem a aquele grupo.
+
+Preferência seletiva: Verificar quão típico é um substantivo ser recomendado a um verbo e quanto um verbo é recomendado a um substantivo. Por exemplo, 'pessoas comem' é uma frase comum mas 'comem pessoas' nem tanto. 
+
+Coerência: Verificar quão semanticamente similares são palavras vizinhas em pequenos grupos de palavras. Bons word embeddings devem retornar, para uma consulta de palavra, outras semanticamente parecidas, então em um grupo pequeno de palavras (3 ou 4), ao se pesquisar por uma palavra, as outras do grupo, devem ser semanticamente próximas.
