@@ -5,8 +5,10 @@ library("wordVectors")
 library("readr")
 
 ### Importa base de dados
-noticias <- get_todas_noticias_processadas()
-noticias_estadao <- noticias %>% filter(subFonte == "ESTADAO")
+#noticias <- get_todas_noticias_processadas()
+#noticias_estadao <- noticias %>% filter(subFonte == "ESTADAO")
+
+comentarios <- get_collection("estadaoComentarios")
 
 tema = "eleicoes_2014_estadao_test"
 limiar = 1.1
@@ -25,6 +27,8 @@ entity <- c(candidatos, partidos)
 pattern <- paste(entity, collapse = "|")
 
 noticias <- noticias_estadao %>% filter(timestamp >= "2014-06-01" & timestamp <= "2014-07-31") %>% noticias_tema(pattern, "titulo")
+
+a <- direct_bias_detection(tema, limiar, MIN_TAMANHO, referencia_1, referencia_2, n_layers, analogias, candidatos, entity, pattern, noticias)
 
 direct_bias_detection <- function(tema, limiar, MIN_TAMANHO, referencia_1, referencia_2, n_layers = 300, analogias, candidatos, entity, pattern, noticias){
   train_file <- paste("saida_distancia_partidos/",tema,".csv",sep="")

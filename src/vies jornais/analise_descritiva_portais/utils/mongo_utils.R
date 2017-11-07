@@ -53,6 +53,22 @@ get_todos_comentarios <- function(){
   return(comentarios)  
 }
 
+get_comentarios_por_data <- function(colecao, data_inicio, data_fim){
+ 
+  if(str_detect(colecao,"estadao")){
+    comentarios_collection = "estadaoComentarios"
+  } else if(str_detect(colecao,"folha")){
+    comentarios_collection = "folhaComentarios"
+  } else if(str_detect(colecao,"g1")){
+    comentarios_collection = "g1Comentarios"
+  }
+  
+  noticias = get_collection(colecao) %>% filter(timestamp >= data_inicio & timestamp <= data_fim)
+  comentarios = get_collection(comentarios_collection) %>% filter(idNoticia %in% noticias$idNoticia)
+
+  return(comentarios)  
+}
+
 insert_in_database <- function(colecao, nome){
   con <- mongo(db = "stocks", collection = nome, url = "mongodb://localhost", verbose = FALSE, options = ssl_options())
   con$insert(colecao)
