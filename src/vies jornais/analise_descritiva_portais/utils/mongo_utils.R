@@ -5,12 +5,22 @@ library(ggplot2)
 library(stringr)
 library(lubridate)
 library(anytime)
+library(RMongo)
 
-get_collection <- function(colecao){
+get_collection <- function(colecao, query = "{}"){
   con <- mongo(db = "stocks", collection = colecao, url = "mongodb://localhost", verbose = FALSE, options = ssl_options())
-  data <- con$find()
+  data <- con$find(query)
   rm(con)
   return(data)
+}
+
+get_docs_by_idNoticia <- function(vetor_ids, colecao){
+  mongo = mongoDbConnect("stocks")
+  idNoticias = paste(vetor_ids, collapse = "\",\"")
+  query = sprintf('{"idNoticia": { "$in": ["%s"]} }', idNoticias)
+  output = dbGetQuery(mongo, colecao, query, skip=0, limit=Inf)
+  rm(mongo)
+  return(output)
 }
 
 get_todas_noticias_originais <- function(){
@@ -53,25 +63,8 @@ get_todos_comentarios <- function(){
   return(comentarios)  
 }
 
-get_comentarios_por_data <- function(colecao, data_inicio, data_fim){
- 
-  if(str_detect(colecao,"estadao")){
-    comentarios_collection = "estadaoComentarios"
-  } else if(str_detect(colecao,"folha")){
-    comentarios_collection = "folhaComentarios"
-  } else if(str_detect(colecao,"g1")){
-    comentarios_collection = "g1Comentarios"
-  }
-  
-  noticias = get_collection(colecao) %>% filter(timestamp >= data_inicio & timestamp <= data_fim)
-  comentarios = get_collection(comentarios_collection) %>% filter(idNoticia %in% noticias$idNoticia)
-
-  return(comentarios)  
-}
-
 insert_in_database <- function(colecao, nome){
   con <- mongo(db = "stocks", collection = nome, url = "mongodb://localhost", verbose = FALSE, options = ssl_options())
   con$insert(colecao)
   rm(con)
 }
-

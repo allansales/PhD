@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 source("../utils/mongo_utils.R")
 source("../utils/utils.R")
 source("../utils/embeddings_utils.R")
+source("cria_word_embedding.R")
 library("wordVectors")
 library("readr")
 ```
@@ -17,8 +18,6 @@ library("readr")
 ### Importa base de dados
 ```{r}
 noticias <- get_todas_noticias_processadas()
-noticias_estadao <- noticias %>% filter(subFonte == "ESTADAO")
-noticias_folha <- noticias %>% filter(subFonte == "FOLHASP")
 ```
 
 ### Noticias eleicao
@@ -28,9 +27,6 @@ candidatos <- c("dilma","aécio","levy","marina silva","luciana genro","eduardo 
 
 entity <- c(candidatos, partidos)
 pattern <- paste(entity, collapse = "|")
-
-noticias_estadao_tema <- noticias_estadao %>% filter(timestamp >= "2014-01-01" & timestamp <= "2014-12-31") %>% noticias_tema(pattern, "titulo")
-noticias_folha_tema <- noticias_folha %>% filter(timestamp >= "2014-01-01" & timestamp <= "2014-12-31") %>% noticias_tema(pattern, "titulo")
 ```
 
 ### Configuracao e validacao dos modelos 
@@ -38,184 +34,218 @@ noticias_folha_tema <- noticias_folha %>% filter(timestamp >= "2014-01-01" & tim
 # limiar de 1 porque eh o cossendo de pi/3 (que implica da distancia entre as palavras serem menores entre si que entre elas e a origem)
 limiar = 1.1
 MIN_TAMANHO = 3
+n_layers = 300
 referencia_1 = "dilma"
 referencia_2 = "aécio"
+data_inicio = "2014-01-01"
+data_fim = "2014-12-31"
 
 analogias <- c("pt psdb dilma", "pt pv dilma","pt prtb dilma","pt psol dilma","pt psb dilma","pt psdc dilma","psdb pv aécio","psdb prtb aécio","psdb psol aécio","psdb psb aécio","psdb psdc aécio","pv prtb jorge","pv psol jorge","pv psb jorge","pv psdc jorge","prtb psol fidelix","prtb psb fidelix","prtb psdc fidelix","psol psb luciana","psol psdc luciana","psb psdc marina","dilma aécio rousseff","campos psb aécio","pt psdb petista")
 respostas <- c("aécio","jorge","fidelix","luciana","marina","eymael","jorge","fidelix","luciana","marina","eymael","fidelix","luciana","marina","eymael","luciana","marina","eymael","marina","eymael","eymael","neves","psdb","tucano")
 ```
 
+### Estadao
+#### Noticias
+```{r}
+tema = "estadao_noticias_eleicao_2014"
+noticias_estadao <- noticias %>% filter(subFonte == "ESTADAO")
+noticias_estadao_tema <- noticias_estadao %>% filter(timestamp >= data_inicio & timestamp <= data_fim) %>% noticias_tema(pattern, "titulo")
+we_noticias_estadao <- direct_bias_detection(tema, limiar, MIN_TAMANHO, referencia_1, referencia_2, n_layers, analogias, candidatos, entity, pattern, noticias_estadao_tema)
+```
+
+#### Comentarios
+```{r}
+tema = "estadao_comentarios_eleicao_2014"
+comentarios_estadao_tema <- get_comentarios_por_data("estadaoNoticiasProcessadas", data_inicio, data_fim)
+we_comentarios_estadao <- direct_bias_detection(tema, limiar, MIN_TAMANHO, referencia_1, referencia_2, n_layers, analogias, candidatos, entity, pattern, noticias_estadao_tema)
+```
+
+### Folha
+#### Noticias
+```{r}
+tema = "folha_noticias_eleicao_2014"
+noticias_folha <- noticias %>% filter(subFonte == "FOLHASP")
+noticias_folha_tema <- noticias_folha %>% filter(timestamp >= data_inicio & timestamp <= data_fim) %>% noticias_tema(pattern, "titulo")
+we_noticias_folha <- direct_bias_detection(tema, limiar, MIN_TAMANHO, referencia_1, referencia_2, n_layers, analogias, candidatos, entity, pattern, noticias_folha_tema)
+```
+
+#### Comentarios
+```{r}
+tema = "folha_comentarios_eleicao_2014"
+comentarios_folha_tema <- get_docs_by_idNoticia(colecao = "folhaComentariosProcessados", vetor_ids = noticias_folha_tema$idNoticia)
+we_comentarios_folha <- direct_bias_detection(tema, limiar, MIN_TAMANHO, referencia_1, referencia_2, n_layers, analogias, candidatos, entity, pattern, noticias_estadao_tema)
+```
+
 ### Estadão
-
 #### Cria embeddings
-```{r}
-tema = "eleicoes_2014_estadao_cbow"
-train_file <- paste("saida_distancia_partidos/",tema,".csv",sep="")
-binary_file <- paste("saida_distancia_partidos/",tema,".bin",sep="")
-n_layers <- 300
-noticias_estadao_tema %>% select(conteudo_processado) %>% write_csv(train_file)
-modelo <- train_word2vec(train_file, threads = 8, vectors = n_layers)
-#modelo_estadao <- read.binary.vectors(binary_file)
-```
-
-### Regras que devem ser acertadas para validar embedding
-```{r}
-verifica_analogias(binary_file, analogias, respostas)
-```
-
-### Cria tsv com embedding
-```{r}
-path_modelo_tsv = paste("saida_distancia_partidos/",tema,".tsv",sep="")
-modelo@.Data %>% as.data.frame() %>% write_tsv(path_modelo_tsv)
-
-path_modelo_names_tsv = paste("saida_distancia_partidos/",tema,"_names",".tsv",sep="")
-modelo@.Data %>% rownames() %>% as.data.frame() %>% write_tsv(path_modelo_names_tsv)
-```
-
-### Normaliza vetores
-```{r}
-palavras_normalizadas <- modelo %>% apply(1,normaliza_vetor) %>% t() %>% as.VectorSpaceModel()
-```
-
-### Filtra palavras 
-```{r}
-## filtra palavras a partir de criterio
-path = paste("./",train_file,sep="")
-palavras_usadas <- palavras_mais_frequentes(path, 50)
-palavras_usadas <- c(palavras_usadas[str_length(palavras_usadas) > MIN_TAMANHO], partidos)
-palavras_normalizadas_usadas <- palavras_normalizadas[[palavras_usadas, average=F]]
-```
-
-### Distância entre par de palavras
-Para cada par de palavras do conjunto de palavras neutras, calcula a distancia entre elas.
-```{r}
-par_palavras <- forma_par_palavras(palavras_normalizadas_usadas)
-path_par_palavras <- paste("saida_distancia_partidos/par_palavras_",tema,".csv",sep="")
-write_csv(par_palavras, path_par_palavras)
-#par_palavras <- read_csv(path_par_palavras)
-
-proximidade_par_palavras <- calcula_proximidade(par_palavras, modelo, palavras_normalizadas_usadas)
-path_proximidade_par_palavras = paste("saida_distancia_partidos/par_palavras_proximidade_",tema,".csv",sep="")
-write_csv(proximidade_par_palavras, path_proximidade_par_palavras)
-#proximidade_par_palavras <- read_csv(path_proximidade_par_palavras)
-```
-
-```{r}
-palavras_neutras <- proximidade_par_palavras %>% filter(palavra_1 %in% entity & palavra_2 %in% entity)
-```
-
-### Similaridade entre pares de palavras
-```{r}
-similaridade_palavras <- calcula_s_score(proximidade_par_palavras, palavras_normalizadas_usadas, referencia_1, referencia_2)
-```
-
-### Direct bias
-```{r}
-g <- (palavras_normalizadas_usadas[[referencia_1]] - palavras_normalizadas_usadas[[referencia_2]])
-constant <- 1
-
-direct_bias_words <- direct_bias_calculator(entity, g, constant, palavras_normalizadas_usadas)
-direct_bias_value <- direct_bias_words %>% summarise(valor = abs(cosine_c) %>% mean())
-```
-
-### Direct bias graphic
-```{r}
-# a coluna y esta sendo usada apenas para dispersar as palavras verticalmente e evitar a sobreposicao delas
-direct_bias_words_graphic <- direct_bias_words %>% filter(!(entidade %in% c(referencia_1, referencia_2))) %>% mutate(y = sample(-9:9, n(), replace = T))
-direct_bias_words_graphic %>% ggplot(aes(x=cosine_c, y=y, label=entidade)) + geom_text() 
-ggsave(paste(tema,".pdf",sep=""))
-```
-
-### Indirect bias
-```{r}
-entities <- data_frame(entidade = partidos)
-indirect_bias_psdb <- entities %>% rowwise() %>% mutate(indirect_bias = indirect_bias_calculator(entidade, "psdb", g, palavras_normalizadas_usadas))
-```
+# ```{r}
+# tema = "eleicoes_2014_estadao_cbow"
+# train_file <- paste("saida_distancia_partidos/",tema,".csv",sep="")
+# binary_file <- paste("saida_distancia_partidos/",tema,".bin",sep="")
+# n_layers <- 300
+# noticias_estadao_tema %>% select(conteudo_processado) %>% write_csv(train_file)
+# modelo <- train_word2vec(train_file, threads = 8, vectors = n_layers)
+# #modelo_estadao <- read.binary.vectors(binary_file)
+# ```
+# 
+# ### Regras que devem ser acertadas para validar embedding
+# ```{r}
+# verifica_analogias(binary_file, analogias, respostas)
+# ```
+# 
+# ### Cria tsv com embedding
+# ```{r}
+# path_modelo_tsv = paste("saida_distancia_partidos/",tema,".tsv",sep="")
+# modelo@.Data %>% as.data.frame() %>% write_tsv(path_modelo_tsv)
+# 
+# path_modelo_names_tsv = paste("saida_distancia_partidos/",tema,"_names",".tsv",sep="")
+# modelo@.Data %>% rownames() %>% as.data.frame() %>% write_tsv(path_modelo_names_tsv)
+# ```
+# 
+# ### Normaliza vetores
+# ```{r}
+# palavras_normalizadas <- modelo %>% apply(1,normaliza_vetor) %>% t() %>% as.VectorSpaceModel()
+# ```
+# 
+# ### Filtra palavras 
+# ```{r}
+# ## filtra palavras a partir de criterio
+# path = paste("./",train_file,sep="")
+# palavras_usadas <- palavras_mais_frequentes(path, 50)
+# palavras_usadas <- c(palavras_usadas[str_length(palavras_usadas) > MIN_TAMANHO], partidos)
+# palavras_normalizadas_usadas <- palavras_normalizadas[[palavras_usadas, average=F]]
+# ```
+# 
+# ### Distância entre par de palavras
+# Para cada par de palavras do conjunto de palavras neutras, calcula a distancia entre elas.
+# ```{r}
+# par_palavras <- forma_par_palavras(palavras_normalizadas_usadas)
+# path_par_palavras <- paste("saida_distancia_partidos/par_palavras_",tema,".csv",sep="")
+# write_csv(par_palavras, path_par_palavras)
+# #par_palavras <- read_csv(path_par_palavras)
+# 
+# proximidade_par_palavras <- calcula_proximidade(par_palavras, modelo, palavras_normalizadas_usadas)
+# path_proximidade_par_palavras = paste("saida_distancia_partidos/par_palavras_proximidade_",tema,".csv",sep="")
+# write_csv(proximidade_par_palavras, path_proximidade_par_palavras)
+# #proximidade_par_palavras <- read_csv(path_proximidade_par_palavras)
+# ```
+# 
+# ```{r}
+# palavras_neutras <- proximidade_par_palavras %>% filter(palavra_1 %in% entity & palavra_2 %in% entity)
+# ```
+# 
+# ### Similaridade entre pares de palavras
+# ```{r}
+# similaridade_palavras <- calcula_s_score(proximidade_par_palavras, palavras_normalizadas_usadas, referencia_1, referencia_2)
+# ```
+# 
+# ### Direct bias
+# ```{r}
+# g <- (palavras_normalizadas_usadas[[referencia_1]] - palavras_normalizadas_usadas[[referencia_2]])
+# constant <- 1
+# 
+# direct_bias_words <- direct_bias_calculator(entity, g, constant, palavras_normalizadas_usadas)
+# direct_bias_value <- direct_bias_words %>% summarise(valor = abs(cosine_c) %>% mean())
+# ```
+# 
+# ### Direct bias graphic
+# ```{r}
+# # a coluna y esta sendo usada apenas para dispersar as palavras verticalmente e evitar a sobreposicao delas
+# direct_bias_words_graphic <- direct_bias_words %>% filter(!(entidade %in% c(referencia_1, referencia_2))) %>% mutate(y = sample(-9:9, n(), replace = T))
+# direct_bias_words_graphic %>% ggplot(aes(x=cosine_c, y=y, label=entidade)) + geom_text() 
+# ggsave(paste(tema,".pdf",sep=""))
+# ```
+# 
+# ### Indirect bias
+# ```{r}
+# entities <- data_frame(entidade = partidos)
+# indirect_bias_psdb <- entities %>% rowwise() %>% mutate(indirect_bias = indirect_bias_calculator(entidade, "psdb", g, palavras_normalizadas_usadas))
+# ```
 
 ### Folha de Sao Paulo
 
 #### Cria embeddings
-```{r}
-tema_folha = "eleicoes_2014_folha_cbow"
-train_file_folha <- paste("saida_distancia_partidos/",tema_folha,".csv",sep="")
-binary_file_folha <- paste("saida_distancia_partidos/",tema_folha,".bin",sep="")
-n_layers_folha <- 400
-noticias_folha_tema %>% select(conteudo_processado) %>% write_csv(train_file_folha)
-modelo_folha <- train_word2vec(train_file_folha, threads = 8, vectors = n_layers_folha)
-#modelo_estadao <- read.binary.vectors(binary_file)
-```
-
+# ```{r}
+# tema_folha = "eleicoes_2014_folha_cbow"
+# train_file_folha <- paste("saida_distancia_partidos/",tema_folha,".csv",sep="")
+# binary_file_folha <- paste("saida_distancia_partidos/",tema_folha,".bin",sep="")
+# n_layers_folha <- 400
+# noticias_folha_tema %>% select(conteudo_processado) %>% write_csv(train_file_folha)
+# modelo_folha <- train_word2vec(train_file_folha, threads = 8, vectors = n_layers_folha)
+# modelo_estadao <- read.binary.vectors(binary_file)
+# ```
+# 
 ### Regras que devem ser acertadas para validar embedding
-```{r}
-analogia_resposta_folha <- verifica_analogias(binary_file_folha, analogias, respostas)
-```
-
+# ```{r}
+# analogia_resposta_folha <- verifica_analogias(binary_file_folha, analogias, respostas)
+# ```
+# 
 ### Cria tsv com embedding
-```{r}
-path_modelo_tsv_folha = paste("saida_distancia_partidos/",tema_folha,".tsv",sep="")
-modelo_folha@.Data %>% as.data.frame() %>% write_tsv(path_modelo_tsv_folha)
-
-path_modelo_names_tsv_folha = paste("saida_distancia_partidos/",tema_folha,"_names",".tsv",sep="")
-modelo_folha@.Data %>% rownames() %>% as.data.frame() %>% write_tsv(path_modelo_names_tsv_folha)
-```
-
+# ```{r}
+# path_modelo_tsv_folha = paste("saida_distancia_partidos/",tema_folha,".tsv",sep="")
+# modelo_folha@.Data %>% as.data.frame() %>% write_tsv(path_modelo_tsv_folha)
+# 
+# path_modelo_names_tsv_folha = paste("saida_distancia_partidos/",tema_folha,"_names",".tsv",sep="")
+# modelo_folha@.Data %>% rownames() %>% as.data.frame() %>% write_tsv(path_modelo_names_tsv_folha)
+# ```
+# 
 ### Normaliza vetores
-```{r}
-palavras_normalizadas_folha <- modelo_folha %>% apply(1,normaliza_vetor) %>% t() %>% as.VectorSpaceModel()
-```
-
-### Filtra palavras 
-```{r}
-
-## filtra palavras a partir de criterio
-path_folha = paste("./",train_file_folha,sep="")
-palavras_usadas_folha <- palavras_mais_frequentes(path_folha, 50)
-palavras_usadas_folha <- c(palavras_usadas_folha[str_length(palavras_usadas_folha) > MIN_TAMANHO], partidos)
-palavras_normalizadas_usadas_folha <- palavras_normalizadas_folha[[palavras_usadas_folha, average=F]]
-```
+# ```{r}
+# palavras_normalizadas_folha <- modelo_folha %>% apply(1,normaliza_vetor) %>% t() %>% as.VectorSpaceModel()
+# ```
+# 
+# ### Filtra palavras 
+# ```{r}
+# 
+# ## filtra palavras a partir de criterio
+# path_folha = paste("./",train_file_folha,sep="")
+# palavras_usadas_folha <- palavras_mais_frequentes(path_folha, 50)
+# palavras_usadas_folha <- c(palavras_usadas_folha[str_length(palavras_usadas_folha) > MIN_TAMANHO], partidos)
+# palavras_normalizadas_usadas_folha <- palavras_normalizadas_folha[[palavras_usadas_folha, average=F]]
+# ```
 
 ### Distância entre par de palavras
-Para cada par de palavras do conjunto de palavras neutras, calcula a distancia entre elas.
-```{r}
-par_palavras_folha <- forma_par_palavras(palavras_normalizadas_usadas_folha)
-path_par_palavras_folha <- paste("saida_distancia_partidos/par_palavras_",tema_folha,".csv",sep="")
-write_csv(par_palavras_folha, path_par_palavras_folha)
+# Para cada par de palavras do conjunto de palavras neutras, calcula a distancia entre elas.
+# ```{r}
+# par_palavras_folha <- forma_par_palavras(palavras_normalizadas_usadas_folha)
+# path_par_palavras_folha <- paste("saida_distancia_partidos/par_palavras_",tema_folha,".csv",sep="")
+# write_csv(par_palavras_folha, path_par_palavras_folha)
 #par_palavras <- read_csv(path_par_palavras)
 
-proximidade_par_palavras_folha <- calcula_proximidade(par_palavras_folha, modelo_folha, palavras_normalizadas_usadas_folha)
-path_proximidade_par_palavras_folha = paste("saida_distancia_partidos/par_palavras_proximidade_",tema_folha,".csv",sep="")
-write_csv(proximidade_par_palavras_folha, path_proximidade_par_palavras_folha)
-#proximidade_par_palavras <- read_csv(path_proximidade_par_palavras)
-```
+# proximidade_par_palavras_folha <- calcula_proximidade(par_palavras_folha, modelo_folha, palavras_normalizadas_usadas_folha)
+# path_proximidade_par_palavras_folha = paste("saida_distancia_partidos/par_palavras_proximidade_",tema_folha,".csv",sep="")
+# write_csv(proximidade_par_palavras_folha, path_proximidade_par_palavras_folha)
+# proximidade_par_palavras <- read_csv(path_proximidade_par_palavras)
+# ```
 
 ### Similaridade entre pares de palavras
-```{r}
-similaridade_palavras_folha <- calcula_s_score(proximidade_par_palavras_folha, palavras_normalizadas_usadas_folha, referencia_1, referencia_2)
-```
+# ```{r}
+#similaridade_palavras_folha <- calcula_s_score(proximidade_par_palavras_folha, palavras_normalizadas_usadas_folha, referencia_1, referencia_2)
+# ```
 
-```{r}
-palavras_neutras_folha <- proximidade_par_palavras_folha %>% filter(palavra_1 %in% entity & palavra_2 %in% entity)
-```
+#```{r}
+#palavras_neutras_folha <- proximidade_par_palavras_folha %>% filter(palavra_1 %in% entity & palavra_2 %in% entity)
+#```
 
 ### Direct bias
-```{r}
-g_folha <- (palavras_normalizadas_usadas_folha[[referencia_1]] - palavras_normalizadas_usadas_folha[[referencia_2]])
-constant <- 1
+#```{r}
+#g_folha <- (palavras_normalizadas_usadas_folha[[referencia_1]] - palavras_normalizadas_usadas_folha[[referencia_2]])
+#constant <- 1
 
-direct_bias_words_folha <- direct_bias_calculator(entity, g_folha, constant, palavras_normalizadas_usadas_folha)
-direct_bias_value_folha <- direct_bias_words_folha %>% summarise(valor = abs(cosine_c) %>% mean())
-```
+#direct_bias_words_folha <- direct_bias_calculator(entity, g_folha, constant, palavras_normalizadas_usadas_folha)
+#direct_bias_value_folha <- direct_bias_words_folha %>% summarise(valor = abs(cosine_c) %>% mean())
+#```
 
 ### Direct bias graphic
-```{r}
-# a coluna y esta sendo usada apenas para dispersar as palavras verticalmente e evitar a sobreposicao delas
-direct_bias_words_graphic_folha <- direct_bias_words_folha %>% filter(!(entidade %in% c(referencia_1, referencia_2))) %>% mutate(y = sample(-9:9, n(), replace = T))
-direct_bias_words_graphic_folha %>% ggplot(aes(x=cosine_c, y=y, label=entidade)) + geom_text()
-ggsave(paste(tema_folha,".pdf",sep=""))
-```
+#```{r}
+## a coluna y esta sendo usada apenas para dispersar as palavras verticalmente e evitar a sobreposicao delas
+#direct_bias_words_graphic_folha <- direct_bias_words_folha %>% filter(!(entidade %in% c(referencia_1, referencia_2))) %>% mutate(y = sample(-9:9, n(), replace = T))
+#direct_bias_words_graphic_folha %>% ggplot(aes(x=cosine_c, y=y, label=entidade)) + geom_text()
+#ggsave(paste(tema_folha,".pdf",sep=""))
+#```
 
 ### Indirect bias
-```{r}
-entities <- data_frame(entidade = partidos)
-indirect_bias_psdb_folha <- entities %>% rowwise() %>% mutate(indirect_bias = indirect_bias_calculator(entidade, "psdb", g_folha, palavras_normalizadas_usadas_folha))
-```
+#```{r}
+#entities <- data_frame(entidade = partidos)
+#indirect_bias_psdb_folha <- entities %>% rowwise() %>% mutate(indirect_bias = indirect_bias_calculator(entidade, "psdb", g_folha, palavras_normalizadas_usadas_folha))
+#```

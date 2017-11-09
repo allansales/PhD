@@ -1,34 +1,34 @@
-source("../utils/mongo_utils.R")
-source("../utils/utils.R")
-source("../utils/embeddings_utils.R")
-library("wordVectors")
-library("readr")
-
-### Importa base de dados
-#noticias <- get_todas_noticias_processadas()
-#noticias_estadao <- noticias %>% filter(subFonte == "ESTADAO")
-
-comentarios <- get_collection("estadaoComentarios")
-
-tema = "eleicoes_2014_estadao_test"
-limiar = 1.1
-MIN_TAMANHO = 3
-referencia_1 = "dilma"
-referencia_2 = "aécio"
-n_layers = 300
-
-analogias <- c("pt psdb dilma", "pt pv dilma","pt prtb dilma","pt psol dilma","pt psb dilma","pt psdc dilma","psdb pv aécio","psdb prtb aécio","psdb psol aécio","psdb psb aécio","psdb psdc aécio","pv prtb jorge","pv psol jorge","pv psb jorge","pv psdc jorge","prtb psol fidelix","prtb psb fidelix","prtb psdc fidelix","psol psb luciana","psol psdc luciana","psb psdc marina","dilma aécio rousseff","campos psb aécio","pt psdb petista")
-respostas <- c("aécio","jorge","fidelix","luciana","marina","eymael","jorge","fidelix","luciana","marina","eymael","fidelix","luciana","marina","eymael","luciana","marina","eymael","marina","eymael","eymael","neves","psdb","tucano")
-
-partidos <- c("pmdb","ptb","pdt","pt","dem ","psb","psdb","ptc","psc","pmn","prp","pps","pv","pp","pstu","pcb","prtb","phs","psdc","pco","ptn","psl","prb","psol","ppl","pros","psd |psd[.]"," sd |sd[.]") #,"pr","pen", "pcdob", "ptdob"
-candidatos <- c("dilma","aécio","levy","marina silva","luciana genro","eduardo jorge","josé maria","pastor everaldo", "iasi","eymael","rui costa","eduardo campos")
-
-entity <- c(candidatos, partidos)
-pattern <- paste(entity, collapse = "|")
-
-noticias <- noticias_estadao %>% filter(timestamp >= "2014-06-01" & timestamp <= "2014-07-31") %>% noticias_tema(pattern, "titulo")
-
-a <- direct_bias_detection(tema, limiar, MIN_TAMANHO, referencia_1, referencia_2, n_layers, analogias, candidatos, entity, pattern, noticias)
+# source("../utils/mongo_utils.R")
+# source("../utils/utils.R")
+# source("../utils/embeddings_utils.R")
+# library("wordVectors")
+# library("readr")
+# 
+# ### Importa base de dados
+# noticias <- get_todas_noticias_processadas()
+# noticias_estadao <- noticias %>% filter(subFonte == "ESTADAO")
+# 
+# comentarios <- get_collection("estadaoComentarios")
+# 
+# tema = "eleicoes_2014_estadao_test"
+# limiar = 1.1
+# MIN_TAMANHO = 3
+# referencia_1 = "dilma"
+# referencia_2 = "aécio"
+# n_layers = 300
+# 
+# analogias <- c("pt psdb dilma", "pt pv dilma","pt prtb dilma","pt psol dilma","pt psb dilma","pt psdc dilma","psdb pv aécio","psdb prtb aécio","psdb psol aécio","psdb psb aécio","psdb psdc aécio","pv prtb jorge","pv psol jorge","pv psb jorge","pv psdc jorge","prtb psol fidelix","prtb psb fidelix","prtb psdc fidelix","psol psb luciana","psol psdc luciana","psb psdc marina","dilma aécio rousseff","campos psb aécio","pt psdb petista")
+# respostas <- c("aécio","jorge","fidelix","luciana","marina","eymael","jorge","fidelix","luciana","marina","eymael","fidelix","luciana","marina","eymael","luciana","marina","eymael","marina","eymael","eymael","neves","psdb","tucano")
+# 
+# partidos <- c("pmdb","ptb","pdt","pt","dem ","psb","psdb","ptc","psc","pmn","prp","pps","pv","pp","pstu","pcb","prtb","phs","psdc","pco","ptn","psl","prb","psol","ppl","pros","psd |psd[.]"," sd |sd[.]") #,"pr","pen", "pcdob", "ptdob"
+# candidatos <- c("dilma","aécio","levy","marina silva","luciana genro","eduardo jorge","josé maria","pastor everaldo", "iasi","eymael","rui costa","eduardo campos")
+# 
+# entity <- c(candidatos, partidos)
+# pattern <- paste(entity, collapse = "|")
+# 
+# noticias <- noticias_estadao %>% filter(timestamp >= "2014-06-01" & timestamp <= "2014-07-31") %>% noticias_tema(pattern, "titulo")
+# 
+# a <- direct_bias_detection(tema, limiar, MIN_TAMANHO, referencia_1, referencia_2, n_layers, analogias, candidatos, entity, pattern, noticias)
 
 direct_bias_detection <- function(tema, limiar, MIN_TAMANHO, referencia_1, referencia_2, n_layers = 300, analogias, candidatos, entity, pattern, noticias){
   train_file <- paste("saida_distancia_partidos/",tema,".csv",sep="")
