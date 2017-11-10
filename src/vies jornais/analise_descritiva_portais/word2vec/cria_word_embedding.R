@@ -37,7 +37,7 @@ direct_bias_detection <- function(tema, limiar, MIN_TAMANHO, referencia_1, refer
   modelo <- train_word2vec(train_file, threads = 8, vectors = n_layers)
   
   ### Regras que devem ser acertadas para validar embedding
-  verifica_analogias(binary_file, analogias, respostas)
+  analogias = verifica_analogias(binary_file, analogias, respostas)
   
   ### Cria tsv com embedding
   path_modelo_tsv = paste("saida_distancia_partidos/",tema,".tsv",sep="")
@@ -91,5 +91,5 @@ direct_bias_detection <- function(tema, limiar, MIN_TAMANHO, referencia_1, refer
   #entities <- data_frame(entidade = partidos)
   #indirect_bias_psdb <- entities %>% rowwise() %>% mutate(indirect_bias = indirect_bias_calculator(entidade, "psdb", g, palavras_normalizadas_usadas))  
   
-  return(list(modelo, direct_bias_words, direct_bias_value))
+  return(list(modelo, analogias, direct_bias_words, direct_bias_value))
 }

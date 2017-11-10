@@ -66,14 +66,17 @@ we_comentarios_estadao <- direct_bias_detection(tema, limiar, MIN_TAMANHO, refer
 tema = "folha_noticias_eleicao_2014"
 noticias_folha <- noticias %>% filter(subFonte == "FOLHASP")
 noticias_folha_tema <- noticias_folha %>% filter(timestamp >= data_inicio & timestamp <= data_fim) %>% noticias_tema(pattern, "titulo")
+```
+
+```{r}
 we_noticias_folha <- direct_bias_detection(tema, limiar, MIN_TAMANHO, referencia_1, referencia_2, n_layers, analogias, candidatos, entity, pattern, noticias_folha_tema)
 ```
 
 #### Comentarios
 ```{r}
 tema = "folha_comentarios_eleicao_2014"
-comentarios_folha_tema <- get_docs_by_idNoticia(colecao = "folhaComentariosProcessados", vetor_ids = noticias_folha_tema$idNoticia)
-we_comentarios_folha <- direct_bias_detection(tema, limiar, MIN_TAMANHO, referencia_1, referencia_2, n_layers, analogias, candidatos, entity, pattern, noticias_estadao_tema)
+comentarios_folha_tema <- get_docs_by_idNoticia(colecao = "folhaComentariosProcessados", vetor_ids = noticias_folha_tema$idNoticia) %>% rename(conteudo_processado = comentario_processado)
+we_comentarios_folha <- direct_bias_detection(tema, limiar, MIN_TAMANHO, referencia_1, referencia_2, n_layers, analogias, candidatos, entity, pattern, comentarios_folha_tema)
 ```
 
 ### Estadão
