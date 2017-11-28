@@ -1,1 +1,4 @@
-teste.txt
+# Ignorando arquivos grandes
+src/vies_jornais/analise_descritiva_portais/word2vec/2016-Bolukbasi-MenProgrammerWomenHousemaker/saida_distancia_partidos/*
+
+src/vies_jornais/analise_descritiva_portais/word2vec/word_embeddings/eleicoes_2014/embeddings/*
