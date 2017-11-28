@@ -1,0 +1,126 @@
+---
+title: "distancia_partidos"
+author: "Allan Sales"
+date: "9 de outubro de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("../../utils/mongo_utils.R")
+source("../../utils/utils.R")
+source("../../utils/embeddings_utils.R")
+source("../Word embeddings/cria_word_embedding.R")
+library("wordVectors")
+library("readr")
+```
+
+### Computa metricas
+```{r}
+computa_distancias <- function(modelo, tema, MIN_TAMANHO, referencia_1, referencia_2, entity, path_saida){
+  ### Normaliza vetores
+  palavras_normalizadas <- modelo %>% apply(1,normaliza_vetor) %>% t() %>% as.VectorSpaceModel()
+  
+  ### Filtra palavras
+  ## filtra palavras a partir de criterio
+  path = paste("./",train_file,sep="")
+  palavras_usadas <- palavras_mais_frequentes(path, 50)
+  palavras_usadas <- c(palavras_usadas[str_length(palavras_usadas) > MIN_TAMANHO], partidos)
+  palavras_normalizadas_usadas <- palavras_normalizadas[[palavras_usadas, average=F]]
+  
+  ### Distância entre par de palavras
+  ## Para cada par de palavras do conjunto de palavras neutras, calcula a distancia entre elas.
+  par_palavras <- forma_par_palavras(palavras_normalizadas_usadas)
+  path_par_palavras <- paste(path_saida,"par_palavras_",tema,".csv",sep="")
+  write_csv(par_palavras, path_par_palavras)
+  #par_palavras <- read_csv(path_par_palavras)
+  
+  proximidade_par_palavras <- calcula_proximidade(par_palavras, modelo, palavras_normalizadas_usadas)
+  path_proximidade_par_palavras = paste(path_saida,"par_palavras_proximidade_",tema,".csv",sep="")
+  write_csv(proximidade_par_palavras, path_proximidade_par_palavras)
+  #proximidade_par_palavras <- read_csv(path_proximidade_par_palavras)
+  
+  palavras_neutras <- proximidade_par_palavras %>% filter(palavra_1 %in% entity & palavra_2 %in% entity)
+  
+  ### Similaridade entre pares de palavras
+  similaridade_palavras <- calcula_s_score(proximidade_par_palavras, palavras_normalizadas_usadas, referencia_1, referencia_2)
+  path_similaridade_par_palavras = paste(path_saida,"par_palavras_similaridade_",tema,".csv",sep="")
+  write_csv(similaridade_palavras, path_similaridade_par_palavras)
+
+  return(list(palavras_normalizadas_usadas, similaridade_palavras))
+}
+```
+
+### Implementa Direct Bias
+```{r}
+direct_bias_detection <- function(palavras_normalizadas_usadas, referencia_1, referencia_2, entity){
+  ### Direct bias
+  g <- (palavras_normalizadas_usadas[[referencia_1]] - palavras_normalizadas_usadas[[referencia_2]])
+  constant <- 1
+  direct_bias_words <- direct_bias_calculator(entity, g, constant, palavras_normalizadas_usadas)
+  direct_bias_value <- direct_bias_words %>% summarise(valor = abs(cosine_c) %>% mean())
+  
+  ### Direct bias graphic
+  # a coluna y esta sendo usada apenas para dispersar as palavras verticalmente e evitar a sobreposicao delas
+  direct_bias_words_graphic <- direct_bias_words %>% filter(!(entidade %in% c(referencia_1, referencia_2))) %>% mutate(y = sample(-9:9, n(), replace = T))
+  direct_bias_words_graphic %>% ggplot(aes(x=cosine_c, y=y, label=entidade)) + geom_text() 
+  ggsave(paste(tema,".pdf",sep=""))
+  
+  ### Indirect bias
+  #entities <- data_frame(entidade = partidos)
+  #indirect_bias_psdb <- entities %>% rowwise() %>% mutate(indirect_bias = indirect_bias_calculator(entidade, "psdb", g, palavras_normalizadas_usadas))  
+  
+  return(list(direct_bias_words, direct_bias_value))
+}
+```
+
+### Noticias eleicao
+```{r}
+partidos <- c("pmdb","ptb","pdt","pt","dem ","psb","psdb","ptc","psc","pmn","prp","pps","pv","pp","pstu","pcb","prtb","phs","psdc","pco","ptn","psl","prb","psol","ppl","pros","psd |psd[.]"," sd |sd[.]") #,"pr","pen", "pcdob", "ptdob"
+candidatos <- c("dilma","aécio","levy","marina silva","luciana genro","eduardo jorge","josé maria","pastor everaldo", "iasi","eymael","rui costa","eduardo campos")
+
+entity <- c(candidatos, partidos)
+pattern <- paste(entity, collapse = "|")
+```
+
+### Configuracao e validacao dos modelos 
+```{r}
+# limiar de 1 porque eh o cossendo de pi/3 (que implica da distancia entre as palavras serem menores entre si que entre elas e a origem)
+limiar = 1.1
+MIN_TAMANHO = 3
+referencia_1 = "dilma"
+referencia_2 = "aécio"
+path_saida = "saida_distancia_partidos/"
+
+analogias <- c("pt psdb dilma", "pt pv dilma","pt prtb dilma","pt psol dilma","pt psb dilma","pt psdc dilma","psdb pv aécio","psdb prtb aécio","psdb psol aécio","psdb psb aécio","psdb psdc aécio","pv prtb jorge","pv psol jorge","pv psb jorge","pv psdc jorge","prtb psol fidelix","prtb psb fidelix","prtb psdc fidelix","psol psb luciana","psol psdc luciana","psb psdc marina","dilma aécio rousseff","campos psb aécio","pt psdb petista")
+respostas <- c("aécio","jorge","fidelix","luciana","marina","eymael","jorge","fidelix","luciana","marina","eymael","fidelix","luciana","marina","eymael","luciana","marina","eymael","marina","eymael","eymael","neves","psdb","tucano")
+```
+
+### Estadao
+#### Noticias
+```{r}
+we_noticias_estadao <- read.binary.vectors("../Word embeddings/Eleicoes_2014/embeddings/eleicoes_2014_estadao.bin")
+
+tema = "estadao_noticias_eleicao_2014"
+palavras_normalizadas_estadao <- computa_distancias(we_noticias_estadao, tema, MIN_TAMANHO, referencia_1, referencia_2, entity, path_saida)
+direct_bias_detection(palavras_normalizadas_estadao[[1]], referencia_1, referencia_2, entity)
+```
+
+### Folha
+#### Noticias
+```{r}
+we_noticias_folha <- read.binary.vectors("../Word embeddings/Eleicoes_2014/embeddings/eleicoes_2014_folha.bin")
+
+tema = "folha_noticias_eleicao_2014"
+palavras_normalizadas_folha <- computa_distancias(we_noticias_folha, tema, MIN_TAMANHO, referencia_1, referencia_2, entity, path_saida)
+direct_bias_detection(palavras_normalizadas_folha[[1]], referencia_1, referencia_2, entity)
+```
+
+#### Comentarios
+```{r}
+we_comentarios_folha <- read.binary.vectors("../Word embeddings/Eleicoes_2014/embeddings/folha_comentarios_eleicao_2014.bin")
+
+tema = "folha_comentarios_eleicao_2014"
+palavras_normalizadas_folha_comentarios <- computa_distancias(we_comentarios_folha, tema, MIN_TAMANHO, referencia_1, referencia_2, entity, path_saida)
+direct_bias_detection(palavras_normalizadas_folha_comentarios[[1]], referencia_1, referencia_2, entity)
+```

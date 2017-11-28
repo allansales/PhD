@@ -23,13 +23,11 @@ library(stringr)
 require(cowplot)
 library(plotluck)
 
-noticias <- get_todas_noticias()
+noticias <- get_todas_noticias_processadas()
 
-n_palavras <- noticias %>% select(conteudo) %>% 
-  unlist() %>% as.vector() %>% 
-  tolower() %>% str_count(" ")+1
+#n_palavras <- noticias %>% select(conteudo) %>% unlist() %>% as.vector() %>% tolower() %>% str_count(" ")+1
 
-noticias <- cbind(noticias, n_palavras)
+#noticias <- cbind(noticias, n_palavras)
 
 noticias_estadao <- noticias %>% filter(subFonte == "ESTADAO")
 noticias_folha <- noticias %>% filter(subFonte == "FOLHASP")
@@ -57,6 +55,20 @@ Este documento apresenta uma descrição da coleta de notícias nos cadernos de 
 ***
 
 Notícia com `r max(noticias$repercussao)` comentários
+
+### Numero de notícias por portal
+```{r}
+n_noticias_portal <- noticias %>% group_by(subFonte) %>% summarise(n_noticias = n())
+n_noticias_portal %>% plotluck(subFonte ~ n_noticias)
+```
+
+### Numero de palavras por portal
+```{r}
+n_palavras_portal <- noticias %>% group_by(subFonte) %>% summarise(n_palavras = sum(n_palavras))
+n_palavras_portal %>% plotluck(subFonte ~ n_palavras)
+ggsave("n_palavras_portal.png")
+```
+
 
 
 ### Distribuição do número de comentários por portal
