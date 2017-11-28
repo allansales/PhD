@@ -1,0 +1,73 @@
+---
+title: "weat"
+author: "Allan Sales"
+date: "28 de novembro de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("dplyr")
+library("wordVectors")
+```
+
+## Carrega modelos de palavras
+```{r}
+we_estadao_noticias = read.binary.vectors("../word_embeddings/eleicoes_2014/embeddings/eleicoes_2014_estadao.bin")
+we_folha_noticias = read.binary.vectors("../word_embeddings/eleicoes_2014/embeddings/eleicoes_2014_folha.bin")
+we_folha_comentarios = read.binary.vectors("../word_embeddings/eleicoes_2014/embeddings/folha_comentarios_eleicao_2014.bin")
+```
+
+## Conjuntos de palavras
+```{r}
+x = c("psol","pmdb")
+y = c("psb", "pv")
+a = c("pt", "dilma", "rousseff")
+b = c("psdb", "aécio", "neves")
+
+targets = data_frame(X = x, Y = y)
+features = data_frame(A = a, B = b)
+```
+
+## Funcoes para o calculo do vies
+```{r}
+# Calcula score de uma palavra para os conjuntos A e B
+score_w <- function(w, features, modelo){
+
+  mean_cosDist = function(w, col){
+    
+    cosDist_model = function(modelo, w, col){
+      cosineDist(modelo[[w]], modelo[[col]])
+    }
+    
+    mean = features %>% group_by(get(col)) %>% 
+      summarise(cosine = cosDist_model(modelo, w, get(col))) %>% 
+      summarise(mean = mean(cosine))  
+    
+    return(mean)
+  }
+  
+  mean_w_A = mean_cosDist(w, "A")
+  mean_w_B = mean_cosDist(w, "B")
+
+  return(mean_w_A - mean_w_B)
+}
+
+score_targets <- function(targets, features, modelo){
+  
+  sum_s_w = function(col, features, modelo){
+    targets %>% group_by(get(col)) %>% 
+      summarise(s_w = score_w(get(col), features, modelo)) %>% 
+      summarise(s = sum(s_w))  
+  }
+  
+  sum_w_X = sum_s_w("X", features, modelo)
+  sum_w_Y = sum_s_w("Y", features, modelo)
+  
+  return(sum_w_X - sum_w_Y)
+}
+
+score_targets(targets, features, we_estadao_noticias)
+
+```
+
