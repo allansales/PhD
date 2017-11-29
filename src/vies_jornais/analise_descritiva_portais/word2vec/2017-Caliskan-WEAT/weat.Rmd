@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library("dplyr")
 library("wordVectors")
+library("partitions")
 ```
 
 ## Carrega modelos de palavras
@@ -50,7 +51,7 @@ score_w <- function(w, features, modelo){
   mean_w_A = mean_cosDist(w, "A")
   mean_w_B = mean_cosDist(w, "B")
 
-  return(mean_w_A - mean_w_B)
+  return((mean_w_A - mean_w_B) %>% as.numeric())
 }
 
 score_targets <- function(targets, features, modelo){
@@ -69,5 +70,33 @@ score_targets <- function(targets, features, modelo){
 
 score_targets(targets, features, we_estadao_noticias)
 
+```
+
+## Teste de permutacao
+```{r}
+## TO DO
+```
+
+## Tamanho do efeito
+```{r}
+effect_size <- function(targets, features, modelo){
+  
+  s_w = function(col){
+    targets %>% group_by(get(col)) %>% 
+      summarise(s_w = score_w(get(col), features, modelo))
+  }
+  
+  x = s_w("X")
+  y = s_w("Y")
+  
+  x_mean = x %>% summarise(mean = mean(s_w)) %>% as.numeric()
+  y_mean = y %>% summarise(mean = mean(s_w)) %>% as.numeric()
+  
+  w_sd = bind_rows(x, y) %>% summarise(sd = sd(s_w)) %>% as.numeric()
+  
+  return((x_mean - y_mean)/w_sd)
+}
+
+effect_size(targets, features, modelo)
 ```
 
