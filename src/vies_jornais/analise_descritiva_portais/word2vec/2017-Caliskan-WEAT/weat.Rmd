@@ -21,8 +21,11 @@ we_folha_comentarios = read.binary.vectors("../word_embeddings/eleicoes_2014/emb
 
 ## Conjuntos de palavras
 ```{r}
-x = c("psol","pmdb")
-y = c("psb", "pv")
+
+x <- c("pt","psdb","pmdb","ptb","pdt","dem","psb","ptc","psc","pmn","prp","pps","pv","pp","pstu","pcb")
+y = c("phs","psdc","pco","ptn","psl","prb","psol","ppl","pros","psd","sd", "pr","pen", "pcdob", "ptdob","prtb")
+#x = c("psol","pmdb")
+#y = c("psb", "pv")
 a = c("pt", "dilma", "rousseff")
 b = c("psdb", "aécio", "neves")
 
@@ -33,23 +36,23 @@ features = data_frame(A = a, B = b)
 ## Funcoes para o calculo do vies
 ```{r}
 # Calcula score de uma palavra para os conjuntos A e B
-cosDist_model <- function(modelo, w, col){
-  cosineDist(modelo[[w]], modelo[[col]])
+cosSim_model <- function(modelo, w, col){
+  cosineSimilarity(modelo[[w]], modelo[[col]])
 }
 
 score_w <- function(w, features, modelo){
 
-  mean_cosDist = function(w, col){
+  mean_cosSim = function(w, col){
     
     mean = features %>% group_by(get(col)) %>% 
-      summarise(cosine = cosDist_model(modelo, w, get(col))) %>% 
+      summarise(cosine = cosSim_model(modelo, w, get(col))) %>% 
       summarise(mean = mean(cosine))  
     
     return(mean)
   }
   
-  mean_w_A = mean_cosDist(w, "A")
-  mean_w_B = mean_cosDist(w, "B")
+  mean_w_A = mean_cosSim(w, "A")
+  mean_w_B = mean_cosSim(w, "B")
 
   return((mean_w_A - mean_w_B) %>% as.numeric())
 }
@@ -102,21 +105,39 @@ effect_size(targets, features, we_folha_noticias)
 
 ## WEFAT
 ```{r}
-
 w_wefat <- function(w, features, modelo){
+
   numerador = score_w(w, features, modelo)
 
   s_w = function(modelo, w, col){
     features %>% group_by(get(col)) %>% 
-      summarise(s = cosDist_model(modelo, w, get(col)))  
+      summarise(s = cosSim_model(modelo, w, get(col)))  
   }
 
-  s_a = s_w(modelo, w, "A") 
+  s_a = s_w(modelo, w, "A")
   s_b = s_w(modelo, w, "B")
-
+  
   w_wefat = bind_rows(s_a, s_b) %>% summarise(sd = sd(s)) %>% as.numeric()
   return(w_wefat)
 }
 
-w_wefat(w, features, we_estadao_noticias)
+wefat <- function(targets, features, modelo){
+  
+  get_w_wefat = function(col){
+    targets %>% group_by(get(col)) %>% summarise(w_wefat = w_wefat(get(col), features, modelo))
+  }
+  
+  w_wefat_x = get_w_wefat("X")
+  w_wefat_y = get_w_wefat("Y")
+  
+  w_wefat = bind_rows(w_wefat_x, w_wefat_y) %>% rename(palavra = "get(col)")
+  return(w_wefat)
+}
+
+wefat(targets, features, we_estadao_noticias) %>% arrange(-w_wefat)
 ```
+
+```{r}
+
+```
+

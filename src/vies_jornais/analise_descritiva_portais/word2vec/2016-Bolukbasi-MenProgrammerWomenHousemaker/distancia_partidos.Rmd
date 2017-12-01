@@ -10,23 +10,28 @@ knitr::opts_chunk$set(echo = TRUE)
 source("../../utils/mongo_utils.R")
 source("../../utils/utils.R")
 source("../../utils/embeddings_utils.R")
-source("../Word embeddings/cria_word_embedding.R")
+source("../word_embeddings/cria_word_embedding.R")
 library("wordVectors")
 library("readr")
 ```
 
 ### Computa metricas
 ```{r}
-computa_distancias <- function(modelo, tema, MIN_TAMANHO, referencia_1, referencia_2, entity, path_saida){
+
+normaliza_palavras <- function(modelo, MIN_TAMANHO, train_file){
   ### Normaliza vetores
   palavras_normalizadas <- modelo %>% apply(1,normaliza_vetor) %>% t() %>% as.VectorSpaceModel()
   
   ### Filtra palavras
   ## filtra palavras a partir de criterio
-  path = paste("./",train_file,sep="")
-  palavras_usadas <- palavras_mais_frequentes(path, 50)
+  palavras_usadas <- palavras_mais_frequentes(train_file, 50)
   palavras_usadas <- c(palavras_usadas[str_length(palavras_usadas) > MIN_TAMANHO], partidos)
   palavras_normalizadas_usadas <- palavras_normalizadas[[palavras_usadas, average=F]]
+  
+  return(palavras_normalizadas_usadas)
+}
+
+computa_distancias <- function(modelo, palavra_normalizadas_usadas, tema, referencia_1, referencia_2, entity, path_saida){
   
   ### Distância entre par de palavras
   ## Para cada par de palavras do conjunto de palavras neutras, calcula a distancia entre elas.
@@ -47,13 +52,13 @@ computa_distancias <- function(modelo, tema, MIN_TAMANHO, referencia_1, referenc
   path_similaridade_par_palavras = paste(path_saida,"par_palavras_similaridade_",tema,".csv",sep="")
   write_csv(similaridade_palavras, path_similaridade_par_palavras)
 
-  return(list(palavras_normalizadas_usadas, similaridade_palavras))
+  return(similaridade_palavras)
 }
 ```
 
 ### Implementa Direct Bias
 ```{r}
-direct_bias_detection <- function(palavras_normalizadas_usadas, referencia_1, referencia_2, entity){
+direct_bias_detection <- function(palavras_normalizadas_usadas, tema, referencia_1, referencia_2, entity){
   ### Direct bias
   g <- (palavras_normalizadas_usadas[[referencia_1]] - palavras_normalizadas_usadas[[referencia_2]])
   constant <- 1
@@ -99,28 +104,31 @@ respostas <- c("aécio","jorge","fidelix","luciana","marina","eymael","jorge","f
 ### Estadao
 #### Noticias
 ```{r}
-we_noticias_estadao <- read.binary.vectors("../Word embeddings/Eleicoes_2014/embeddings/eleicoes_2014_estadao.bin")
+we_noticias_estadao <- read.binary.vectors("../word_embeddings/eleicoes_2014/embeddings/eleicoes_2014_estadao.bin")
 
 tema = "estadao_noticias_eleicao_2014"
-palavras_normalizadas_estadao <- computa_distancias(we_noticias_estadao, tema, MIN_TAMANHO, referencia_1, referencia_2, entity, path_saida)
-direct_bias_detection(palavras_normalizadas_estadao[[1]], referencia_1, referencia_2, entity)
+palavra_normalizadas_usadas_estadao_noticias = normaliza_palavras(we_noticias_estadao, MIN_TAMANHO, "../word_embeddings/eleicoes_2014/embeddings/eleicoes_2014_estadao.csv")
+#palavras_normalizadas_estadao <- computa_distancias(we_noticias_estadao, palavra_normalizadas_usadas_estadao_noticias, tema, referencia_1, referencia_2, entity, path_saida)
+direct_bias_detection(palavra_normalizadas_usadas_estadao_noticias, tema, referencia_1, referencia_2, entity)
 ```
 
 ### Folha
 #### Noticias
 ```{r}
-we_noticias_folha <- read.binary.vectors("../Word embeddings/Eleicoes_2014/embeddings/eleicoes_2014_folha.bin")
+we_noticias_folha <- read.binary.vectors("../word_embeddings/eleicoes_2014/embeddings/eleicoes_2014_folha.bin")
 
 tema = "folha_noticias_eleicao_2014"
-palavras_normalizadas_folha <- computa_distancias(we_noticias_folha, tema, MIN_TAMANHO, referencia_1, referencia_2, entity, path_saida)
-direct_bias_detection(palavras_normalizadas_folha[[1]], referencia_1, referencia_2, entity)
+palavra_normalizadas_usadas_folha_noticias = normaliza_palavras(we_noticias_folha, MIN_TAMANHO, "../word_embeddings/eleicoes_2014/embeddings/eleicoes_2014_folha.csv")
+#palavras_normalizadas_folha <- computa_distancias(we_noticias_folha, tema, MIN_TAMANHO, referencia_1, referencia_2, entity, path_saida)
+direct_bias_detection(palavra_normalizadas_usadas_folha_noticias, tema, referencia_1, referencia_2, entity)
 ```
 
 #### Comentarios
 ```{r}
-we_comentarios_folha <- read.binary.vectors("../Word embeddings/Eleicoes_2014/embeddings/folha_comentarios_eleicao_2014.bin")
+we_comentarios_folha <- read.binary.vectors("../word_embeddings/eleicoes_2014/embeddings/folha_comentarios_eleicao_2014.bin")
 
 tema = "folha_comentarios_eleicao_2014"
-palavras_normalizadas_folha_comentarios <- computa_distancias(we_comentarios_folha, tema, MIN_TAMANHO, referencia_1, referencia_2, entity, path_saida)
-direct_bias_detection(palavras_normalizadas_folha_comentarios[[1]], referencia_1, referencia_2, entity)
+palavra_normalizadas_usadas_folha_comentarios = normaliza_palavras(we_comentarios_folha, MIN_TAMANHO, "../word_embeddings/eleicoes_2014/embeddings/folha_comentarios_eleicao_2014.csv")
+#palavras_normalizadas_folha_comentarios <- computa_distancias(we_comentarios_folha, tema, MIN_TAMANHO, referencia_1, referencia_2, entity, path_saida)
+direct_bias_detection(palavra_normalizadas_usadas_folha_comentarios, tema, referencia_1, referencia_2, entity)
 ```
