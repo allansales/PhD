@@ -1,26 +1,15 @@
----
-title: "weat"
-author: "Allan Sales"
-date: "28 de novembro de 2017"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
 library("dplyr")
 library("wordVectors")
 library("partitions")
-```
 
 ## Funcoes para o calculo do vies
-```{r}
 # Calcula score de uma palavra para os conjuntos A e B
 cosSim_model <- function(modelo, w, col){
   cosineSimilarity(modelo[[w]], modelo[[col]])
 }
 
 score_w <- function(w, features, modelo){
-
+  
   mean_cosSim = function(w, col){
     
     mean = features %>% group_by(get(col)) %>% 
@@ -32,7 +21,7 @@ score_w <- function(w, features, modelo){
   
   mean_w_A = mean_cosSim(w, "A")
   mean_w_B = mean_cosSim(w, "B")
-
+  
   return((mean_w_A - mean_w_B) %>% as.numeric())
 }
 
@@ -48,15 +37,11 @@ score_targets <- function(targets, features, modelo){
   sum_w_Y = sum_s_w("Y", features, modelo)
   return(sum_w_X - sum_w_Y)
 }
-```
 
 ## Teste de permutacao
-```{r}
 ## TO DO
-```
 
 ## Tamanho do efeito
-```{r}
 effect_size <- function(targets, features, modelo){
   
   s_w = function(col){
@@ -74,19 +59,17 @@ effect_size <- function(targets, features, modelo){
   
   return((x_mean - y_mean)/w_sd)
 }
-```
 
 ## WEFAT
-```{r}
 w_wefat <- function(w, features, modelo){
-
+  
   numerador = score_w(w, features, modelo)
-
+  
   s_w = function(modelo, w, col){
     features %>% group_by(get(col)) %>% 
       summarise(s = cosSim_model(modelo, w, get(col)))  
   }
-
+  
   s_a = s_w(modelo, w, "A")
   s_b = s_w(modelo, w, "B")
   
@@ -106,6 +89,3 @@ wefat <- function(targets, features, modelo){
   w_wefat = bind_rows(w_wefat_x, w_wefat_y) %>% rename(palavra = "get(col)") %>% arrange(-w_wefat)
   return(w_wefat)
 }
-
-```
-

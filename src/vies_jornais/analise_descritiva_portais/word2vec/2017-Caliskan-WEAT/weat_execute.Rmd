@@ -1,0 +1,125 @@
+---
+title: "execute_weat"
+author: "Allan Sales"
+date: "4 de dezembro de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("dplyr")
+library("wordVectors")
+source("weat.R")
+```
+
+## Carrega modelos de palavras
+```{r}
+we_estadao_noticias = read.binary.vectors("../word_embeddings/eleicoes_2014/embeddings/eleicoes_2014_estadao.bin")
+we_folha_noticias = read.binary.vectors("../word_embeddings/eleicoes_2014/embeddings/eleicoes_2014_folha.bin")
+we_folha_comentarios = read.binary.vectors("../word_embeddings/eleicoes_2014/embeddings/folha_comentarios_eleicao_2014.bin")
+```
+
+## Verifica se todas as palavras dos dataframes estao contidas no modelo
+```{r}
+modelo_contem_palavra <- function(features, targets, modelo){
+
+  checa_palavra_em_modelo <- function(w, modelo){
+    wv = modelo[[w]]
+    contem = (is.nan(wv[1,1]) == F) #se vetor contem nan, entao nao existe a palavra no modelo
+    return(contem)
+  }
+
+  ok_a = features %>% group_by(get("A")) %>% summarise(palavras_do_modelo = checa_palavra_em_modelo(get("A"), modelo))
+  ok_b = features %>% group_by(get("B")) %>% summarise(palavras_do_modelo = checa_palavra_em_modelo(get("B"), modelo))
+
+  ok_x = targets %>% group_by(get("X")) %>% summarise(palavras_do_modelo = checa_palavra_em_modelo(get("X"), modelo))
+  ok_y = targets %>% group_by(get("Y")) %>% summarise(palavras_do_modelo = checa_palavra_em_modelo(get("Y"), modelo))
+
+  all_true_a = (ok_a %>% distinct(palavras_do_modelo) %>% nrow() == 1 && ok_a %>% distinct(palavras_do_modelo) == T)
+  if(!all_true_a){
+    print(ok_a)
+  }
+  
+  all_true_b = (ok_b %>% distinct(palavras_do_modelo) %>% nrow() == 1 && ok_b %>% distinct(palavras_do_modelo) == T)
+  if(!all_true_b){
+    print(ok_b)
+  }
+  
+  all_true_x = (ok_x %>% distinct(palavras_do_modelo) %>% nrow() == 1 && ok_x %>% distinct(palavras_do_modelo) == T)
+  if(!all_true_x){
+    print(ok_x)
+  }
+  
+  all_true_y = (ok_y %>% distinct(palavras_do_modelo) %>% nrow() == 1 && ok_y %>% distinct(palavras_do_modelo) == T)
+  if(!all_true_y){
+    print(ok_y)
+  }
+  
+  all_true = ((all_true_a && all_true_b) && (all_true_x && all_true_y))
+  return(all_true)
+}
+```
+
+## Conjuntos de palavras
+### coligacoes x prazer
+```{r}
+x = c("pt", "pmdb", "psd", "pp", "pr", "pdt", "pros", "pcdob") 
+y = c("psdb", "sd", "pmn", "pen", "ptn", "ptc", "dem", "ptb")
+a = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "prazer", "gentil", "honesto", "sorte", "diploma", "presente", "honra", "família", "feliz", "férias")
+b = c("abuso", "quebra", "sujeira", "doença", "acidente", "morte", "sofrimento", "assalto", "desastre", "ódio", "tragédia", "cadeia", "pobreza", "feio", "câncer", "morte", "prisão")
+```
+
+### coligacoes x candidatos
+```{r}
+# x, y = target, a, b = atributo
+# divisao por partidos
+x = c("pmdb", "psd", "pp", "pr", "pdt", "pros", "pcdob") 
+y = c("sd", "pmn", "pen", "ptn", "ptc", "dem", "ptb")
+a = c("dilma", "rousseff", "lula", "pt")
+b = c("aécio", "neves", "fhc", "psdb")
+```
+
+### coligacoes x temporario - permanente
+```{r}
+x = c("pt", "pmdb", "psd", "pp", "pr", "pdt", "pros", "pcdob") 
+y = c("psdb", "sd", "pmn", "pen", "ptn", "ptc", "dem", "ptb")
+a = c("instável", "variável", "curto", "breve", "passagem")
+b = c("estável", "sempre", "longo", "constante", "persistência")
+```
+
+### candidatos x temporario - permanente
+```{r}
+x = c("dilma", "rousseff", "lula", "pt")
+y = c("aécio", "neves", "fhc", "psdb")
+a = c("instável", "variável", "curto", "breve", "passagem")
+b = c("estável", "sempre", "longo", "constante", "persistência")
+```
+
+## Cria dataframes de target e features
+```{r}
+targets = data_frame(X = x, Y = y)
+features = data_frame(A = a, B = b)
+
+modelo_contem_palavra(features, targets, we_estadao_noticias)
+modelo_contem_palavra(features, targets, we_folha_noticias)
+modelo_contem_palavra(features, targets, we_folha_comentarios)
+```
+
+## Gera metricas para conjuntos
+### Estadao noticias
+```{r}
+score_targets(targets, features, we_estadao_noticias)
+effect_size(targets, features, we_estadao_noticias)
+```
+
+### Folha noticias
+```{r}
+score_targets(targets, features, we_folha_noticias)
+effect_size(targets, features, we_folha_noticias)
+```
+
+### Folha comentarios
+```{r}
+score_targets(targets, features, we_folha_comentarios)
+effect_size(targets, features, we_folha_comentarios)
+```
