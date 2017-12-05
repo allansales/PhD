@@ -1,6 +1,7 @@
 library("dplyr")
 library("wordVectors")
 library("partitions")
+library("gtools")
 
 ## Funcoes para o calculo do vies
 # Calcula score de uma palavra para os conjuntos A e B
@@ -8,49 +9,84 @@ cosSim_model <- function(modelo, w, col){
   cosineSimilarity(modelo[[w]], modelo[[col]])
 }
 
-score_w <- function(w, features, modelo){
+score_w <- function(w, a, b, modelo){
   
-  mean_cosSim = function(w, col){
+  mean_cosSim = function(w, palavras){
+    features = tibble(palavras = palavras)
     
-    mean = features %>% group_by(get(col)) %>% 
-      summarise(cosine = cosSim_model(modelo, w, get(col))) %>% 
+    mean = features %>% group_by(palavras) %>% 
+      summarise(cosine = cosSim_model(modelo, w, palavras)) %>% 
       summarise(mean = mean(cosine))  
     
     return(mean)
   }
   
-  mean_w_A = mean_cosSim(w, "A")
-  mean_w_B = mean_cosSim(w, "B")
+  mean_w_A = mean_cosSim(w, a)
+  mean_w_B = mean_cosSim(w, b)
   
   return((mean_w_A - mean_w_B) %>% as.numeric())
 }
 
-score_targets <- function(targets, features, modelo){
+score_targets <- function(x, y, a, b, modelo){
   
-  sum_s_w = function(col, features, modelo){
-    targets %>% group_by(get(col)) %>% 
-      summarise(s_w = score_w(get(col), features, modelo)) %>%
+  sum_s_w = function(palavras){
+    targets = tibble(palavras = palavras)
+    
+    targets %>% group_by(palavras) %>% 
+      summarise(s_w = score_w(palavras, a, b, modelo)) %>%
       summarise(s = sum(s_w))  
   }
   
-  sum_w_X = sum_s_w("X", features, modelo)
-  sum_w_Y = sum_s_w("Y", features, modelo)
+  sum_w_X = sum_s_w(x) %>% as.numeric()
+  sum_w_Y = sum_s_w(y) %>% as.numeric()
   return(sum_w_X - sum_w_Y)
 }
 
 ## Teste de permutacao
-## TO DO
-
-## Tamanho do efeito
-effect_size <- function(targets, features, modelo){
+permutacao <- function(x, y){
   
-  s_w = function(col){
-    targets %>% group_by(get(col)) %>% 
-      summarise(s_w = score_w(get(col), features, modelo))
+  remove_repeated_sets = function(Xi){
+    
   }
   
-  x = s_w("X")
-  y = s_w("Y")
+  all_targets <- c(x,y)
+  n = length(all_targets)
+  Xi = permutations(n, n/2, all_targets) %>% as.data.frame()
+  colnames(Xi) = paste("X",colnames(Xi),sep = "")
+  
+  
+  Yi = Xi %>% apply(1, FUN=function(x){
+    setdiff(all_targets, x)
+  }) %>% t() %>% as.data.frame()
+  
+  colnames(Yi) = paste("Y",colnames(Yi),sep = "")
+  
+  return(list(Xi = Xi, Yi = Yi))
+}
+
+score_permutacoes <- function(Xi, Yi, a, b, modelo){
+
+  cols_in_Xi = colnames(Xi)
+  cols_in_Yi = colnames(Yi)
+  
+  targets_permuted = bind_cols(Xi, Yi) %>% rowwise() %>% 
+    mutate(score = score_targets(get(cols_in_Xi), get(cols_in_Yi), a, b, modelo))
+
+  return(targets_permuted)
+}
+
+## Tamanho do efeito
+effect_size <- function(x, y, a, b, modelo){
+  
+  s_w = function(palavras){
+    targets = tibble(palavras = palavras)
+    
+    targets %>% group_by(palavras) %>% 
+      summarise(s_w = score_w(palavras, a, b, modelo))
+  }
+  
+  x = s_w(x)
+  y = s_w(y)
   
   x_mean = x %>% summarise(mean = mean(s_w)) %>% as.numeric()
   y_mean = y %>% summarise(mean = mean(s_w)) %>% as.numeric()
@@ -61,31 +97,37 @@ effect_size <- function(targets, features, modelo){
 }
 
 ## WEFAT
-w_wefat <- function(w, features, modelo){
+w_wefat <- function(w, a, b, modelo){
   
-  numerador = score_w(w, features, modelo)
+  numerador = score_w(w, a, b, modelo)
   
-  s_w = function(modelo, w, col){
-    features %>% group_by(get(col)) %>% 
-      summarise(s = cosSim_model(modelo, w, get(col)))  
+  s_w = function(palavras){
+    
+    features = tibble(palavras = palavras)
+    
+    features %>% group_by(palavras) %>% 
+      summarise(s = cosSim_model(modelo, w, palavras))  
   }
   
-  s_a = s_w(modelo, w, "A")
-  s_b = s_w(modelo, w, "B")
+  s_a = s_w(a)
+  s_b = s_w(b)
   
   w_wefat = bind_rows(s_a, s_b) %>% summarise(sd = sd(s)) %>% as.numeric()
   return(w_wefat)
 }
 
-wefat <- function(targets, features, modelo){
+wefat <- function(x, y, a, b, modelo){
   
-  get_w_wefat = function(col){
-    targets %>% group_by(get(col)) %>% summarise(w_wefat = w_wefat(get(col), features, modelo))
+  get_w_wefat = function(palavras){
+    targets = tibble(palavras = palavras)
+    
+    targets %>% group_by(palavras) %>% 
+      summarise(w_wefat = w_wefat(palavras, a, b, modelo))
   }
   
-  w_wefat_x = get_w_wefat("X")
-  w_wefat_y = get_w_wefat("Y")
+  w_wefat_x = get_w_wefat(x)
+  w_wefat_y = get_w_wefat(y)
   
-  w_wefat = bind_rows(w_wefat_x, w_wefat_y) %>% rename(palavra = "get(col)") %>% arrange(-w_wefat)
+  w_wefat = bind_rows(w_wefat_x, w_wefat_y) %>% arrange(-w_wefat)
   return(w_wefat)
 }

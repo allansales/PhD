@@ -108,18 +108,22 @@ modelo_contem_palavra(features, targets, we_folha_comentarios)
 ## Gera metricas para conjuntos
 ### Estadao noticias
 ```{r}
-score_targets(targets, features, we_estadao_noticias)
-effect_size(targets, features, we_estadao_noticias)
+score_targets(x, y, a, b, we_estadao_noticias)
+effect_size(x, y, a, b, we_estadao_noticias)
+
+q = permutacao(x, y)
+s = score_permutacoes(q$Xi[1:10,], q$Yi[1:10,], a, b, we_estadao_noticias)
+
 ```
 
 ### Folha noticias
 ```{r}
-score_targets(targets, features, we_folha_noticias)
-effect_size(targets, features, we_folha_noticias)
+score_targets(x, y, a, b, features, we_folha_noticias)
+effect_size(x, y, a, b, we_folha_noticias)
 ```
 
 ### Folha comentarios
 ```{r}
-score_targets(targets, features, we_folha_comentarios)
-effect_size(targets, features, we_folha_comentarios)
+score_targets(x, y, a, b, we_folha_comentarios)
+effect_size(x, y, a, b, we_folha_comentarios)
 ```
