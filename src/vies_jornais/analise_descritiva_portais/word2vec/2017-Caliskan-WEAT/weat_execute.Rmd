@@ -91,9 +91,13 @@ b = c("estável", "sempre", "longo", "constante", "persistência")
 ```{r}
 x = c("dilma", "rousseff", "lula", "pt")
 y = c("aécio", "neves", "fhc", "psdb")
-a = c("instável", "variável", "curto", "breve", "passagem")
-b = c("estável", "sempre", "longo", "constante", "persistência")
+a = c("estável", "sempre", "longo", "constante", "persistência")
+b = c("instável", "variável", "curto", "breve", "passagem")
 ```
+
+### Vies de genero com nomes de pessaoas e partidos de direita x partidos de esquerda
+
+### Proporcao de noticias por genero de cada jornal em relacao ao genero de cada partido
 
 ## Cria dataframes de target e features
 ```{r}
@@ -108,22 +112,30 @@ modelo_contem_palavra(features, targets, we_folha_comentarios)
 ## Gera metricas para conjuntos
 ### Estadao noticias
 ```{r}
-score_targets(x, y, a, b, we_estadao_noticias)
-effect_size(x, y, a, b, we_estadao_noticias)
+score_X_Y_estadao_noticias = score_targets(x, y, a, b, we_estadao_noticias)
+permutacoes_estadao_noticias = permutacao(x, y)
+score_Xi_Yi_estado_noticias = score_permutacoes(permutacoes_estadao_noticias$Xi[1:2,], permutacoes_estadao_noticias$Yi[1:2,], a, b, we_estadao_noticias)
+pvalor(score_Xi_Yi_estado_noticias$score, score_X_Y_estadao_noticias)
+effect_size(x, y, b, a, we_estadao_noticias)
 
-q = permutacao(x, y)
-s = score_permutacoes(q$Xi[1:10,], q$Yi[1:10,], a, b, we_estadao_noticias)
 
+score_targets(c("aécio","dilma","fhc","lula"), c("rousseff","pt","neves","psdb"), a, b, we_estadao_noticias)
 ```
 
 ### Folha noticias
 ```{r}
-score_targets(x, y, a, b, features, we_folha_noticias)
+score_X_Y_folha_noticias = score_targets(x, y, a, b, we_folha_noticias)
+permutacoes_folha_noticias = permutacao(x, y)
+score_Xi_Yi_folha_noticias = score_permutacoes(permutacoes_folha_noticias$Xi, permutacoes_folha_noticias$Yi, a, b, we_folha_noticias)
+pvalor(score_Xi_Yi_folha_noticias$score, score_X_Y_folha_noticias)
 effect_size(x, y, a, b, we_folha_noticias)
 ```
 
 ### Folha comentarios
 ```{r}
-score_targets(x, y, a, b, we_folha_comentarios)
+score_X_Y_folha_comentarios = score_targets(x, y, a, b, we_folha_comentarios)
+permutacoes_folha_comentarios = permutacao(x, y)
+score_Xi_Yi_folha_comentarios = score_permutacoes(permutacoes_folha_comentarios$Xi, permutacoes_folha_comentarios$Yi, a, b, we_folha_comentarios)
+pvalor(score_Xi_Yi_folha_comentarios$score, score_X_Y_folha_comentarios)
 effect_size(x, y, a, b, we_folha_comentarios)
 ```

@@ -27,34 +27,21 @@ score_w <- function(w, a, b, modelo){
   return((mean_w_A - mean_w_B) %>% as.numeric())
 }
 
-score_targets <- function(x, y, a, b, modelo){
-  
-  sum_s_w = function(palavras){
-    targets = tibble(palavras = palavras)
-    
-    targets %>% group_by(palavras) %>% 
-      summarise(s_w = score_w(palavras, a, b, modelo)) %>%
-      summarise(s = sum(s_w))  
-  }
-  
-  sum_w_X = sum_s_w(x) %>% as.numeric()
-  sum_w_Y = sum_s_w(y) %>% as.numeric()
-  return(sum_w_X - sum_w_Y)
-}
 
 ## Teste de permutacao
 permutacao <- function(x, y){
   
-  remove_repeated_sets = function(Xi){
-    
-  }
+  # remove_repeated_sets = function(Xi){
+  #   
+  # }
   
   all_targets <- c(x,y)
   n = length(all_targets)
-  Xi = permutations(n, n/2, all_targets) %>% as.data.frame()
+  Xi = permutations(n=n, r=n/2, v=all_targets) %>% as.data.frame()
   colnames(Xi) = paste("X",colnames(Xi),sep = "")
   
-  
+  #q = Xi %>% mutate(id = paste(sort(XV1, XV2, XV3, XV4), sep = "-"))
+    
   Yi = Xi %>% apply(1, FUN=function(x){
     setdiff(all_targets, x)
   }) %>% t() %>% as.data.frame()
@@ -65,14 +52,48 @@ permutacao <- function(x, y){
 }
 
 score_permutacoes <- function(Xi, Yi, a, b, modelo){
-
+  
+  Xi = permutacoes_estadao_noticias$Xi[1:2,]
+  Yi = permutacoes_estadao_noticias$Yi[1:2,]
+  modelo = we_estadao_noticias
+  
   cols_in_Xi = colnames(Xi)
   cols_in_Yi = colnames(Yi)
   
-  targets_permuted = bind_cols(Xi, Yi) %>% rowwise() %>% 
-    mutate(score = score_targets(get(cols_in_Xi), get(cols_in_Yi), a, b, modelo))
-
+  targets_permuted = bind_cols(Xi, Yi) 
+  targets_permuted %>% mutate(score = score_targets(select_(., .dots = cols_in_Xi), select_(., .dots = cols_in_Yi), a, b, modelo))
+  
   return(targets_permuted)
+}
+
+score_targets <- function(x, y, a, b, modelo){
+  
+  sum_s_w = function(palavras){
+    
+    #print(is.data.frame(palavras))
+    #print(palavras)
+    print(palavras)
+    a = palavras %>% map(function(x) score_w(x, a, b, modelo))
+    print(a)
+    #score_w(w)
+    #targets = tibble(palavras = palavras)
+    
+    #palavras %>%
+    #  summarise(s_w = score_w(palavras, a, b, modelo)) %>%
+    #  summarise(s = sum(s_w))
+  }
+  
+  sum_w_X = sum_s_w(x)
+  #sum_w_Y = sum_s_w(y)
+  
+  return(sum_w_X - sum_w_Y)
+}
+
+pvalor <- function(scores_Xi_Yi, score_X_Y){
+  tbl = data_frame(value = scores_Xi_Yi > score_X_Y)
+  n_true = tbl %>% filter(value == T) %>% summarise(cont = n()) %>% as.numeric()
+  n_total = nrow(tbl)
+  return(n_true/n_total)
 }
 
 ## Tamanho do efeito
