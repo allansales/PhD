@@ -2,6 +2,7 @@ library("dplyr")
 library("wordVectors")
 library("partitions")
 library("gtools")
+library("purrr")
 
 ## Funcoes para o calculo do vies
 # Calcula score de uma palavra para os conjuntos A e B
@@ -27,66 +28,61 @@ score_w <- function(w, a, b, modelo){
   return((mean_w_A - mean_w_B) %>% as.numeric())
 }
 
+score_targets <- function(x, y, a, b, modelo){
+  
+  sum_s_w = function(palavras){
+    scores = palavras %>% map(function(x) score_w(x, a, b, modelo)) %>% unlist() %>% sum()
+    return(scores)
+  }
+  
+  sum_w_X = sum_s_w(x)
+  sum_w_Y = sum_s_w(y)
+  
+  return(sum_w_X - sum_w_Y)
+}
 
 ## Teste de permutacao
 permutacao <- function(x, y){
   
-  # remove_repeated_sets = function(Xi){
-  #   
-  # }
+  remove_repeated_sets = function(Xi, Yi){
+   duplicados = duplicated(Yi)
+   Xi = Xi[!duplicados,]
+   Yi = Yi[!duplicados,]
+   return(list(Xi = Xi, Yi = Yi))
+  }
   
-  all_targets <- c(x,y)
+  all_targets = c(x,y)
   n = length(all_targets)
   Xi = permutations(n=n, r=n/2, v=all_targets) %>% as.data.frame()
   colnames(Xi) = paste("X",colnames(Xi),sep = "")
   
-  #q = Xi %>% mutate(id = paste(sort(XV1, XV2, XV3, XV4), sep = "-"))
-    
   Yi = Xi %>% apply(1, FUN=function(x){
     setdiff(all_targets, x)
   }) %>% t() %>% as.data.frame()
   
   colnames(Yi) = paste("Y",colnames(Yi),sep = "")
   
-  return(list(Xi = Xi, Yi = Yi))
+  return(remove_repeated_sets(Xi, Yi))
 }
 
-score_permutacoes <- function(Xi, Yi, a, b, modelo){
-  
-  Xi = permutacoes_estadao_noticias$Xi[1:2,]
-  Yi = permutacoes_estadao_noticias$Yi[1:2,]
-  modelo = we_estadao_noticias
+score_permutacoes <- function(Xi, Yi, a, b, modelo, name){
   
   cols_in_Xi = colnames(Xi)
   cols_in_Yi = colnames(Yi)
   
   targets_permuted = bind_cols(Xi, Yi) 
-  targets_permuted %>% mutate(score = score_targets(select_(., .dots = cols_in_Xi), select_(., .dots = cols_in_Yi), a, b, modelo))
   
-  return(targets_permuted)
-}
+  scores = targets_permuted %>% apply(1, FUN = function(x){
+    Xi_values = x[which(names(x) %in% cols_in_Xi)]
+    Yi_values = x[which(names(x) %in% cols_in_Yi)]
 
-score_targets <- function(x, y, a, b, modelo){
+    return(score_targets(Xi_values, Yi_values, a, b, modelo))
+  })
+
+  #targets_permuted = bind_cols(targets_permuted, !!name := scores)
+  return(scores)
   
-  sum_s_w = function(palavras){
-    
-    #print(is.data.frame(palavras))
-    #print(palavras)
-    print(palavras)
-    a = palavras %>% map(function(x) score_w(x, a, b, modelo))
-    print(a)
-    #score_w(w)
-    #targets = tibble(palavras = palavras)
-    
-    #palavras %>%
-    #  summarise(s_w = score_w(palavras, a, b, modelo)) %>%
-    #  summarise(s = sum(s_w))
-  }
-  
-  sum_w_X = sum_s_w(x)
-  #sum_w_Y = sum_s_w(y)
-  
-  return(sum_w_X - sum_w_Y)
+  #return(targets_permuted)
 }
 
 pvalor <- function(scores_Xi_Yi, score_X_Y){

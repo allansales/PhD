@@ -69,14 +69,14 @@ a = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "praze
 b = c("abuso", "quebra", "sujeira", "doença", "acidente", "morte", "sofrimento", "assalto", "desastre", "ódio", "tragédia", "cadeia", "pobreza", "feio", "câncer", "morte", "prisão")
 ```
 
-### coligacoes x candidatos
+### candidatos x coligacoes
 ```{r}
 # x, y = target, a, b = atributo
 # divisao por partidos
-x = c("pmdb", "psd", "pp", "pr", "pdt", "pros", "pcdob") 
-y = c("sd", "pmn", "pen", "ptn", "ptc", "dem", "ptb")
-a = c("dilma", "rousseff", "lula", "pt")
-b = c("aécio", "neves", "fhc", "psdb")
+x = c("dilma", "rousseff", "lula", "pt")
+y = c("aécio", "neves", "fhc", "psdb")
+a = c("pmdb", "psd", "pp", "pr", "pdt", "pros", "pcdob") 
+b = c("sd", "pmn", "pen", "ptn", "ptc", "dem", "ptb")
 ```
 
 ### coligacoes x temporario - permanente
@@ -93,6 +93,14 @@ x = c("dilma", "rousseff", "lula", "pt")
 y = c("aécio", "neves", "fhc", "psdb")
 a = c("estável", "sempre", "longo", "constante", "persistência")
 b = c("instável", "variável", "curto", "breve", "passagem")
+```
+
+### candidatos x prazer
+```{r}
+x = c("dilma", "rousseff", "lula", "pt")
+y = c("aécio", "neves", "fhc", "psdb")
+a = c("abuso", "quebra", "doença", "acidente", "sofrimento", "assalto", "desastre", "ódio", "tragédia", "cadeia", "pobreza", "feio", "câncer", "morte", "prisão")
+b = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "honesto", "sorte", "diploma", "presente", "honra", "família", "feliz", "férias")
 ```
 
 ### Vies de genero com nomes de pessaoas e partidos de direita x partidos de esquerda
@@ -113,13 +121,18 @@ modelo_contem_palavra(features, targets, we_folha_comentarios)
 ### Estadao noticias
 ```{r}
 score_X_Y_estadao_noticias = score_targets(x, y, a, b, we_estadao_noticias)
-permutacoes_estadao_noticias = permutacao(x, y)
-score_Xi_Yi_estado_noticias = score_permutacoes(permutacoes_estadao_noticias$Xi[1:2,], permutacoes_estadao_noticias$Yi[1:2,], a, b, we_estadao_noticias)
-pvalor(score_Xi_Yi_estado_noticias$score, score_X_Y_estadao_noticias)
+permutacoes = permutacao(x, y)
+
+score_Xi_Yi_estadao_noticias = score_permutacoes(permutacoes$Xi, permutacoes$Yi, a, b, we_estadao_noticias)
+score_Xi_Yi_folha_noticias = score_permutacoes(permutacoes$Xi, permutacoes$Yi, a, b, we_folha_noticias)
+score_Xi_Yi_folha_comentarios = score_permutacoes(permutacoes$Xi, permutacoes$Yi, a, b, we_folha_comentarios)
+
+scores = bind_cols(permutacoes$Xi, permutacoes$Yi, score_estadao = score_Xi_Yi_estadao_noticias, score_folha = score_Xi_Yi_folha_noticias, score_folha_comentarios = score_Xi_Yi_folha_comentarios)
+
+pvalor(scores$score_estadao, score_X_Y_estadao_noticias)
+pvalor(scores$score_folha, score_X_Y_estadao_noticias)
+pvalor(scores$score_estadao, score_X_Y_estadao_noticias)
 effect_size(x, y, b, a, we_estadao_noticias)
-
-
-score_targets(c("aécio","dilma","fhc","lula"), c("rousseff","pt","neves","psdb"), a, b, we_estadao_noticias)
 ```
 
 ### Folha noticias
