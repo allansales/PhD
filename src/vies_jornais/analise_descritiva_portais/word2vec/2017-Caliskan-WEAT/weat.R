@@ -79,10 +79,7 @@ score_permutacoes <- function(Xi, Yi, a, b, modelo, name){
     return(score_targets(Xi_values, Yi_values, a, b, modelo))
   })
 
-  #targets_permuted = bind_cols(targets_permuted, !!name := scores)
   return(scores)
-  
-  #return(targets_permuted)
 }
 
 pvalor <- function(scores_Xi_Yi, score_X_Y){

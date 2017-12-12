@@ -60,95 +60,98 @@ modelo_contem_palavra <- function(features, targets, modelo){
 }
 ```
 
-## Conjuntos de palavras
-### coligacoes x prazer
+## Verifica se todas as palavras estao contidas no vocabulario dos portais
 ```{r}
-x = c("pt", "pmdb", "psd", "pp", "pr", "pdt", "pros", "pcdob") 
-y = c("psdb", "sd", "pmn", "pen", "ptn", "ptc", "dem", "ptb")
-a = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "prazer", "gentil", "honesto", "sorte", "diploma", "presente", "honra", "família", "feliz", "férias")
-b = c("abuso", "quebra", "sujeira", "doença", "acidente", "morte", "sofrimento", "assalto", "desastre", "ódio", "tragédia", "cadeia", "pobreza", "feio", "câncer", "morte", "prisão")
+potal_contem_palavras <- function(x, y, a, b){
+  targets = data_frame(X = x, Y = y)
+  features = data_frame(A = a, B = b)
+
+  print(modelo_contem_palavra(features, targets, we_estadao_noticias))
+  print(modelo_contem_palavra(features, targets, we_folha_noticias))
+  print(modelo_contem_palavra(features, targets, we_folha_comentarios))
+}
+
+calcula_scores_portais <- function(x, y, a, b){
+  permutacoes = permutacao(x, y)
+  score_Xi_Yi_estadao_noticias = score_permutacoes(permutacoes$Xi, permutacoes$Yi, a, b, we_estadao_noticias)
+  score_Xi_Yi_folha_noticias = score_permutacoes(permutacoes$Xi, permutacoes$Yi, a, b, we_folha_noticias)
+  score_Xi_Yi_folha_comentarios = score_permutacoes(permutacoes$Xi, permutacoes$Yi, a, b, we_folha_comentarios)
+
+  scores = bind_cols(permutacoes$Xi, permutacoes$Yi, score_estadao = score_Xi_Yi_estadao_noticias, score_folha = score_Xi_Yi_folha_noticias, score_folha_comentarios = score_Xi_Yi_folha_comentarios)
+  return(scores)
+}
+
+execute <- function(x, y, a, b){
+  
+  scores = calcula_scores_portais(x, y, a, b)
+
+  score_X_Y_estadao_noticias = score_targets(x, y, a, b, we_estadao_noticias)
+  p_estadao = pvalor(scores$score_estadao, score_X_Y_estadao_noticias)
+  e_estadao = effect_size(x, y, b, a, we_estadao_noticias)
+
+  score_X_Y_folha_noticias = score_targets(x, y, a, b, we_folha_noticias)
+  p_folhan = pvalor(scores$score_folha, score_X_Y_folha_noticias)
+  e_folhan = effect_size(x, y, b, a, we_folha_noticias)
+
+  score_X_Y_folha_comentarios = score_targets(x, y, a, b, we_folha_comentarios)
+  p_folhac = pvalor(scores$score_folha_comentarios, score_X_Y_folha_comentarios)
+  e_folhac = effect_size(x, y, b, a, we_folha_comentarios)
+  
+  valores = data_frame(fonte = c("Noticias estadao", "Noticias folha", "Comentarios folha"), p_valor = c(p_estadao, p_folhan, p_folhac), tam_efeito = c(e_estadao, e_folhan, e_folhac))
+  
+  return(list(valores = valores, scores = scores))
+}
 ```
 
+## Conjuntos de palavras
 ### candidatos x coligacoes
 ```{r}
 # x, y = target, a, b = atributo
 # divisao por partidos
-x = c("dilma", "rousseff", "lula", "pt")
-y = c("aécio", "neves", "fhc", "psdb")
+x = c("dilma", "rousseff", "lula", "pt", "temer")
+y = c("aécio", "neves", "fhc", "psdb", "aloysio")
 a = c("pmdb", "psd", "pp", "pr", "pdt", "pros", "pcdob") 
 b = c("sd", "pmn", "pen", "ptn", "ptc", "dem", "ptb")
-```
 
-### coligacoes x temporario - permanente
-```{r}
-x = c("pt", "pmdb", "psd", "pp", "pr", "pdt", "pros", "pcdob") 
-y = c("psdb", "sd", "pmn", "pen", "ptn", "ptc", "dem", "ptb")
-a = c("instável", "variável", "curto", "breve", "passagem")
-b = c("estável", "sempre", "longo", "constante", "persistência")
+potal_contem_palavras(x, y, a, b)
+candidatos_coligacoes = execute(x, y, a, b)
+candidatos_coligacoes
 ```
 
 ### candidatos x temporario - permanente
 ```{r}
-x = c("dilma", "rousseff", "lula", "pt")
-y = c("aécio", "neves", "fhc", "psdb")
+x = c("dilma", "rousseff", "lula", "pt", "temer")
+y = c("aécio", "neves", "fhc", "psdb", "aloysio")
 a = c("estável", "sempre", "longo", "constante", "persistência")
 b = c("instável", "variável", "curto", "breve", "passagem")
+
+potal_contem_palavras(x, y, a, b)
+candidatos_tempo = execute(x, y, a, b)
+candidatos_tempo
 ```
 
 ### candidatos x prazer
 ```{r}
-x = c("dilma", "rousseff", "lula", "pt")
-y = c("aécio", "neves", "fhc", "psdb")
+x = c("dilma", "rousseff", "lula", "pt", "temer")
+y = c("aécio", "neves", "fhc", "psdb", "aloysio")
 a = c("abuso", "quebra", "doença", "acidente", "sofrimento", "assalto", "desastre", "ódio", "tragédia", "cadeia", "pobreza", "feio", "câncer", "morte", "prisão")
 b = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "honesto", "sorte", "diploma", "presente", "honra", "família", "feliz", "férias")
+
+potal_contem_palavras(x, y, a, b)
+candidatos_prazer = execute(x, y, a, b)
+candidatos_prazer
 ```
 
-### Vies de genero com nomes de pessaoas e partidos de direita x partidos de esquerda
+### Vies de genero x posicionamento politico
+```{r}
+x = c("dilma", "rousseff", "luciana", "genro", "marina", "silva")
+y = c("aécio", "neves", "eduardo", "jorge", "levy", "fidelix")
+a = c("pt", "psb", "psd", "pdt", "pps", "pcdob", "psd", "pcdob","psol")
+b = c("pp", "pr", "prb", "pros", "prtb", "phs", "pen", "ptc", "dem")
+
+potal_contem_palavras(x, y, a, b)
+genero_posicao = execute(x, y, a, b)
+genero_posicao
+```
 
 ### Proporcao de noticias por genero de cada jornal em relacao ao genero de cada partido
-
-## Cria dataframes de target e features
-```{r}
-targets = data_frame(X = x, Y = y)
-features = data_frame(A = a, B = b)
-
-modelo_contem_palavra(features, targets, we_estadao_noticias)
-modelo_contem_palavra(features, targets, we_folha_noticias)
-modelo_contem_palavra(features, targets, we_folha_comentarios)
-```
-
-## Gera metricas para conjuntos
-### Estadao noticias
-```{r}
-score_X_Y_estadao_noticias = score_targets(x, y, a, b, we_estadao_noticias)
-permutacoes = permutacao(x, y)
-
-score_Xi_Yi_estadao_noticias = score_permutacoes(permutacoes$Xi, permutacoes$Yi, a, b, we_estadao_noticias)
-score_Xi_Yi_folha_noticias = score_permutacoes(permutacoes$Xi, permutacoes$Yi, a, b, we_folha_noticias)
-score_Xi_Yi_folha_comentarios = score_permutacoes(permutacoes$Xi, permutacoes$Yi, a, b, we_folha_comentarios)
-
-scores = bind_cols(permutacoes$Xi, permutacoes$Yi, score_estadao = score_Xi_Yi_estadao_noticias, score_folha = score_Xi_Yi_folha_noticias, score_folha_comentarios = score_Xi_Yi_folha_comentarios)
-
-pvalor(scores$score_estadao, score_X_Y_estadao_noticias)
-pvalor(scores$score_folha, score_X_Y_estadao_noticias)
-pvalor(scores$score_estadao, score_X_Y_estadao_noticias)
-effect_size(x, y, b, a, we_estadao_noticias)
-```
-
-### Folha noticias
-```{r}
-score_X_Y_folha_noticias = score_targets(x, y, a, b, we_folha_noticias)
-permutacoes_folha_noticias = permutacao(x, y)
-score_Xi_Yi_folha_noticias = score_permutacoes(permutacoes_folha_noticias$Xi, permutacoes_folha_noticias$Yi, a, b, we_folha_noticias)
-pvalor(score_Xi_Yi_folha_noticias$score, score_X_Y_folha_noticias)
-effect_size(x, y, a, b, we_folha_noticias)
-```
-
-### Folha comentarios
-```{r}
-score_X_Y_folha_comentarios = score_targets(x, y, a, b, we_folha_comentarios)
-permutacoes_folha_comentarios = permutacao(x, y)
-score_Xi_Yi_folha_comentarios = score_permutacoes(permutacoes_folha_comentarios$Xi, permutacoes_folha_comentarios$Yi, a, b, we_folha_comentarios)
-pvalor(score_Xi_Yi_folha_comentarios$score, score_X_Y_folha_comentarios)
-effect_size(x, y, a, b, we_folha_comentarios)
-```
