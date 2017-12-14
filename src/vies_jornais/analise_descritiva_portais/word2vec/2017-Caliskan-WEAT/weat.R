@@ -94,7 +94,7 @@ effect_size <- function(x, y, a, b, modelo){
   
   s_w = function(palavras){
     targets = tibble(palavras = palavras)
-    
+
     targets %>% group_by(palavras) %>% 
       summarise(s_w = score_w(palavras, a, b, modelo))
   }
