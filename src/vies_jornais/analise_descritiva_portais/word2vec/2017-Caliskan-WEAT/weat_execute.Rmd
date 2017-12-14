@@ -2,7 +2,9 @@
 title: "execute_weat"
 author: "Allan Sales"
 date: "4 de dezembro de 2017"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -153,4 +155,3 @@ genero_posicao = execute(x, y, a, b)
 genero_posicao$valores
 ```
 
-### Proporcao de noticias por genero de cada jornal em relacao ao genero de cada partido
