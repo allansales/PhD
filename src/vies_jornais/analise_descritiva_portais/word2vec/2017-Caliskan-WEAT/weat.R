@@ -45,10 +45,10 @@ score_targets <- function(x, y, a, b, modelo){
 permutacao <- function(x, y){
   
   remove_repeated_sets = function(Xi, Yi){
-   duplicados = duplicated(Yi)
-   Xi = Xi[!duplicados,]
-   Yi = Yi[!duplicados,]
-   return(list(Xi = Xi, Yi = Yi))
+    duplicados = duplicated(Yi)
+    Xi = Xi[!duplicados,]
+    Yi = Yi[!duplicados,]
+    return(list(Xi = Xi, Yi = Yi))
   }
   
   all_targets = c(x,y)

@@ -147,8 +147,8 @@ candidatos_prazer$valores
 ```{r}
 x = c("dilma", "rousseff", "luciana", "genro", "marina", "silva")
 y = c("aécio", "neves", "eduardo", "jorge", "levy", "fidelix")
-a = c("pt", "psb", "psd", "pdt", "pps", "pcdob", "psd", "pcdob","psol")
-b = c("psdb", "pp", "pr", "prb", "pros", "prtb", "phs", "pen", "dem")
+a = c("pt", "psb", "psd", "pdt", "pps", "pcdob", "pcdob","psol")
+b = c("pp", "pr", "prb", "pros", "prtb", "phs", "pen", "dem")
 
 potal_contem_palavras(x, y, a, b)
 genero_posicao = execute(x, y, a, b)
