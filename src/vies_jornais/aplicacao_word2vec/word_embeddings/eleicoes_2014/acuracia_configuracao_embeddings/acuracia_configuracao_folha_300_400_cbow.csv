@@ -1,0 +1,9 @@
+dados,data_inicio,data_fim,n_layers,method,acuracia
+noticias_folha,2014-05-30,2014-12-31,300,1,NA
+noticias_folha,2014-01-01,2014-12-31,300,1,0.041666666666666664
+noticias_folha,2014-05-30,2014-10-26,300,1,NA
+noticias_folha,2014-01-01,2014-10-26,300,1,NA
+noticias_folha,2014-05-30,2014-12-31,400,1,0.041666666666666664
+noticias_folha,2014-01-01,2014-12-31,400,1,NA
+noticias_folha,2014-05-30,2014-10-26,400,1,NA
+noticias_folha,2014-01-01,2014-10-26,400,1,NA
