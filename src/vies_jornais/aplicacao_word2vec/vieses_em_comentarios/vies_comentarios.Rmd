@@ -64,8 +64,6 @@ checa_vies <- function(x, y, a, b, modelo){
 ### Prazer
 #### candidatos presidência x prazer
 ```{r}
-# x, y = target, a, b = atributo
-# divisao por partidos
 x = c("aécio", "neves", "fhc", "psdb", "aloysio")
 y = c("dilma", "rousseff", "lula", "pt", "temer")
 a = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "honesto", "sorte", "diploma", "presente", "honra", "família", "feliz", "férias")
@@ -79,8 +77,6 @@ vies_folha_up_down_cand_prazer = checa_vies(x, y, a, b, folha_up_down)
 
 #### partidos x prazer
 ```{r}
-# x, y = target, a, b = atributo
-# divisao por partidos
 x = c("dilma", "lula", "pt", "padilha", "haddad")
 y = c("aécio", "fhc", "psdb", "alckmin", "dória")
 a = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "honesto", "sorte", "diploma", "presente", "honra", "família", "feliz", "férias")
@@ -132,7 +128,8 @@ vies_folha_down_pt_psdb_tempo = checa_vies(x, y, a, b, folha_down)
 vies_folha_up_down_pt_psdb_tempo = checa_vies(x, y, a, b, folha_up_down)
 ```
 
-### Genero x orientacao 1
+### Genero
+#### Genero x orientacao 1
 ```{r}
 x = c("dilma", "genro", "marina", "marta", "erundina", "rosário")
 y = c("aécio", "lula", "fhc", "cunha", "temer", "bolsonaro")
@@ -145,8 +142,31 @@ vies_folha_down_genero_orientacao = checa_vies(x, y, a, b, folha_down)
 vies_folha_up_down_genero_orientacao = checa_vies(x, y, a, b, folha_up_down)
 ```
 
-### Genero x orientacao 2
+#### Genero x orientacao 2
 ```{r}
 # Usar ele, ela, homem, mulher, sinonimos
+x = c("mulher", "mãe", "tia", "avó", "filha", "moça", "dona", "senhora")
+y = c("homem", "pai", "tio", "avô", "filho", "moço", "dono", "senhor")
+a = c("pt", "psb", "psd", "pdt", "pps", "pcdob", "psol")
+b = c("pp", "pr", "prb", "pros", "phs", "pen", "dem")
+
+#vies_estadao_up_genero_orientacao = checa_vies(x, y, a, b, estadao_up)
+vies_folha_up_genero_orientacao = checa_vies(x, y, a, b, folha_up)
+vies_folha_down_genero_orientacao = checa_vies(x, y, a, b, folha_down)
+vies_folha_up_down_genero_orientacao = checa_vies(x, y, a, b, folha_up_down)
+```
+
+### Nivel economico
+#### nivel economico x orientacao
+```{r}
+x = c("pobreza", "miséria", "indigência", "inópia", "humildade", "dificuldade", "subdesenvolvimento", "desgraça", "fome", "dureza")
+y = c("riqueza", "recursos", "capital", "patrimônio", "fortuna", "dinheiro", "ouro", "posses", "herança", "bens")
+a = c("pt", "psb", "psd", "pdt", "pps", "pcdob", "psol")
+b = c("pp", "pr", "prb", "pros", "phs", "pen", "dem")
+
+#vies_estadao_up_genero_orientacao = checa_vies(x, y, a, b, estadao_up)
+vies_folha_up_genero_orientacao = checa_vies(x, y, a, b, folha_up)
+vies_folha_down_genero_orientacao = checa_vies(x, y, a, b, folha_down)
+vies_folha_up_down_genero_orientacao = checa_vies(x, y, a, b, folha_up_down)
 ```
 

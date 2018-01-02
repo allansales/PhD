@@ -1,1 +1,1 @@
-# PhD Allan Sales. Sentiment Analysis in comments of political news.
+# PhD Allan Sales. Word Embedding application into bias detection.
