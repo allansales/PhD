@@ -62,12 +62,12 @@ checa_vies <- function(x, y, a, b, modelo){
 ## Conjuntos de palavras
 
 ### Prazer
-#### candidatos presidÃªncia x prazer
+#### candidatos presidência x prazer
 ```{r}
-x = c("aÃ©cio", "neves", "fhc", "psdb", "aloysio")
+x = c("aécio", "neves", "fhc", "psdb", "aloysio")
 y = c("dilma", "rousseff", "lula", "pt", "temer")
-a = c("carinho", "liberdade", "saÃºde", "amor", "paz", "alegria", "fiel", "honesto", "sorte", "diploma", "presente", "honra", "famÃ­lia", "feliz", "fÃ©rias")
-b = c("abuso", "quebra", "doenÃ§a", "acidente", "sofrimento", "assalto", "desastre", "Ã³dio", "tragÃ©dia", "cadeia", "pobreza", "feio", "cÃ¢ncer", "morte", "prisÃ£o")
+a = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "honesto", "sorte", "diploma", "presente", "honra", "família", "feliz", "férias")
+b = c("abuso", "quebra", "doença", "acidente", "sofrimento", "assalto", "desastre", "ódio", "tragédia", "cadeia", "pobreza", "feio", "câncer", "morte", "prisão")
 
 vies_estadao_up_cand_prazer = checa_vies(x, y, a, b, estadao_up)
 vies_folha_up_cand_prazer = checa_vies(x, y, a, b, folha_up)
