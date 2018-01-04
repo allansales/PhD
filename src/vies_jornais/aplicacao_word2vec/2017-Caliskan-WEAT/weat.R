@@ -82,13 +82,6 @@ score_permutacoes <- function(Xi, Yi, a, b, modelo, name){
   return(scores_permutacao)
 }
 
-pvalor <- function(scores_Xi_Yi, score_X_Y){
-  tbl = data_frame(value = scores_Xi_Yi > score_X_Y)
-  n_true = tbl %>% filter(value == T) %>% summarise(cont = n()) %>% as.numeric()
-  n_total = nrow(tbl)
-  return(n_true/n_total)
-}
-
 ## Tamanho do efeito
 effect_size <- function(x, y, a, b, modelo){
   
@@ -144,6 +137,13 @@ wefat <- function(x, y, a, b, modelo){
   
   w_wefat = bind_rows(w_wefat_x, w_wefat_y) %>% arrange(-w_wefat)
   return(w_wefat)
+}
+
+pvalor <- function(scores_Xi_Yi, score_X_Y){
+  tbl = data_frame(value = scores_Xi_Yi > score_X_Y)
+  n_true = tbl %>% filter(value == T) %>% summarise(cont = n()) %>% as.numeric()
+  n_total = nrow(tbl)
+  return(n_true/n_total)
 }
 
 ## Verifica se todas as palavras dos dataframes estao contidas no modelo

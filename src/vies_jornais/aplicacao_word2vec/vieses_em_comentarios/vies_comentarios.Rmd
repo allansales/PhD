@@ -7,7 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-source("../2017-Caliskan-WEAT/weat2.R")
+source("../2017-Caliskan-WEAT/weat.R")
 library(wordVectors)
 ```
 
@@ -56,6 +56,18 @@ checa_vies <- function(x, y, a, b, modelo){
     return(candidatos_prazer)  
   }
 }
+
+
+# permutacao_table = permutacao(x, y)
+# 
+# cosine_metrics = create_cosine_metrics(x, y, a, b, folha_up_down)
+# dif_sim_table = cosine_metrics$dif_sim_table
+# w_cos_dist = cosine_metrics$w_cos_dist
+# 
+# scores_permutacao = score(permutacao_table, dif_sim_table)
+# tam_efeito = effect_size(x, y, dif_sim_table)
+# p_valor = pvalor(x, y, scores_permutacao, dif_sim_table)
+# w_wefat = wefat(dif_sim_table, w_cos_dist)
 
 ```
 
