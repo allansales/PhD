@@ -12,7 +12,7 @@ library(wordVectors)
 ```
 
 ```{r}
-estadao_up = read.binary.vectors("../word_embeddings/vieses_em_comentarios/embeddings/estadao_thumbs_up.bin")
+#estadao_up = read.binary.vectors("../word_embeddings/vieses_em_comentarios/embeddings/estadao_thumbs_up.bin")
 folha_up = read.binary.vectors("../word_embeddings/vieses_em_comentarios/embeddings/folha_thumbs_up.bin")
 folha_down = read.binary.vectors("../word_embeddings/vieses_em_comentarios/embeddings/folha_thumbs_down.bin")
 folha_up_down = read.binary.vectors("../word_embeddings/vieses_em_comentarios/embeddings/folha_thumbs_up_down.bin")
@@ -20,165 +20,152 @@ folha_up_down = read.binary.vectors("../word_embeddings/vieses_em_comentarios/em
 
 ## Verifica se todas as palavras estao contidas no vocabulario dos portais
 ```{r}
-portal_contem_palavras <- function(x, y, a, b, modelo){
-  targets = data_frame(X = x, Y = y)
-  features = data_frame(A = a, B = b)
-
-  contem = modelo_contem_palavra(features, targets, modelo)
-  print(contem)
-  return(contem)
-}
-
-calcula_scores_portais <- function(x, y, a, b, modelo){
-  permutacoes = permutacao(x, y)
-  score_Xi_Yi = score_permutacoes(permutacoes$Xi, permutacoes$Yi, a, b, modelo)
-
-  scores = bind_cols(permutacoes$Xi, permutacoes$Yi, score = score_Xi_Yi)
-  return(scores)
-}
-
-execute <- function(x, y, a, b, modelo){
-  scores = calcula_scores_portais(x, y, a, b, modelo) %>% arrange(-score)
-
-  score_X_Y = score_targets(x, y, a, b, modelo)
-  p_valor = pvalor(scores$score, score_X_Y)
-  tam_efeito = effect_size(x, y, a, b, modelo)
+execute <- function(x, y, a, b, permutacoes, modelo){
+  
+  organize_input = function(x, y){
+    X = x %>% t() %>% as_data_frame()
+    Y = y %>% t() %>% as_data_frame()
+    table = list(Xi = X, Yi = Y)
+  }
+  
+  cosine_metrics = create_cosine_metrics(x, y, a, b, modelo)
+  dif_sim_table = cosine_metrics$dif_sim_table
+  
+  entrada_x_y = organize_input(x, y)
+  score_x_y = score(entrada_x_y, dif_sim_table)
+  scores_permutacao = score(permutacoes, dif_sim_table) %>% arrange(-score)
+  
+  p_valor = pvalor(scores_permutacao, score_x_y)
+  tam_efeito = effect_size(x, y, dif_sim_table)
 
   valores = data_frame(p_valor, tam_efeito)
   
-  return(list(valores = valores, scores_permutacao = scores, score_X_Y = score_X_Y))
+  return(list(valores = valores, scores_permutacao = scores_permutacao, score_X_Y = score_x_y))
 }
 
-checa_vies <- function(x, y, a, b, modelo){
-  contem = portal_contem_palavras(x, y, a, b, modelo)
+checa_vies <- function(x, y, a, b, permutacoes, modelo){
+  contem = modelo_contem_palavra(x, y, a, b, modelo)
   if(contem){
-    candidatos_prazer = execute(x, y, a, b, modelo)
-    return(candidatos_prazer)  
+    resultados_vies = execute(x, y, a, b, permutacoes, modelo)
+    return(resultados_vies)  
   }
 }
-
-
-# permutacao_table = permutacao(x, y)
-# 
-# cosine_metrics = create_cosine_metrics(x, y, a, b, folha_up_down)
-# dif_sim_table = cosine_metrics$dif_sim_table
-# w_cos_dist = cosine_metrics$w_cos_dist
-# 
-# scores_permutacao = score(permutacao_table, dif_sim_table)
-# tam_efeito = effect_size(x, y, dif_sim_table)
-# p_valor = pvalor(x, y, scores_permutacao, dif_sim_table)
-# w_wefat = wefat(dif_sim_table, w_cos_dist)
-
 ```
 
 ## Conjuntos de palavras
 
 ### Prazer
-#### candidatos presid?ncia x prazer
-```{r}
+#### candidatos presidencia x prazer
+```{r, include=FALSE}
 x = c("aécio", "neves", "fhc", "psdb", "aloysio")
 y = c("dilma", "rousseff", "lula", "pt", "temer")
 a = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "honesto", "sorte", "diploma", "presente", "honra", "família", "feliz", "férias")
 b = c("abuso", "quebra", "doença", "acidente", "sofrimento", "assalto", "desastre", "ódio", "tragédia", "cadeia", "pobreza", "feio", "câncer", "morte", "prisão")
 
-vies_estadao_up_cand_prazer = checa_vies(x, y, a, b, estadao_up)
-vies_folha_up_cand_prazer = checa_vies(x, y, a, b, folha_up)
-vies_folha_down_cand_prazer = checa_vies(x, y, a, b, folha_down)
-vies_folha_up_down_cand_prazer = checa_vies(x, y, a, b, folha_up_down)
+permutacoes_cand_prazer = permutacao(x, y)
+
+vies_folha_up_cand_prazer = checa_vies(x, y, a, b, permutacoes_cand_prazer, folha_up)
+vies_folha_down_cand_prazer = checa_vies(x, y, a, b, permutacoes_cand_prazer, folha_down)
+vies_folha_up_down_cand_prazer = checa_vies(x, y, a, b, permutacoes_cand_prazer, folha_up_down)
 ```
 
 #### partidos x prazer
-```{r}
+```{r, include=FALSE}
 x = c("dilma", "lula", "pt", "padilha", "haddad")
 y = c("aécio", "fhc", "psdb", "alckmin", "dória")
 a = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "honesto", "sorte", "diploma", "presente", "honra", "família", "feliz", "férias")
 b = c("abuso", "quebra", "doença", "acidente", "sofrimento", "assalto", "desastre", "ódio", "tragédia", "cadeia", "pobreza", "feio", "câncer", "morte", "prisão")
 
-vies_estadao_up_part_prazer = checa_vies(x, y, a, b, estadao_up)
-vies_folha_up_part_prazer = checa_vies(x, y, a, b, folha_up)
-vies_folha_down_part_prazer = checa_vies(x, y, a, b, folha_down)
-vies_folha_up_down_part_prazer = checa_vies(x, y, a, b, folha_up_down)
+permutacoes_part_prazer = permutacao(x, y)
+
+vies_folha_up_part_prazer = checa_vies(x, y, a, b, permutacoes_part_prazer, folha_up)
+vies_folha_down_part_prazer = checa_vies(x, y, a, b, permutacoes_part_prazer, folha_down)
+vies_folha_up_down_part_prazer = checa_vies(x, y, a, b, permutacoes_part_prazer, folha_up_down)
 ```
 
 ### presidentes vs prefeitos/governadores x prazer
-```{r}
+```{r, include=FALSE}
 x = c("dilma", "lula", "fhc", "aécio")
 y = c("haddad", "alckmin", "dória", "padilha")
 a = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "honesto", "sorte", "diploma", "presente", "honra", "família", "feliz", "férias")
 b = c("abuso", "quebra", "doença", "acidente", "sofrimento", "assalto", "desastre", "ódio", "tragédia", "cadeia", "pobreza", "feio", "câncer", "morte", "prisão")
 
-vies_estadao_up_pref_presi_prazer = checa_vies(x, y, a, b, estadao_up)
-vies_folha_up_pref_presi_prazer = checa_vies(x, y, a, b, folha_up)
-vies_folha_down_pref_presi_prazer = checa_vies(x, y, a, b, folha_down)
-vies_folha_up_down_pref_presi_prazer = checa_vies(x, y, a, b, folha_up_down)
+permutacoes_pref_presi_prazer = permutacao(x, y)
+
+vies_folha_up_pref_presi_prazer = checa_vies(x, y, a, b, permutacoes_pref_presi_prazer, folha_up)
+vies_folha_down_pref_presi_prazer = checa_vies(x, y, a, b, permutacoes_pref_presi_prazer, folha_down)
+vies_folha_up_down_pref_presi_prazer = checa_vies(x, y, a, b, permutacoes_pref_presi_prazer, folha_up_down)
 ```
 
 ### Tempo
 #### candidatos presidência x tempo
-```{r}
+```{r, include=FALSE}
 x = c("dilma", "rousseff", "lula", "pt", "temer")
 y = c("aécio", "neves", "fhc", "psdb", "aloysio")
 a = c("sempre", "longo", "constante", "eterno", "permanente")
 b = c("curto", "breve", "passagem", "provisório", "mortal")
 
-vies_estadao_up_cand_tempo = checa_vies(x, y, a, b, estadao_up)
-vies_folha_up_cand_tempo = checa_vies(x, y, a, b, folha_up)
-vies_folha_down_cand_tempo = checa_vies(x, y, a, b, folha_down)
-vies_folha_up_down_cand_tempo = checa_vies(x, y, a, b, folha_up_down)
+permutacoes_cand_tempo = permutacao(x, y)
+
+vies_folha_up_cand_tempo = checa_vies(x, y, a, b, permutacoes_cand_tempo, folha_up)
+vies_folha_down_cand_tempo = checa_vies(x, y, a, b, permutacoes_cand_tempo, folha_down)
+vies_folha_up_down_cand_tempo = checa_vies(x, y, a, b, permutacoes_cand_tempo, folha_up_down)
 ```
 
 #### partidos PT/PSDB x tempo
-```{r}
+```{r, include=FALSE}
 x = c("dilma", "lula", "pt", "padilha", "haddad")
 y = c("aécio", "fhc", "psdb", "alckmin", "dória")
 a = c("sempre", "longo", "constante", "eterno", "permanente")
 b = c("curto", "breve", "passagem", "provisório", "mortal")
 
-vies_estadao_up_pt_psdb_tempo = checa_vies(x, y, a, b, estadao_up)
-vies_folha_up_pt_psdb_tempo = checa_vies(x, y, a, b, folha_up)
-vies_folha_down_pt_psdb_tempo = checa_vies(x, y, a, b, folha_down)
-vies_folha_up_down_pt_psdb_tempo = checa_vies(x, y, a, b, folha_up_down)
+permutacoes_pt_psdb_tempo = permutacao(x, y)
+
+vies_folha_up_pt_psdb_tempo = checa_vies(x, y, a, b, permutacoes_pt_psdb_tempo, folha_up)
+vies_folha_down_pt_psdb_tempo = checa_vies(x, y, a, b, permutacoes_pt_psdb_tempo, folha_down)
+vies_folha_up_down_pt_psdb_tempo = checa_vies(x, y, a, b, permutacoes_pt_psdb_tempo, folha_up_down)
 ```
 
 ### Genero
 #### Genero x orientacao 1
-```{r}
-x = c("dilma", "genro", "marina", "marta", "erundina", "rosário")
-y = c("aécio", "lula", "fhc", "cunha", "temer", "bolsonaro")
-a = c("pt", "psb", "psd", "pdt", "pps", "pcdob", "psol")
-b = c("pp", "pr", "prb", "pros", "phs", "pen", "dem")
+```{r, include=FALSE}
+x = c("pt", "psb", "psd", "pdt", "pps", "pcdob", "psol")
+y = c("pp", "pr", "prb", "pros", "phs", "pen", "dem")
+a = c("dilma", "genro", "marina", "marta", "erundina", "rosário")
+b = c("aécio", "lula", "fhc", "cunha", "temer", "bolsonaro")
 
-#vies_estadao_up_genero_orientacao = checa_vies(x, y, a, b, estadao_up)
-vies_folha_up_genero_orientacao = checa_vies(x, y, a, b, folha_up)
-vies_folha_down_genero_orientacao = checa_vies(x, y, a, b, folha_down)
-vies_folha_up_down_genero_orientacao = checa_vies(x, y, a, b, folha_up_down)
+permutacoes_genero_orientacao_1 = permutacao(x, y)
+
+vies_folha_up_genero_orientacao_1 = checa_vies(x, y, a, b, permutacoes_genero_orientacao_1, folha_up)
+vies_folha_down_genero_orientacao_1 = checa_vies(x, y, a, b, permutacoes_genero_orientacao_1, folha_down)
+vies_folha_up_down_genero_orientacao_1 = checa_vies(x, y, a, b, permutacoes_genero_orientacao_1, folha_up_down)
 ```
 
 #### Genero x orientacao 2
-```{r}
-# Usar ele, ela, homem, mulher, sinonimos
-x = c("mulher", "mãe", "tia", "avó", "filha", "moça", "dona", "senhora")
-y = c("homem", "pai", "tio", "avô", "filho", "moço", "dono", "senhor")
-a = c("pt", "psb", "psd", "pdt", "pps", "pcdob", "psol")
-b = c("pp", "pr", "prb", "pros", "phs", "pen", "dem")
+```{r, include=FALSE}
+x = c("pt", "psb", "psd", "pdt", "pps", "pcdob", "psol")
+y = c("pp", "pr", "prb", "pros", "phs", "pen", "dem")
+a = c("mulher", "mãe", "tia", "avó", "filha", "moça", "dona", "senhora")
+b = c("homem", "pai", "tio", "avô", "filho", "moço", "dono", "senhor")
 
-#vies_estadao_up_genero_orientacao = checa_vies(x, y, a, b, estadao_up)
-vies_folha_up_genero_orientacao = checa_vies(x, y, a, b, folha_up)
-vies_folha_down_genero_orientacao = checa_vies(x, y, a, b, folha_down)
-vies_folha_up_down_genero_orientacao = checa_vies(x, y, a, b, folha_up_down)
+permutacoes_genero_orientacao_2 = permutacao(x, y)
+
+vies_folha_up_genero_orientacao_2 = checa_vies(x, y, a, b, permutacoes_genero_orientacao_2, folha_up)
+vies_folha_down_genero_orientacao_2 = checa_vies(x, y, a, b, permutacoes_genero_orientacao_2, folha_down)
+vies_folha_up_down_genero_orientacao_2 = checa_vies(x, y, a, b, permutacoes_genero_orientacao_2, folha_up_down)
 ```
 
 ### Nivel economico
 #### nivel economico x orientacao
-```{r}
-x = c("pobreza", "miséria", "indigência", "inópia", "humildade", "dificuldade", "subdesenvolvimento", "desgraça", "fome", "dureza")
-y = c("riqueza", "recursos", "capital", "patrimônio", "fortuna", "dinheiro", "ouro", "posses", "herança", "bens")
-a = c("pt", "psb", "psd", "pdt", "pps", "pcdob", "psol")
-b = c("pp", "pr", "prb", "pros", "phs", "pen", "dem")
+```{r, include=FALSE}
+x = c("pt", "psb", "psd", "pdt", "pps", "pcdob", "psol")
+y = c("pp", "pr", "prb", "pros", "phs", "pen", "dem")
+a = c("pobreza", "miséria", "indigência", "inópia", "humildade", "dificuldade", "subdesenvolvimento", "desgraça", "fome", "dureza")
+b = c("riqueza", "recursos", "capital", "patrimônio", "fortuna", "dinheiro", "ouro", "posses", "herança", "bens")
 
-#vies_estadao_up_genero_orientacao = checa_vies(x, y, a, b, estadao_up)
-vies_folha_up_genero_orientacao = checa_vies(x, y, a, b, folha_up)
-vies_folha_down_genero_orientacao = checa_vies(x, y, a, b, folha_down)
-vies_folha_up_down_genero_orientacao = checa_vies(x, y, a, b, folha_up_down)
+permutacoes_economia_orientacao = permutacao(x, y)
+
+vies_folha_up_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, folha_up)
+vies_folha_down_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, folha_down)
+vies_folha_up_down_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, folha_up_down)
 ```
-

@@ -4,44 +4,38 @@ library("partitions")
 library("gtools")
 library("purrr")
 
-## Funcoes para o calculo do vies
-# Calcula score de uma palavra para os conjuntos A e B
-cosSim_model <- function(modelo, w, col){
-  cosineSimilarity(modelo[[w]], modelo[[col]])
+cosSim_model <- function(w1, w2, modelo){
+  cosineSimilarity(modelo[[w1]],modelo[[w2]]) %>% as.numeric()
 }
 
-score_w <- function(w, a, b, modelo){
+create_cosine_metrics <- function(x, y, a, b, modelo){ #tabela de diferenca de similaridades das palavras de x e y para os conjuntos a e b
+  targets = c(x, y)
+  features = c(a, b)
   
-  mean_cosSim = function(w, palavras){
-    features = tibble(palavras = palavras)
-    
-    mean = features %>% group_by(palavras) %>% 
-      summarise(cosine = cosSim_model(modelo, w, palavras)) %>% 
-      summarise(mean = mean(cosine))  
-    
-    return(mean)
-  }
+  pares = expand.grid(target = targets, feature = features)
   
-  mean_w_A = mean_cosSim(w, a)
-  mean_w_B = mean_cosSim(w, b)
+  pares$target = pares$target %>% as.character()
+  pares$feature = pares$feature %>% as.character()
   
-  return((mean_w_A - mean_w_B) %>% as.numeric())
+  pares = pares %>%
+    rowwise() %>% 
+    mutate(cos_sim = cosSim_model(target, feature, modelo))
+  
+  targets_a = pares %>% filter(feature %in% a)
+  targets_b = pares %>% filter(feature %in% b)
+  
+  w_sim_a = targets_a %>% group_by(target) %>% summarise(mean_cos = mean(cos_sim)) %>% arrange(target)
+  w_sim_b = targets_b %>% group_by(target) %>% summarise(mean_cos = mean(cos_sim)) %>% arrange(target)
+  
+  w_dif_a_b = bind_cols(w_sim_a %>% select(target), #poderia usar w_sim_b. as duas terao a mesma ordem
+                        (w_sim_a %>% select(mean_cos) - 
+                           w_sim_b %>% select(mean_cos)))
+ 
+  w_dif_a_b = w_dif_a_b %>% rename(mean_dif_cos = mean_cos)
+
+  return(list(dif_sim_table = w_dif_a_b, w_cos_dist = pares))
 }
 
-score_targets <- function(x, y, a, b, modelo){
-  
-  sum_s_w = function(palavras){
-    scores = palavras %>% map(function(x) score_w(x, a, b, modelo)) %>% unlist() %>% sum()
-    return(scores)
-  }
-  
-  sum_w_X = sum_s_w(x)
-  sum_w_Y = sum_s_w(y)
-  
-  return(sum_w_X - sum_w_Y)
-}
-
-## Teste de permutacao
 permutacao <- function(x, y){
   
   remove_repeated_sets = function(Xi, Yi){
@@ -65,95 +59,59 @@ permutacao <- function(x, y){
   return(remove_repeated_sets(Xi, Yi))
 }
 
-score_permutacoes <- function(Xi, Yi, a, b, modelo, name){
-  
-  cols_in_Xi = colnames(Xi)
-  cols_in_Yi = colnames(Yi)
-  
-  targets_permuted = bind_cols(Xi, Yi) 
-  
-  scores_permutacao = targets_permuted %>% apply(1, FUN = function(x){
-    Xi_values = x[which(names(x) %in% cols_in_Xi)]
-    Yi_values = x[which(names(x) %in% cols_in_Yi)]
+score <- function(tables, dif_sim_table){
 
-    return(score_targets(Xi_values, Yi_values, a, b, modelo))
-  })
-
-  return(scores_permutacao)
-}
-
-## Tamanho do efeito
-effect_size <- function(x, y, a, b, modelo){
-  
-  s_w = function(palavras){
-    targets = tibble(palavras = palavras)
-
-    targets %>% group_by(palavras) %>% 
-      summarise(s_w = score_w(palavras, a, b, modelo))
+  sum_w_sim = function(words_set, dif_sim_table){
+    dif_sim_table %>% filter(target %in% words_set) %>% summarise(sum_sim = sum(mean_dif_cos)) %>% as.numeric()
   }
   
-  x = s_w(x)
-  y = s_w(y)
+  score_Xi = tables$Xi %>% apply(1, sum_w_sim, dif_sim_table)
+  score_Yi = tables$Yi %>% apply(1, sum_w_sim, dif_sim_table)
+  score_Xi_Yi = score_Xi - score_Yi
   
-  x_mean = x %>% summarise(mean = mean(s_w)) %>% as.numeric()
-  y_mean = y %>% summarise(mean = mean(s_w)) %>% as.numeric()
-  
-  w_sd = bind_rows(x, y) %>% summarise(sd = sd(s_w)) %>% as.numeric()
-  
-  return((x_mean - y_mean)/w_sd)
+  return(bind_cols(tables$Xi, tables$Yi, score = score_Xi_Yi))
 }
 
-## WEFAT
-w_wefat <- function(w, a, b, modelo){
-  
-  numerador = score_w(w, a, b, modelo)
-  
-  s_w = function(palavras){
-    
-    features = tibble(palavras = palavras)
-    
-    features %>% group_by(palavras) %>% 
-      summarise(s = cosSim_model(modelo, w, palavras))  
-  }
-  
-  s_a = s_w(a)
-  s_b = s_w(b)
-  
-  w_wefat = bind_rows(s_a, s_b) %>% summarise(sd = sd(s)) %>% as.numeric()
-  return(w_wefat)
-}
-
-wefat <- function(x, y, a, b, modelo){
-  
-  get_w_wefat = function(palavras){
-    targets = tibble(palavras = palavras)
-    
-    targets %>% group_by(palavras) %>% 
-      summarise(w_wefat = w_wefat(palavras, a, b, modelo))
-  }
-  
-  w_wefat_x = get_w_wefat(x)
-  w_wefat_y = get_w_wefat(y)
-  
-  w_wefat = bind_rows(w_wefat_x, w_wefat_y) %>% arrange(-w_wefat)
-  return(w_wefat)
-}
-
-pvalor <- function(scores_Xi_Yi, score_X_Y){
-  tbl = data_frame(value = scores_Xi_Yi > score_X_Y)
-  n_true = tbl %>% filter(value == T) %>% summarise(cont = n()) %>% as.numeric()
+pvalor <- function(scores_permutacao, score_x_y){
+  tbl = data_frame(value = scores_permutacao$score > score_x_y$score)
+  n_true = tbl %>% filter(value == T) %>% summarise(cont = n()-1) %>% as.numeric() #menos 1 porque uma das linhas do denominador tera o mesmo valor que score_x_y$score
   n_total = nrow(tbl)
   return(n_true/n_total)
 }
 
+effect_size <- function(x, y, dif_sim_table){
+  
+  x_mean = dif_sim_table %>% filter(target %in% x) %>% summarise(mean_dif = mean(mean_dif_cos)) %>% as.numeric()
+  y_mean = dif_sim_table %>% filter(target %in% y) %>% summarise(mean_dif = mean(mean_dif_cos)) %>% as.numeric()
+  
+  w_sd = dif_sim_table %>% summarise(sd = sd(mean_dif_cos)) %>% as.numeric()
+  
+  return((x_mean - y_mean)/w_sd)
+}
+
+wefat <- function(dif_sim_table, w_cos_dist){
+  
+  dif_sim_table = dif_sim_table %>% arrange(target)
+  w_sd = w_cos_dist %>% group_by(target) %>% summarise(sd = sd(cos_sim)) %>% arrange(target)
+  
+  w_wefat = bind_cols(dif_sim_table %>% select(target),
+                      dif_sim_table %>% select(mean_dif_cos)/
+                      w_sd %>% select(sd))
+  
+  return(w_wefat)
+}
+
 ## Verifica se todas as palavras dos dataframes estao contidas no modelo
-modelo_contem_palavra <- function(features, targets, modelo){
+modelo_contem_palavra <- function(x, y, a, b, modelo){
   
   checa_palavra_em_modelo <- function(w, modelo){
     wv = modelo[[w]]
     contem = (is.nan(wv[1,1]) == F) #se vetor contem nan, entao nao existe a palavra no modelo
     return(contem)
   }
+  
+  targets = data_frame(X = x, Y = y)
+  features = data_frame(A = a, B = b)
   
   ok_a = features %>% group_by(get("A")) %>% summarise(palavras_do_modelo = checa_palavra_em_modelo(get("A"), modelo))
   ok_b = features %>% group_by(get("B")) %>% summarise(palavras_do_modelo = checa_palavra_em_modelo(get("B"), modelo))
