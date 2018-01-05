@@ -38,25 +38,17 @@ create_cosine_metrics <- function(x, y, a, b, modelo){ #tabela de diferenca de s
 
 permutacao <- function(x, y){
   
-  remove_repeated_sets = function(Xi, Yi){
-    duplicados = duplicated(Yi)
-    Xi = Xi[!duplicados,]
-    Yi = Yi[!duplicados,]
-    return(list(Xi = Xi, Yi = Yi))
-  }
-  
   all_targets = c(x,y)
   n = length(all_targets)
-  Xi = permutations(n=n, r=n/2, v=all_targets) %>% as.data.frame()
+  Xi = combinat::combn(all_targets, n/2) %>% t() %>% as.data.frame()
   colnames(Xi) = paste("X",colnames(Xi),sep = "")
-  
+
   Yi = Xi %>% apply(1, FUN=function(x){
     setdiff(all_targets, x)
   }) %>% t() %>% as.data.frame()
-  
   colnames(Yi) = paste("Y",colnames(Yi),sep = "")
   
-  return(remove_repeated_sets(Xi, Yi))
+  return(list(Xi = Xi, Yi = Yi))
 }
 
 score <- function(tables, dif_sim_table){
@@ -74,8 +66,9 @@ score <- function(tables, dif_sim_table){
 
 pvalor <- function(scores_permutacao, score_x_y){
   tbl = data_frame(value = scores_permutacao$score > score_x_y$score)
-  n_true = tbl %>% filter(value == T) %>% summarise(cont = n()-1) %>% as.numeric() #menos 1 porque uma das linhas do denominador tera o mesmo valor que score_x_y$score
-  n_total = nrow(tbl)
+  
+  n_true = tbl %>% filter(value == T) %>% summarise(cont = n()) %>% as.numeric() 
+  n_total = nrow(tbl)-1 #menos 1 porque uma das linhas do denominador tera o mesmo valor que score_x_y$score
   return(n_true/n_total)
 }
 

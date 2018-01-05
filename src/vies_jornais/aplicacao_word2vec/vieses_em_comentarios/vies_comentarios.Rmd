@@ -56,7 +56,7 @@ checa_vies <- function(x, y, a, b, permutacoes, modelo){
 
 ### Prazer
 #### candidatos presidencia x prazer
-```{r, include=FALSE}
+```{r, warning=FALSE}
 x = c("aécio", "neves", "fhc", "psdb", "aloysio")
 y = c("dilma", "rousseff", "lula", "pt", "temer")
 a = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "honesto", "sorte", "diploma", "presente", "honra", "família", "feliz", "férias")
@@ -70,7 +70,7 @@ vies_folha_up_down_cand_prazer = checa_vies(x, y, a, b, permutacoes_cand_prazer,
 ```
 
 #### partidos x prazer
-```{r, include=FALSE}
+```{r, warning=FALSE}
 x = c("dilma", "lula", "pt", "padilha", "haddad")
 y = c("aécio", "fhc", "psdb", "alckmin", "dória")
 a = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "honesto", "sorte", "diploma", "presente", "honra", "família", "feliz", "férias")
@@ -84,7 +84,7 @@ vies_folha_up_down_part_prazer = checa_vies(x, y, a, b, permutacoes_part_prazer,
 ```
 
 ### presidentes vs prefeitos/governadores x prazer
-```{r, include=FALSE}
+```{r, warning=FALSE}
 x = c("dilma", "lula", "fhc", "aécio")
 y = c("haddad", "alckmin", "dória", "padilha")
 a = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "honesto", "sorte", "diploma", "presente", "honra", "família", "feliz", "férias")
@@ -99,7 +99,7 @@ vies_folha_up_down_pref_presi_prazer = checa_vies(x, y, a, b, permutacoes_pref_p
 
 ### Tempo
 #### candidatos presidência x tempo
-```{r, include=FALSE}
+```{r, warning=FALSE}
 x = c("dilma", "rousseff", "lula", "pt", "temer")
 y = c("aécio", "neves", "fhc", "psdb", "aloysio")
 a = c("sempre", "longo", "constante", "eterno", "permanente")
@@ -113,7 +113,7 @@ vies_folha_up_down_cand_tempo = checa_vies(x, y, a, b, permutacoes_cand_tempo, f
 ```
 
 #### partidos PT/PSDB x tempo
-```{r, include=FALSE}
+```{r, warning=FALSE}
 x = c("dilma", "lula", "pt", "padilha", "haddad")
 y = c("aécio", "fhc", "psdb", "alckmin", "dória")
 a = c("sempre", "longo", "constante", "eterno", "permanente")
@@ -128,7 +128,7 @@ vies_folha_up_down_pt_psdb_tempo = checa_vies(x, y, a, b, permutacoes_pt_psdb_te
 
 ### Genero
 #### Genero x orientacao 1
-```{r, include=FALSE}
+```{r, warning=FALSE}
 x = c("pt", "psb", "psd", "pdt", "pps", "pcdob", "psol")
 y = c("pp", "pr", "prb", "pros", "phs", "pen", "dem")
 a = c("dilma", "genro", "marina", "marta", "erundina", "rosário")
@@ -142,7 +142,7 @@ vies_folha_up_down_genero_orientacao_1 = checa_vies(x, y, a, b, permutacoes_gene
 ```
 
 #### Genero x orientacao 2
-```{r, include=FALSE}
+```{r, warning=FALSE}
 x = c("pt", "psb", "psd", "pdt", "pps", "pcdob", "psol")
 y = c("pp", "pr", "prb", "pros", "phs", "pen", "dem")
 a = c("mulher", "mãe", "tia", "avó", "filha", "moça", "dona", "senhora")
@@ -157,7 +157,7 @@ vies_folha_up_down_genero_orientacao_2 = checa_vies(x, y, a, b, permutacoes_gene
 
 ### Nivel economico
 #### nivel economico x orientacao
-```{r, include=FALSE}
+```{r, warning=FALSE}
 x = c("pt", "psb", "psd", "pdt", "pps", "pcdob", "psol")
 y = c("pp", "pr", "prb", "pros", "phs", "pen", "dem")
 a = c("pobreza", "miséria", "indigência", "inópia", "humildade", "dificuldade", "subdesenvolvimento", "desgraça", "fome", "dureza")
@@ -168,4 +168,5 @@ permutacoes_economia_orientacao = permutacao(x, y)
 vies_folha_up_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, folha_up)
 vies_folha_down_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, folha_down)
 vies_folha_up_down_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, folha_up_down)
+
 ```
