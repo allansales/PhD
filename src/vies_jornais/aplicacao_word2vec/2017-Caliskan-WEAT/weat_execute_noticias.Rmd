@@ -57,10 +57,10 @@ checa_vies <- function(x, y, a, b, permutacoes, modelo){
 ## Conjuntos de palavras
 ### candidatos x coligacoes
 ```{r, warning=FALSE}
-x = c("dilma", "rousseff", "lula", "pt", "temer", "michel")
-y = c("aécio", "neves", "fhc", "psdb", "aloysio", "nunes")
-a = c("pmdb", "psd", "pp", "pr", "pdt", "pros", "pcdob") 
-b = c("sd", "pmn", "pen", "ptn", "ptc", "dem", "ptb")
+x = c("dilma", "rousseff", "lula", "temer", "michel")
+y = c("aécio", "neves", "fhc", "aloysio", "nunes")
+a = c("pt", "pmdb", "psd", "pp", "pr", "pdt", "pros", "pcdob") 
+b = c("psdb", "sd", "pmn", "pen", "ptn", "ptc", "dem", "ptb")
 
 permutacoes_cand_colig = permutacao(x, y)
 
@@ -72,14 +72,12 @@ vies_estadao_cand_colig = checa_vies(x, y, a, b, permutacoes_cand_colig, we_esta
 ```{r, warning=FALSE}
 x = c("dilma", "rousseff", "lula", "pt", "temer", "michel")
 y = c("aécio", "neves", "fhc", "psdb", "aloysio", "nunes")
-a = c("estável", "sempre", "longo", "constante", "persistência")
-b = c("instável", "variável", "curto", "breve", "passageiro")
+a = c("estável", "sempre", "constante", "persistente", "crônico", "prolongado", "eternamente")
+b = c("impermantente", "instável", "variável", "fugaz", "curto", "breve", "ocasional")
 
 permutacoes_cand_tempo = permutacao(x, y)
 
 vies_folha_cand_tempo = checa_vies(x, y, a, b, permutacoes_cand_tempo, we_folha_noticias)
-
-b = c("instável", "variável", "curto", "breve", "passagem")
 vies_estadao_cand_tempo = checa_vies(x, y, a, b, permutacoes_cand_tempo, we_estadao_noticias)
 ```
 
@@ -87,8 +85,8 @@ vies_estadao_cand_tempo = checa_vies(x, y, a, b, permutacoes_cand_tempo, we_esta
 ```{r, warning=FALSE}
 x = c("dilma", "rousseff", "lula", "pt", "temer", "michel")
 y = c("aécio", "neves", "fhc", "psdb", "aloysio", "nunes")
-a = c("carinho", "liberdade", "saúde", "amor", "paz", "alegria", "fiel", "honesto", "sorte", "diploma", "presente", "honra", "família", "feliz", "férias")
-b = c("abuso", "quebra", "doença", "acidente", "sofrimento", "assalto", "desastre", "ódio", "tragédia", "cadeia", "pobreza", "feio", "câncer", "morte", "prisão")
+a = c("carícia", "liberdade", "saúde", "amor", "paz", "alegria", "amigo", "paraíso", "leal", "prazer", "diamante", "gentil", "honesto", "sorte", "arcoíris", "diploma", "presente", "honra", "milagre", "família", "felicidade", "risada", "céu", "férias","aeeaeaeaeaea")
+b = c("abuso","quebra","sujeira","assassinato","doença","acidente","morte","tristeza","veneno","fedor","assalto","desastre","ódio","poluição","tragédia","bomba","divórcio","cadeia","pobreza","feio","câncer","maldade","matar","podre","vômito")
 
 permutacoes_cand_prazer = permutacao(x, y)
 
@@ -113,11 +111,26 @@ vies_estadao_gen_pos_1 = checa_vies(x, y, a, b, permutacoes_gen_pos_1, we_estada
 ```{r, warning=FALSE}
 x = c("pt", "psb", "psd", "pdt", "pps", "pcdob","psol")
 y = c("pp", "prb", "pros", "prtb", "phs", "pen", "dem")
-a = c("mulher", "mãe", "avó", "filha", "dona", "senhora")
-b = c("homem", "pai", "avô", "filho", "dono", "senhor")
+a = c("mulher", "mãe", "avó", "filha", "dona", "senhora","esposa")
+b = c("homem", "pai", "avô", "filho", "dono", "senhor","marido")
 
 permutacoes_gen_pos_2 = permutacao(x, y)
 
 vies_folha_gen_pos_2 = checa_vies(x, y, a, b, permutacoes_gen_pos_2, we_folha_noticias)
 vies_estadao_gen_pos_2 = checa_vies(x, y, a, b, permutacoes_gen_pos_2, we_estadao_noticias)
+```
+
+### Nivel economico
+#### candidato x nivel economico
+```{r, warning=FALSE}
+x = c("dilma", "rousseff", "lula", "pt", "temer")
+y = c("aécio", "neves", "fhc", "psdb", "nunes")
+a = c("pobreza", "miséria", "dificuldade", "fome")
+b = c("recursos", "capital", "patrimônio", "dinheiro")
+
+permutacoes_economia_orientacao = permutacao(x, y)
+
+vies_folha_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, we_folha_noticias)
+vies_estadao_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, we_estadao_noticias)
+
 ```
