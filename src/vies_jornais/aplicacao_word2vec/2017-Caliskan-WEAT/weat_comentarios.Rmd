@@ -51,8 +51,8 @@ folha_down_cand_tempo = checa_vies(x, y, a, b, permutacoes_cand_tempo, folha_dow
 ```{r, warning=FALSE}
 x = c("dilma", "rousseff", "lula", "pt", "temer", "michel")
 y = c("aécio", "neves", "fhc", "psdb", "aloysio", "nunes")
-a = c("liberdade", "saúde", "amor", "paz", "alegria", "amigo", "paraíso", "prazer", "honesto", "sorte", "diploma", "presente", "honra", "milagre", "família", "felicidade", "céu", "férias")
-b = c("quebra","sujeira","assassinato","doença","acidente","morte","tristeza","veneno","assalto","desastre","ódio","tragédia","bomba","cadeia","pobreza","feio","maldade","podre")
+a = c("quebra","sujeira","assassinato","doença","acidente","morte","tristeza","veneno","assalto","desastre","ódio","tragédia","bomba","cadeia","pobreza","feio","maldade","podre")
+b = c("liberdade", "saúde", "amor", "paz", "alegria", "amigo", "paraíso", "prazer", "honesto", "sorte", "diploma", "presente", "honra", "milagre", "família", "felicidade", "céu", "férias")
 
 permutacoes_cand_prazer = permutacao(x, y)
 
@@ -98,9 +98,14 @@ a = c("pobreza", "miséria", "dificuldade", "fome", "crise")
 b = c("recurso", "capital", "patrimônio", "dinheiro", "bens")
 
 
-permutacoes_economia_orientacao = permutacao(x, y)
+permutacoes_economia_cand = permutacao(x, y)
 
-folha_up_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, folha_up)
-folha_down_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, folha_down)
+folha_up_economia_cand = checa_vies(x, y, a, b, permutacoes_economia_cand, folha_up)
+folha_down_economia_cand = checa_vies(x, y, a, b, permutacoes_economia_cand, folha_down)
 #folha_up_down_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, folha_up_down)
 ```
+
+```{r}
+
+```
+

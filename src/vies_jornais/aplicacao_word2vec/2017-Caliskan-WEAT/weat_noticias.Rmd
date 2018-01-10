@@ -89,13 +89,18 @@ vies_estadao_gen_pos_2 = checa_vies(x, y, a, b, permutacoes_gen_pos_2, we_estada
 ### Nivel economico
 #### candidato x nivel economico
 ```{r, warning=FALSE}
-x = c("aécio", "neves", "fhc", "psdb", "aloysio", "nunes")
-y = c("dilma", "rousseff", "lula", "pt", "temer","michel")
-a = c("recurso", "capital", "patrimônio", "dinheiro", "riqueza", "bens", "meios")
-b = c("pobreza", "miséria", "dificuldade", "fome", "crise", "carência", "escassez")
+x = c("dilma", "rousseff", "lula", "pt", "temer","michel")
+y = c("aécio", "neves", "fhc", "psdb", "aloysio", "nunes")
+a = c("pobreza", "miséria", "dificuldade", "fome", "crise", "carência", "escassez")
+b = c("recurso", "capital", "patrimônio", "dinheiro", "riqueza", "bens", "meios")
 
 permutacoes_economia_orientacao = permutacao(x, y)
 
 vies_folha_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, we_folha_noticias)
 vies_estadao_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, we_estadao_noticias)
 ```
+
+```{r}
+
+```
+

@@ -51,7 +51,7 @@ noticia_folha_cand_tempo = checa_vies(x, y, a, b, permutacoes_cand_tempo, we_fol
 ```{r, warning=FALSE}
 x = c("dilma", "rousseff", "lula", "pt", "temer", "michel")
 y = c("aécio", "neves", "fhc", "psdb", "aloysio", "nunes")
-a = c("liberdade", "amor", "paz", "alegria", "amigo", "paraíso", "honesto", "sorte", "diploma", "presente", "honra", "milagre", "família", "felicidade")
+a = c("liberdade", "saúde", "amor", "paz", "alegria", "amigo", "honesto", "sorte", "diploma", "presente", "honra", "família", "céu", "férias")
 b = c("quebra","doença","acidente","morte","tristeza","veneno","assalto","desastre","ódio","tragédia","bomba","cadeia","pobreza","feio")
 
 permutacoes_cand_prazer = permutacao(x, y)
@@ -104,3 +104,8 @@ folha_up_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orien
 folha_down_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, folha_down)
 noticia_folha_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, we_folha_noticias)
 ```
+
+```{r}
+
+```
+
