@@ -102,5 +102,6 @@ vies_estadao_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_o
 
 ```{r}
 
+
 ```
 
