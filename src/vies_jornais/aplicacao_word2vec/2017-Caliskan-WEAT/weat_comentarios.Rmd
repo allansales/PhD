@@ -22,7 +22,7 @@ folha_up_down = read.binary.vectors("../word_embeddings/vieses_em_comentarios/em
 ### candidatos x coligacoes
 ```{r, warning=FALSE}
 x = c("dilma", "rousseff", "lula", "temer", "michel")
-y = c("a√©cio", "neves", "fhc", "aloysio", "nunes")
+y = c("aÈcio", "neves", "fhc", "aloysio", "nunes")
 a = c("pt", "pmdb", "psd") 
 b = c("psdb", "dem", "ptb")
 
@@ -36,9 +36,9 @@ folha_down_cand_colig = checa_vies(x, y, a, b, permutacoes_cand_colig, folha_dow
 ### candidatos x temporario - permanente
 ```{r, warning=FALSE}
 x = c("dilma", "rousseff", "lula", "pt", "temer", "michel")
-y = c("a√©cio", "neves", "fhc", "psdb", "aloysio", "nunes")
-a = c("est√°vel", "sempre", "constante", "permanente")
-b = c("breve", "r√°pido", "eventual", "curto")
+y = c("aÈcio", "neves", "fhc", "psdb", "aloysio", "nunes")
+a = c("est·vel", "sempre", "constante", "permanente")
+b = c("breve", "r·pido", "eventual", "curto")
 
 permutacoes_cand_tempo = permutacao(x, y)
 
@@ -50,9 +50,9 @@ folha_down_cand_tempo = checa_vies(x, y, a, b, permutacoes_cand_tempo, folha_dow
 ### candidatos x prazer
 ```{r, warning=FALSE}
 x = c("dilma", "rousseff", "lula", "pt", "temer", "michel")
-y = c("a√©cio", "neves", "fhc", "psdb", "aloysio", "nunes")
-a = c("quebra","sujeira","assassinato","doen√ßa","acidente","morte","tristeza","veneno","assalto","desastre","√≥dio","trag√©dia","bomba","cadeia","pobreza","feio","maldade","podre")
-b = c("liberdade", "sa√∫de", "amor", "paz", "alegria", "amigo", "para√≠so", "prazer", "honesto", "sorte", "diploma", "presente", "honra", "milagre", "fam√≠lia", "felicidade", "c√©u", "f√©rias")
+y = c("aÈcio", "neves", "fhc", "psdb", "aloysio", "nunes")
+a = c("quebra","sujeira","assassinato","doenÁa","acidente","morte","tristeza","veneno","assalto","desastre","Ûdio","tragÈdia","bomba","cadeia","pobreza","feio","maldade","podre")
+b = c("liberdade", "sa˙de", "amor", "paz", "alegria", "amigo", "paraÌso", "prazer", "honesto", "sorte", "diploma", "presente", "honra", "milagre", "famÌlia", "felicidade", "cÈu", "fÈrias")
 
 permutacoes_cand_prazer = permutacao(x, y)
 
@@ -66,7 +66,7 @@ folha_down_cand_prazer = checa_vies(x, y, a, b, permutacoes_cand_prazer, folha_d
 x = c("pt", "psb", "psd")
 y = c("pp", "pros", "dem")
 a = c("dilma", "rousseff", "luciana", "genro", "marina")
-b = c("a√©cio", "neves", "eduardo", "jorge", "fidelix")
+b = c("aÈcio", "neves", "eduardo", "jorge", "fidelix")
 
 permutacoes_gen_pos_1 = permutacao(x, y)
 
@@ -79,8 +79,8 @@ folha_down_gen_pos_1 = checa_vies(x, y, a, b, permutacoes_gen_pos_1, folha_down)
 ```{r, warning=FALSE}
 x = c("pt", "psb", "psd")
 y = c("pp", "pros", "dem")
-a = c("mulher", "m√£e", "av√≥", "filha", "dona", "senhora", "esposa", "senadora", "presidenta")
-b = c("homem", "pai", "av√¥", "filho", "dono", "senhor", "marido", "senador", "presidente")
+a = c("mulher", "m„e", "avÛ", "filha", "dona", "senhora", "esposa", "senadora", "presidenta")
+b = c("homem", "pai", "avÙ", "filho", "dono", "senhor", "marido", "senador", "presidente")
 
 permutacoes_gen_pos_2 = permutacao(x, y)
 
@@ -93,9 +93,9 @@ folha_down_gen_pos_2 = checa_vies(x, y, a, b, permutacoes_gen_pos_2, folha_down)
 #### candidato x nivel economico
 ```{r, warning=FALSE}
 x = c("dilma", "lula", "temer", "pt", "rousseff", "michel")
-y = c("a√©cio", "fhc", "nunes", "psdb", "neves", "aloysio")
-a = c("pobreza", "mis√©ria", "dificuldade", "fome", "crise")
-b = c("recurso", "capital", "patrim√¥nio", "dinheiro", "bens")
+y = c("aÈcio", "fhc", "nunes", "psdb", "neves", "aloysio")
+a = c("pobreza", "misÈria", "dificuldade", "fome", "crise")
+b = c("recurso", "capital", "patrimÙnio", "dinheiro", "bens")
 
 
 permutacoes_economia_cand = permutacao(x, y)
@@ -104,8 +104,3 @@ folha_up_economia_cand = checa_vies(x, y, a, b, permutacoes_economia_cand, folha
 folha_down_economia_cand = checa_vies(x, y, a, b, permutacoes_economia_cand, folha_down)
 #folha_up_down_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, folha_up_down)
 ```
-
-```{r}
-
-```
-
