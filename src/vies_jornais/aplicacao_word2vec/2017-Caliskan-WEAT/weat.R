@@ -94,6 +94,39 @@ wefat <- function(dif_sim_table, w_cos_dist){
   return(w_wefat)
 }
 
+execute <- function(x, y, a, b, permutacoes, modelo){
+  
+  organize_input = function(x, y){
+    X = x %>% t() %>% as_data_frame()
+    Y = y %>% t() %>% as_data_frame()
+    table = list(Xi = X, Yi = Y)
+  }
+  
+  cosine_metrics = create_cosine_metrics(x, y, a, b, modelo)
+  dif_sim_table = cosine_metrics$dif_sim_table
+  
+  entrada_x_y = organize_input(x, y)
+  score_x_y = score(entrada_x_y, dif_sim_table)
+  scores_permutacao = score(permutacoes, dif_sim_table) %>% arrange(-score)
+  
+  p_valor = pvalor(scores_permutacao, score_x_y)
+  tam_efeito = effect_size(x, y, dif_sim_table)
+  
+  valores = data_frame(p_valor, tam_efeito)
+  
+  return(list(valores = valores, scores_permutacao = scores_permutacao, score_X_Y = score_x_y))
+}
+
+## Verifica se todas as palavras estao contidas no vocabulario dos portais
+checa_vies <- function(x, y, a, b, permutacoes, modelo){
+  contem = modelo_contem_palavra(x, y, a, b, modelo)
+  if(contem){
+    resultados_vies = execute(x, y, a, b, permutacoes, modelo)
+    return(resultados_vies)  
+  }
+}
+
+
 ## Verifica se todas as palavras dos dataframes estao contidas no modelo
 modelo_contem_palavra <- function(x, y, a, b, modelo){
   

@@ -20,40 +20,6 @@ we_estadao_noticias = read.binary.vectors("../word_embeddings/eleicoes_2014/embe
 we_folha_noticias = read.binary.vectors("../word_embeddings/eleicoes_2014/embeddings/folha_noticias_eleicao_2014.bin")
 ```
 
-## Verifica se todas as palavras estao contidas no vocabulario dos portais
-```{r}
-execute <- function(x, y, a, b, permutacoes, modelo){
-  
-  organize_input = function(x, y){
-    X = x %>% t() %>% as_data_frame()
-    Y = y %>% t() %>% as_data_frame()
-    table = list(Xi = X, Yi = Y)
-  }
-  
-  cosine_metrics = create_cosine_metrics(x, y, a, b, modelo)
-  dif_sim_table = cosine_metrics$dif_sim_table
-  
-  entrada_x_y = organize_input(x, y)
-  score_x_y = score(entrada_x_y, dif_sim_table)
-  scores_permutacao = score(permutacoes, dif_sim_table) %>% arrange(-score)
-  
-  p_valor = pvalor(scores_permutacao, score_x_y)
-  tam_efeito = effect_size(x, y, dif_sim_table)
-
-  valores = data_frame(p_valor, tam_efeito)
-  
-  return(list(valores = valores, scores_permutacao = scores_permutacao, score_X_Y = score_x_y))
-}
-
-checa_vies <- function(x, y, a, b, permutacoes, modelo){
-  contem = modelo_contem_palavra(x, y, a, b, modelo)
-  if(contem){
-    resultados_vies = execute(x, y, a, b, permutacoes, modelo)
-    return(resultados_vies)  
-  }
-}
-```
-
 ## Conjuntos de palavras
 ### candidatos x coligacoes
 ```{r, warning=FALSE}
@@ -72,8 +38,8 @@ vies_estadao_cand_colig = checa_vies(x, y, a, b, permutacoes_cand_colig, we_esta
 ```{r, warning=FALSE}
 x = c("dilma", "rousseff", "lula", "pt", "temer", "michel")
 y = c("aécio", "neves", "fhc", "psdb", "aloysio", "nunes")
-a = c("estável", "sempre", "constante", "persistente", "crônico", "prolongado", "eternamente")
-b = c("impermantente", "instável", "variável", "fugaz", "curto", "breve", "ocasional")
+a = c("estável", "sempre", "constante", "permanente", "frequente", "definitivo")
+b = c("instável", "variável", "breve", "rápido", "eventual", "curto")
 
 permutacoes_cand_tempo = permutacao(x, y)
 
@@ -85,8 +51,8 @@ vies_estadao_cand_tempo = checa_vies(x, y, a, b, permutacoes_cand_tempo, we_esta
 ```{r, warning=FALSE}
 x = c("dilma", "rousseff", "lula", "pt", "temer", "michel")
 y = c("aécio", "neves", "fhc", "psdb", "aloysio", "nunes")
-a = c("carícia", "liberdade", "saúde", "amor", "paz", "alegria", "amigo", "paraíso", "leal", "prazer", "diamante", "gentil", "honesto", "sorte", "arcoíris", "diploma", "presente", "honra", "milagre", "família", "felicidade", "risada", "céu", "férias","aeeaeaeaeaea")
-b = c("abuso","quebra","sujeira","assassinato","doença","acidente","morte","tristeza","veneno","fedor","assalto","desastre","ódio","poluição","tragédia","bomba","divórcio","cadeia","pobreza","feio","câncer","maldade","matar","podre","vômito")
+a = c("liberdade", "saúde", "amor", "paz", "alegria", "amigo", "leal", "honesto", "sorte", "diploma", "presente", "honra", "família", "céu", "férias")
+b = c("abuso","quebra","doença","acidente","morte","tristeza","assalto","desastre","ódio","tragédia","cadeia","pobreza","feio","câncer","matar")
 
 permutacoes_cand_prazer = permutacao(x, y)
 
@@ -96,8 +62,8 @@ vies_estadao_cand_prazer = checa_vies(x, y, a, b, permutacoes_cand_prazer, we_es
 
 ### Vies de genero x posicionamento politico 1
 ```{r, warning=FALSE}
-x = c("pt", "psb", "psd", "pdt", "pps", "pcdob","psol")
-y = c("pp", "prb", "pros", "prtb", "phs", "pen", "dem")
+x = c("pt", "pdt", "pps", "pcdob", "psol")
+y = c("pp", "pros", "prtb", "phs", "pen")
 a = c("dilma", "rousseff", "luciana", "genro", "marina", "silva")
 b = c("aécio", "neves", "eduardo", "jorge", "levy", "fidelix")
 
@@ -109,10 +75,10 @@ vies_estadao_gen_pos_1 = checa_vies(x, y, a, b, permutacoes_gen_pos_1, we_estada
 
 ### Vies de genero x posicionamento politico 2
 ```{r, warning=FALSE}
-x = c("pt", "psb", "psd", "pdt", "pps", "pcdob","psol")
-y = c("pp", "prb", "pros", "prtb", "phs", "pen", "dem")
-a = c("mulher", "mãe", "avó", "filha", "dona", "senhora","esposa")
-b = c("homem", "pai", "avô", "filho", "dono", "senhor","marido")
+x = c("pt", "pdt", "pps", "pcdob", "psol")
+y = c("pp", "pros", "prtb", "phs", "pen")
+a = c("mulher", "mãe", "avó", "filha", "dona", "senhora", "esposa", "senadora", "deputada", "presidenta", "prefeita", "governadora")
+b = c("homem", "pai", "avô", "filho", "dono", "senhor", "marido", "senador", "deputado", "presidente", "prefeito", "governador")
 
 permutacoes_gen_pos_2 = permutacao(x, y)
 
@@ -123,14 +89,13 @@ vies_estadao_gen_pos_2 = checa_vies(x, y, a, b, permutacoes_gen_pos_2, we_estada
 ### Nivel economico
 #### candidato x nivel economico
 ```{r, warning=FALSE}
-x = c("dilma", "rousseff", "lula", "pt", "temer")
-y = c("aécio", "neves", "fhc", "psdb", "nunes")
-a = c("pobreza", "miséria", "dificuldade", "fome")
-b = c("recursos", "capital", "patrimônio", "dinheiro")
+x = c("aécio", "neves", "fhc", "psdb", "aloysio", "nunes")
+y = c("dilma", "rousseff", "lula", "pt", "temer","michel")
+a = c("recurso", "capital", "patrimônio", "dinheiro", "riqueza", "bens", "meios")
+b = c("pobreza", "miséria", "dificuldade", "fome", "crise", "carência", "escassez")
 
 permutacoes_economia_orientacao = permutacao(x, y)
 
 vies_folha_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, we_folha_noticias)
 vies_estadao_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, we_estadao_noticias)
-
 ```

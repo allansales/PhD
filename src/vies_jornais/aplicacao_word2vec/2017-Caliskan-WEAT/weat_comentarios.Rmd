@@ -1,0 +1,106 @@
+---
+title: "vies_comentarios"
+author: "Allan Sales"
+date: "21 de dezembro de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("weat.R")
+library(wordVectors)
+```
+
+```{r}
+#estadao_up = read.binary.vectors("../word_embeddings/vieses_em_comentarios/embeddings/estadao_thumbs_up.bin")
+folha_up = read.binary.vectors("../word_embeddings/vieses_em_comentarios/embeddings/folha_thumbs_up.bin")
+folha_down = read.binary.vectors("../word_embeddings/vieses_em_comentarios/embeddings/folha_thumbs_down.bin")
+folha_up_down = read.binary.vectors("../word_embeddings/vieses_em_comentarios/embeddings/folha_thumbs_up_down.bin")
+```
+
+## Conjuntos de palavras
+### candidatos x coligacoes
+```{r, warning=FALSE}
+x = c("dilma", "rousseff", "lula", "temer", "michel")
+y = c("aécio", "neves", "fhc", "aloysio", "nunes")
+a = c("pt", "pmdb", "psd") 
+b = c("psdb", "dem", "ptb")
+
+permutacoes_cand_colig = permutacao(x, y)
+
+folha_up_cand_colig = checa_vies(x, y, a, b, permutacoes_cand_colig, folha_up)
+folha_down_cand_colig = checa_vies(x, y, a, b, permutacoes_cand_colig, folha_down)
+#folha_up_down_cand_colig = checa_vies(x, y, a, b, permutacoes_cand_colig, folha_up_down)
+```
+
+### candidatos x temporario - permanente
+```{r, warning=FALSE}
+x = c("dilma", "rousseff", "lula", "pt", "temer", "michel")
+y = c("aécio", "neves", "fhc", "psdb", "aloysio", "nunes")
+a = c("estável", "sempre", "constante", "permanente")
+b = c("breve", "rápido", "eventual", "curto")
+
+permutacoes_cand_tempo = permutacao(x, y)
+
+folha_up_cand_tempo = checa_vies(x, y, a, b, permutacoes_cand_tempo, folha_up)
+folha_down_cand_tempo = checa_vies(x, y, a, b, permutacoes_cand_tempo, folha_down)
+#folha_up_down_cand_tempo = checa_vies(x, y, a, b, permutacoes_cand_tempo, folha_up_down)
+```
+
+### candidatos x prazer
+```{r, warning=FALSE}
+x = c("dilma", "rousseff", "lula", "pt", "temer", "michel")
+y = c("aécio", "neves", "fhc", "psdb", "aloysio", "nunes")
+a = c("liberdade", "saúde", "amor", "paz", "alegria", "amigo", "paraíso", "prazer", "honesto", "sorte", "diploma", "presente", "honra", "milagre", "família", "felicidade", "céu", "férias")
+b = c("quebra","sujeira","assassinato","doença","acidente","morte","tristeza","veneno","assalto","desastre","ódio","tragédia","bomba","cadeia","pobreza","feio","maldade","podre")
+
+permutacoes_cand_prazer = permutacao(x, y)
+
+folha_up_cand_prazer = checa_vies(x, y, a, b, permutacoes_cand_prazer, folha_up)
+folha_down_cand_prazer = checa_vies(x, y, a, b, permutacoes_cand_prazer, folha_down)
+#folha_up_down_cand_prazer = checa_vies(x, y, a, b, permutacoes_cand_prazer, folha_up_down)
+```
+
+### Vies de genero x posicionamento politico 1
+```{r, warning=FALSE}
+x = c("pt", "psb", "psd")
+y = c("pp", "pros", "dem")
+a = c("dilma", "rousseff", "luciana", "genro", "marina")
+b = c("aécio", "neves", "eduardo", "jorge", "fidelix")
+
+permutacoes_gen_pos_1 = permutacao(x, y)
+
+folha_up_gen_pos_1 = checa_vies(x, y, a, b, permutacoes_gen_pos_1, folha_up)
+folha_down_gen_pos_1 = checa_vies(x, y, a, b, permutacoes_gen_pos_1, folha_down)
+#folha_up_down_gen_pos_1 = checa_vies(x, y, a, b, permutacoes_gen_pos_1, folha_up_down)
+```
+
+### Vies de genero x posicionamento politico 2
+```{r, warning=FALSE}
+x = c("pt", "psb", "psd")
+y = c("pp", "pros", "dem")
+a = c("mulher", "mãe", "avó", "filha", "dona", "senhora", "esposa", "senadora", "presidenta")
+b = c("homem", "pai", "avô", "filho", "dono", "senhor", "marido", "senador", "presidente")
+
+permutacoes_gen_pos_2 = permutacao(x, y)
+
+folha_up_gen_pos_2 = checa_vies(x, y, a, b, permutacoes_gen_pos_2, folha_up)
+folha_down_gen_pos_2 = checa_vies(x, y, a, b, permutacoes_gen_pos_2, folha_down)
+#folha_up_down_gen_pos_2 = checa_vies(x, y, a, b, permutacoes_gen_pos_2, folha_up_down)
+```
+
+### Nivel economico
+#### candidato x nivel economico
+```{r, warning=FALSE}
+x = c("dilma", "lula", "temer", "pt", "rousseff", "michel")
+y = c("aécio", "fhc", "nunes", "psdb", "neves", "aloysio")
+a = c("pobreza", "miséria", "dificuldade", "fome", "crise")
+b = c("recurso", "capital", "patrimônio", "dinheiro", "bens")
+
+
+permutacoes_economia_orientacao = permutacao(x, y)
+
+folha_up_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, folha_up)
+folha_down_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, folha_down)
+#folha_up_down_economia_orientacao = checa_vies(x, y, a, b, permutacoes_economia_orientacao, folha_up_down)
+```
