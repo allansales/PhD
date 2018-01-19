@@ -1,0 +1,80 @@
+---
+title: "weat_experimento_conjuntos_palavras"
+author: "Allan Sales"
+date: "18 de janeiro de 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("dplyr")
+library("wordVectors")
+source("weat.R")
+```
+
+## Carrega modelos de palavras
+```{r}
+#we_estadao_noticias = read.binary.vectors("../word_embeddings/eleicoes_2014/embeddings/estadao_noticias_eleicao_2014.bin")
+we_folha_noticias = read.binary.vectors("../word_embeddings/eleicoes_2014/embeddings/folha_noticias_eleicao_2014.bin")
+```
+
+```{r}
+# palavras folha
+limiar = 0.4425
+politicos = define_conjunto("dilma", "aécio", limiar, we_folha_noticias)
+dilma_words = politicos$conjunto_1
+aecio_words = politicos$conjunto_2
+
+partidos = define_conjunto("estável", "instável", limiar, we_folha_noticias)
+estavel_words = partidos$conjunto_1
+instavel_words = partidos$conjunto_2
+```
+
+
+## Conjuntos de palavras
+### candidatos x estabilidade
+```{r, warning=FALSE}
+executa_teste_vies <- function(x, y, a, b, targets_a, targets_b, modelo){
+  permutacoes = permutacao(x, y)
+  teste_vies = checa_vies(x, y, a, b, permutacoes, targets_a, targets_b, modelo)
+  return(teste_vies)
+}
+
+get_first_n_words <- function(x, y, n){
+  chosen_x = x[1:n]
+  chosen_y = y[1:n]
+  return(list(x = chosen_x, y = chosen_y))
+}
+
+filter_targets_features <- function(x, y, a, b, target_size, feature_size, pares, modelo){
+  targets = get_first_n_words(x, y, target_size)
+  x = targets$x
+  y = targets$y
+  
+  features = get_first_n_words(a, b, feature_size)
+  a = features$x
+  b = features$y
+  
+  targets_a = pares$targets_a %>% filter((target %in% x || target %in% y) && (feature %in% a)) 
+  targets_b = pares$targets_b %>% filter((target %in% x || target %in% y) && (feature %in% b)) 
+
+  vies_candidatos_estabilidade = executa_teste_vies(x, y, a, b, targets_a, targets_b, modelo)  
+  
+  return(vies_candidatos_estabilidade$valores)
+}
+
+x = dilma_words
+y = aecio_words
+a = estavel_words
+b = instavel_words
+modelo = we_folha_noticias
+
+n_x_y = 2:length(x) #length(x) eh sempre igual a length(y)
+n_a_b = 2:length(a) #length(a) eh sempre igual a length(b)
+comb = expand.grid(n_x_y, n_a_b) %>% as.data.frame() %>% rename(target_size = Var1, feature_size = Var2)
+
+pares = create_pares(x, y, a, b, modelo)
+
+q = comb %>% group_by(target_size, feature_size) %>%
+  do(filter_targets_features(x, y, a, b, .$target_size, .$feature_size, pares, modelo))
+```

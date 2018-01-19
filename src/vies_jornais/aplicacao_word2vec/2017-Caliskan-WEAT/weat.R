@@ -8,7 +8,36 @@ cosSim_model <- function(w1, w2, modelo){
   cosineSimilarity(modelo[[w1]],modelo[[w2]]) %>% as.numeric()
 }
 
-create_cosine_metrics <- function(x, y, a, b, modelo){ #tabela de diferenca de similaridades das palavras de x e y para os conjuntos a e b
+# create_cosine_metrics <- function(x, y, a, b, modelo){ #tabela de diferenca de similaridades das palavras de x e y para os conjuntos a e b
+#   
+#   targets = c(x, y)
+#   features = c(a, b)
+#   
+#   pares = expand.grid(target = targets, feature = features)
+#   
+#   pares$target = pares$target %>% as.character()
+#   pares$feature = pares$feature %>% as.character()
+#   
+#   pares = pares %>%
+#     rowwise() %>% 
+#     mutate(cos_sim = cosSim_model(target, feature, modelo))
+#   
+#   targets_a = pares %>% filter(feature %in% a)
+#   targets_b = pares %>% filter(feature %in% b)
+#   
+#   w_sim_a = targets_a %>% group_by(target) %>% summarise(mean_cos = mean(cos_sim)) %>% arrange(target)
+#   w_sim_b = targets_b %>% group_by(target) %>% summarise(mean_cos = mean(cos_sim)) %>% arrange(target)
+#   
+#   w_dif_a_b = bind_cols(w_sim_a %>% select(target), #poderia usar w_sim_b. as duas terao a mesma ordem
+#                         (w_sim_a %>% select(mean_cos) - 
+#                            w_sim_b %>% select(mean_cos)))
+#  
+#   w_dif_a_b = w_dif_a_b %>% rename(mean_dif_cos = mean_cos)
+# 
+#   return(list(dif_sim_table = w_dif_a_b, w_cos_dist = pares))
+# }
+
+create_pares <- function(x, y, a, b, modelo){
   targets = c(x, y)
   features = c(a, b)
   
@@ -18,23 +47,28 @@ create_cosine_metrics <- function(x, y, a, b, modelo){ #tabela de diferenca de s
   pares$feature = pares$feature %>% as.character()
   
   pares = pares %>%
-    rowwise() %>% 
+    rowwise() %>%
     mutate(cos_sim = cosSim_model(target, feature, modelo))
   
   targets_a = pares %>% filter(feature %in% a)
   targets_b = pares %>% filter(feature %in% b)
-  
+  return(list(targets_a = targets_a, targets_b = targets_b))
+}
+
+create_cosine_metrics <- function(targets_a, targets_b){ #tabela de diferenca de similaridades das palavras de x e y para os conjuntos a e b
+
   w_sim_a = targets_a %>% group_by(target) %>% summarise(mean_cos = mean(cos_sim)) %>% arrange(target)
   w_sim_b = targets_b %>% group_by(target) %>% summarise(mean_cos = mean(cos_sim)) %>% arrange(target)
-  
+
   w_dif_a_b = bind_cols(w_sim_a %>% select(target), #poderia usar w_sim_b. as duas terao a mesma ordem
-                        (w_sim_a %>% select(mean_cos) - 
+                        (w_sim_a %>% select(mean_cos) -
                            w_sim_b %>% select(mean_cos)))
- 
+
   w_dif_a_b = w_dif_a_b %>% rename(mean_dif_cos = mean_cos)
 
-  return(list(dif_sim_table = w_dif_a_b, w_cos_dist = pares))
+  return(w_dif_a_b)
 }
+
 
 permutacao <- function(x, y){
   
@@ -94,38 +128,71 @@ wefat <- function(dif_sim_table, w_cos_dist){
   return(w_wefat)
 }
 
-execute <- function(x, y, a, b, permutacoes, modelo){
+execute <- function(x, y, a, b, permutacoes, targets_a, targets_b, modelo){
   
   organize_input = function(x, y){
     X = x %>% t() %>% as_data_frame()
     Y = y %>% t() %>% as_data_frame()
     table = list(Xi = X, Yi = Y)
   }
-  
-  cosine_metrics = create_cosine_metrics(x, y, a, b, modelo)
-  dif_sim_table = cosine_metrics$dif_sim_table
-  
+
+  dif_sim_table = create_cosine_metrics(targets_a, targets_b)
+
   entrada_x_y = organize_input(x, y)
   score_x_y = score(entrada_x_y, dif_sim_table)
+  
+#  print(permutacoes)
   scores_permutacao = score(permutacoes, dif_sim_table) %>% arrange(-score)
   
   p_valor = pvalor(scores_permutacao, score_x_y)
   tam_efeito = effect_size(x, y, dif_sim_table)
-  
+
   valores = data_frame(p_valor, tam_efeito)
   
   return(list(valores = valores, scores_permutacao = scores_permutacao, score_X_Y = score_x_y))
 }
 
+
+## Escolhe palavras para definir um conjunto
+get_palavras_proximas <- function(alvo, sim_boundary, word_embedding){
+  # 200 poderia ser qualquer numero. foi escolhido apenas para garantir que teriamos muitas palavras a ser filtradas
+  words = closest_to(word_embedding, word_embedding[[alvo]], 200)
+  colnames(words)[2] = "similarity"
+  words = words %>% filter(similarity >= sim_boundary)
+  return(words$word)
+}
+
+#possivel de ser o metodo para pegar palavras proximas
+# library("fastrtext")
+# path = "../word_embeddings/wikipedia_portugues/embeddings/wiki.pt.bin"
+# we_wikipedia = load_model(path)
+# 
+# 
+# aecio_10 = get_nn(we_wikipedia, "psd", 20)
+# aecio_10
+
+define_palavras <- function(palavras_1, palavras_2){
+  cut = min(length(palavras_1), length(palavras_2))
+  palavras_1 = palavras_1[1:cut]
+  palavras_2 = palavras_2[1:cut]
+  return(list(conjunto_1 = palavras_1, conjunto_2 = palavras_2))
+}
+
+define_conjunto <- function(palavra_1, palavra_2, limiar, modelo){
+  palavras_1 = get_palavras_proximas(palavra_1, limiar, modelo)
+  palavras_2 = get_palavras_proximas(palavra_2, limiar, modelo)
+  conjuntos = define_palavras(palavras_1, palavras_2)
+  return(conjuntos)
+}
+
 ## Verifica se todas as palavras estao contidas no vocabulario dos portais
-checa_vies <- function(x, y, a, b, permutacoes, modelo){
+checa_vies <- function(x, y, a, b, permutacoes, targets_a, targets_b, modelo){
   contem = modelo_contem_palavra(x, y, a, b, modelo)
   if(contem){
-    resultados_vies = execute(x, y, a, b, permutacoes, modelo)
+    resultados_vies = execute(x, y, a, b, permutacoes, targets_a, targets_b, modelo)
     return(resultados_vies)  
   }
 }
-
 
 ## Verifica se todas as palavras dos dataframes estao contidas no modelo
 modelo_contem_palavra <- function(x, y, a, b, modelo){

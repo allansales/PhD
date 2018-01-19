@@ -24,14 +24,17 @@ we_folha_noticias = read.binary.vectors("../word_embeddings/eleicoes_2014/embedd
 ### candidatos x coligacoes
 ```{r, warning=FALSE}
 x = c("dilma", "rousseff", "lula", "temer", "michel")
-y = c("a?cio", "neves", "fhc", "aloysio", "nunes")
+y = c("aécio", "neves", "fhc", "aloysio", "nunes")
 a = c("pt", "pmdb", "psd", "pp", "pr", "pdt", "pros", "pcdob") 
 b = c("psdb", "sd", "pmn", "pen", "ptn", "ptc", "dem", "ptb")
 
+pares = create_pares(x, y, a, b, we_folha_noticias)
+
 permutacoes_cand_colig = permutacao(x, y)
 
-vies_folha_cand_colig = checa_vies(x, y, a, b, permutacoes_cand_colig, we_folha_noticias)
-vies_estadao_cand_colig = checa_vies(x, y, a, b, permutacoes_cand_colig, we_estadao_noticias)
+vies_folha_cand_colig = checa_vies(x, y, a, b, permutacoes_cand_colig, pares$targets_a, pares$targets_b, we_folha_noticias)
+vies_estadao_cand_colig = checa_vies(x, y, a, b, permutacoes_cand_colig, pares$targets_a, pares$targets_b, we_estadao_noticias)
+
 ```
 
 ### candidatos x temporario - permanente

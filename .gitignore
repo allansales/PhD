@@ -6,6 +6,7 @@
 # Em /word_embeddings
 /src/vies_jornais/aplicacao_word2vec/word_embeddings/vieses_em_comentarios/embeddings/*
 /src/vies_jornais/aplicacao_word2vec/word_embeddings/eleicoes_2014/embeddings/*
+/src/vies_jornais/aplicacao_word2vec/word_embeddings/wikipedia_portugues/embeddings/*
 
 # Ignorar .Rdata
 /src/vies_jornais/aplicacao_word2vec/vieses_em_comentarios/workspace_vies_comentarios.RData
