@@ -54,9 +54,9 @@ get_todas_noticias_processadas <- function(){
 }
 
 get_todos_comentarios <- function(){
-  g1_comentarios <- get_collection("g1Comentarios")
-  folha_comentarios <- get_collection("folhaComentarios")
-  estadao_comentarios <- get_collection("estadaoComentarios")
+  g1_comentarios <- get_collection("g1ComentariosProcessados")
+  folha_comentarios <- get_collection("folhaComentariosProcessados")
+  estadao_comentarios <- get_collection("estadaoComentariosProcessados")
   
   comentarios <- bind_rows(g1_comentarios, folha_comentarios, estadao_comentarios)
   

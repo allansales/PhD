@@ -1,0 +1,61 @@
+---
+title: "R Notebook"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+```{r include=FALSE, cache=FALSE}
+library("wordVectors")
+we_noticia_comentario = read.binary.vectors("embeddings/noticias_comentarios.bin")
+```
+
+```{r}
+wordVectors::closest_to(we_noticia_comentario, "dilma")
+```
+
+```{r}
+wordVectors::closest_to(we_noticia_comentario, "aécio")
+```
+
+```{r}
+wordVectors::closest_to(we_noticia_comentario, "afro")
+#wordVectors::closest_to(we_noticia_comentario, "negro")
+```
+
+```{r}
+#wordVectors::closest_to(we_noticia_comentario, "caucasiano")
+wordVectors::closest_to(we_noticia_comentario, "branco")
+```
+
+```{r}
+wordVectors::closest_to(we_noticia_comentario, "nordestino")
+```
+
+```{r}
+wordVectors::closest_to(we_noticia_comentario, "sulista")
+```
+
+```{r}
+wordVectors::closest_to(we_noticia_comentario, "masculino")
+```
+
+```{r}
+wordVectors::closest_to(we_noticia_comentario, "feminino")
+```
+
+```{r}
+wordVectors::closest_to(we_noticia_comentario, "estável")
+```
+
+```{r}
+wordVectors::closest_to(we_noticia_comentario, "instável")
+```
+
+```{r}
+wordVectors::closest_to(we_noticia_comentario, "agradável")
+```
+
+```{r}
+wordVectors::closest_to(we_noticia_comentario, "desagradável")
+```
