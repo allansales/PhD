@@ -66,6 +66,26 @@ cria_tabela_p_valores <- function(x, y, a, b, modelo){
 }
 ```
 
+```{r, warning=FALSE}
+
+x = c("dilma", "rousseff", "lula", "temer", "michel")
+y = c("aécio", "neves", "fhc", "aloysio", "nunes")
+a = c("pt", "pmdb", "psd", "pp", "pr", "pdt", "pros", "pcdob") 
+b = c("psdb", "sd", "pmn", "pen", "ptn", "ptc", "dem", "ptb")
+
+vieses = cria_tabela_p_valores(x, y, a, b, we_folha_noticias) %>% arrange(target_size, feature_size)
+```
+```{r, warning=FALSE}
+x = c("dilma", "rousseff", "lula", "pt", "temer", "michel")
+y = c("aécio", "neves", "fhc", "psdb", "aloysio", "nunes")
+a = c("liberdade", "saúde", "amor", "paz", "alegria", "amigo", "leal", "honesto", "sorte", "diploma", "presente", "honra", "família", "céu", "férias")
+b = c("abuso","quebra","doença","acidente","morte","tristeza","assalto","desastre","ódio","tragédia","cadeia","pobreza","feio","câncer","matar")
+
+
+vieses = cria_tabela_p_valores(x, y, a, b, we_folha_noticias) %>% arrange(target_size, feature_size)
+```
+
+
 ## Folha - notícias
 ### Palavras dos conjuntos
 ```{r}

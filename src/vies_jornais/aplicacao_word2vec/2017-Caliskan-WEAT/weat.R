@@ -3,8 +3,7 @@ library("wordVectors")
 library("partitions")
 library("gtools")
 library("purrr")
-library(perm)
-
+library("perm")
 
 cosSim_model <- function(w1, w2, modelo){
   cosineSimilarity(modelo[[w1]],modelo[[w2]]) %>% as.numeric()
@@ -58,34 +57,12 @@ permutacao <- function(x, y){
   return(list(Xi = Xi, Yi = Yi))
 }
 
-# score <- function(tables, dif_sim_table){
-# 
-#   sum_w_sim = function(words_set, dif_sim_table){
-#     dif_sim_table %>% filter(target %in% words_set) %>% summarise(sum_sim = sum(mean_dif_cos)) %>% as.numeric()
-#   }
-#   
-#   score_Xi = tables$Xi %>% apply(1, sum_w_sim, dif_sim_table)
-#   score_Yi = tables$Yi %>% apply(1, sum_w_sim, dif_sim_table)
-#   score_Xi_Yi = score_Xi - score_Yi
-#   
-#   return(bind_cols(tables$Xi, tables$Yi, score = score_Xi_Yi))
-# }
-
 effect_size <- function(x, y, dif_sim_table){
   
   x_mean = dif_sim_table %>% filter(target %in% x) %>% summarise(mean_dif = mean(mean_dif_cos)) %>% as.numeric()
   y_mean = dif_sim_table %>% filter(target %in% y) %>% summarise(mean_dif = mean(mean_dif_cos)) %>% as.numeric()
   
   w_sd = dif_sim_table %>% summarise(sd = sd(mean_dif_cos)) %>% as.numeric()
-  
-  # print("xmean")
-  # print(x_mean)
-  # 
-  # print("ymean")
-  # print(y_mean)
-  # 
-  # print("w_sd")
-  # print(w_sd)
   
   return((x_mean - y_mean)/w_sd)
 }
